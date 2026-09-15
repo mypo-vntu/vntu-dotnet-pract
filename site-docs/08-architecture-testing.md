@@ -1,0 +1,1 @@
+--8<-- "08-architecture-testing/README.md"

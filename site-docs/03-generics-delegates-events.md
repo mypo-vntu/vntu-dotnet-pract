@@ -1,0 +1,1 @@
+--8<-- "03-generics-delegates-events/README.md"
