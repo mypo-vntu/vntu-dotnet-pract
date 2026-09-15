@@ -7,20 +7,36 @@ docs_dir: site-docs
 site_dir: site
 
 theme:
-  name: shadcn
-  show_title: true
-  show_stargazers: true
-  pygments_style:
-    light: shadcn-light
-    dark: github-dark
+  name: material
+  language: uk
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      toggle:
+        icon: material/brightness-7
+        name: Темна тема
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      toggle:
+        icon: material/brightness-4
+        name: Світла тема
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.indexes
+    - content.code.copy
+    - toc.integrate
+    - search.suggest
 
 markdown_extensions:
   - toc:
       permalink: true
   - tables
   - admonition
-  - fenced_code
-  - codehilite
+  - pymdownx.superfences
+  - pymdownx.highlight
   - pymdownx.magiclink
   - pymdownx.snippets:
       base_path: ["."]
