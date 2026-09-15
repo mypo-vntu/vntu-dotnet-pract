@@ -1,0 +1,111 @@
+:root {
+  --accent: #2a6f4f;
+  --accent-dark: #1f5439;
+  --bg: #ffffff;
+  --text: #24292f;
+  --muted: #57606a;
+  --border: #d0d7de;
+  --code-bg: #f6f8fa;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+}
+
+.wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.site-header {
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #fff;
+  padding: 40px 0;
+  margin-bottom: 32px;
+}
+
+.site-header h1 { margin: 0 0 8px; font-size: 1.8rem; }
+.site-header h1 a { color: #fff; text-decoration: none; }
+.site-header p { margin: 0; opacity: 0.9; }
+
+main { padding-bottom: 48px; }
+
+h1, h2, h3 { line-height: 1.25; }
+h2 { border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-top: 2em; }
+
+a { color: var(--accent); }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+}
+th, td {
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  text-align: left;
+}
+th { background: var(--code-bg); }
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 20px 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* Code blocks + copy button */
+pre {
+  position: relative;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 16px;
+  overflow-x: auto;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.9em;
+}
+
+:not(pre) > code {
+  background: var(--code-bg);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+}
+
+.copy-code-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--text);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+pre:hover .copy-code-btn,
+.copy-code-btn:focus {
+  opacity: 1;
+}
+
+.copy-code-btn.copied {
+  color: #fff;
+  background: var(--accent);
+  border-color: var(--accent);
+  opacity: 1;
+}

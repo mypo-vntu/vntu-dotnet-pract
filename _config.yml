@@ -1,6 +1,5 @@
 title: "Розробка проєктів засобами платформи .NET"
 description: "Практичні роботи з дисципліни: 8 практичних + вступний гайд налаштування середовища"
-theme: jekyll-theme-cayman
 
 plugins:
   - jekyll-relative-links
