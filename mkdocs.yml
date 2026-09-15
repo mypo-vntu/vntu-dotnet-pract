@@ -10,15 +10,17 @@ theme:
   name: shadcn
   show_title: true
   show_stargazers: true
-  accent: teal
+  pygments_style:
+    light: shadcn-light
+    dark: github-dark
 
 markdown_extensions:
   - toc:
       permalink: true
   - tables
   - admonition
-  - pymdownx.superfences
-  - pymdownx.highlight
+  - fenced_code
+  - codehilite
   - pymdownx.magiclink
   - pymdownx.snippets:
       base_path: ["."]
