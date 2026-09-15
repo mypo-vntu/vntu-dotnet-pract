@@ -1,0 +1,36 @@
+# .NET build artifacts
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# VS Code
+.vscode/
+
+# SQLite databases (generated locally)
+*.db
+*.db-shm
+*.db-wal
+
+# NuGet
+*.nupkg
+packages/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test results
+TestResults/
+coverage/
+
+# User secrets / local config overrides
+appsettings.Development.json
+*.local.json
