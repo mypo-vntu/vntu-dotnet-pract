@@ -1,5 +1,5 @@
 site_name: "Розробка проєктів засобами платформи .NET"
-site_description: "Практичні роботи з дисципліни: 8 практичних + вступний гайд налаштування середовища"
+site_description: "Документація до дисципліни Розробка проєктів засобами платформи .NET"
 repo_url: https://github.com/mypo-vntu/vntu-dotnet-pract
 repo_name: mypo-vntu/vntu-dotnet-pract
 
@@ -7,28 +7,10 @@ docs_dir: site-docs
 site_dir: site
 
 theme:
-  name: material
-  language: uk
-  palette:
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
-      primary: teal
-      toggle:
-        icon: material/brightness-7
-        name: Темна тема
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      primary: teal
-      toggle:
-        icon: material/brightness-4
-        name: Світла тема
-  features:
-    - navigation.tabs
-    - navigation.top
-    - navigation.indexes
-    - content.code.copy
-    - toc.integrate
-    - search.suggest
+  name: shadcn
+  show_title: true
+  show_stargazers: true
+  accent: teal
 
 markdown_extensions:
   - toc:

@@ -1,1 +1,2 @@
-mkdocs-material>=9.5
+mkdocs-shadcn>=0.2
+pymdown-extensions>=10
