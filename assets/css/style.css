@@ -37,6 +37,23 @@ body {
 
 main { padding-bottom: 48px; }
 
+.home-btn {
+  display: inline-block;
+  margin-bottom: 24px;
+  padding: 6px 14px;
+  font-size: 0.9rem;
+  color: var(--accent);
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.home-btn:hover {
+  background: #fff;
+  border-color: var(--accent);
+}
+
 h1, h2, h3 { line-height: 1.25; }
 h2 { border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-top: 2em; }
 

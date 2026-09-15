@@ -16,6 +16,9 @@
   </header>
 
   <main class="wrap">
+    {% unless page.url == '/' or page.url == '/index.html' %}
+      <a class="home-btn" href="{{ '/' | relative_url }}">🏠 Головна</a>
+    {% endunless %}
     {{ content }}
   </main>
 
