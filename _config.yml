@@ -11,3 +11,6 @@ relative_links:
 
 readme_index:
   with_frontmatter: false
+
+kramdown:
+  input: GFM
