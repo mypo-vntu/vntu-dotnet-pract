@@ -34,3 +34,6 @@ coverage/
 # User secrets / local config overrides
 appsettings.Development.json
 *.local.json
+
+# MkDocs build output
+site/

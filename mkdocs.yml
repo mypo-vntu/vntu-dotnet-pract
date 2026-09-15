@@ -1,0 +1,59 @@
+site_name: "Розробка проєктів засобами платформи .NET"
+site_description: "Практичні роботи з дисципліни: 8 практичних + вступний гайд налаштування середовища"
+repo_url: https://github.com/mypo-vntu/vntu-dotnet-pract
+repo_name: mypo-vntu/vntu-dotnet-pract
+
+docs_dir: .
+site_dir: site
+
+exclude_docs: |
+  site/
+  mkdocs.yml
+  requirements.txt
+  .github/
+
+theme:
+  name: material
+  language: uk
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      toggle:
+        icon: material/brightness-7
+        name: Темна тема
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      toggle:
+        icon: material/brightness-4
+        name: Світла тема
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.indexes
+    - content.code.copy
+    - toc.integrate
+    - search.suggest
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - tables
+  - admonition
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.magiclink
+
+nav:
+  - Головна: README.md
+  - Налаштування середовища: 00-setup/README.md
+  - "ПР1. C# основи": 01-csharp-basics/README.md
+  - "ПР2. ООП та виключення": 02-oop-exceptions/README.md
+  - "ПР3. Generics, делегати, події": 03-generics-delegates-events/README.md
+  - "ПР4. LINQ to Objects": 04-linq-to-objects/README.md
+  - "ПР5. ASP.NET Core + EF Core CRUD": 05-aspnetcore-efcore-sqlite-crud/README.md
+  - "ПР6. REST API": 06-rest-api/README.md
+  - "ПР7. Автентифікація (JWT)": 07-auth-jwt/README.md
+  - "ПР8. Архітектура та тестування": 08-architecture-testing/README.md
+  - Зведений документ: docs/README.md
