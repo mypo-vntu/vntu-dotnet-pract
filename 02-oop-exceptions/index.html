@@ -1,0 +1,760 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Документація до дисципліни Розробка проєктів засобами платформи .NET">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Практична робота №2. ООП та обробка виключень у консольному застосунку - Розробка проєктів засобами платформи .NET</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#no2" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href=".." title="Розробка проєктів засобами платформи .NET" class="md-header__button md-logo" aria-label="Розробка проєктів засобами платформи .NET" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Розробка проєктів засобами платформи .NET
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Практична робота №2. ООП та обробка виключень у консольному застосунку
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Темна тема"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Темна тема" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Світла тема"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Світла тема" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mypo-vntu/vntu-dotnet-pract" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mypo-vntu/vntu-dotnet-pract
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Головна
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../00-setup/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Налаштування середовища
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../01-csharp-basics/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  ПР1. C# основи
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Розробка проєктів засобами платформи .NET" class="md-nav__button md-logo" aria-label="Розробка проєктів засобами платформи .NET" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Розробка проєктів засобами платформи .NET
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mypo-vntu/vntu-dotnet-pract" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mypo-vntu/vntu-dotnet-pract
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Налаштування середовища
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-csharp-basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ПР1. C# основи
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="no2">Практична робота №2. ООП та обробка виключень у консольному застосунку<a class="headerlink" href="#no2" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>⚠️ <strong>WIP</strong> — матеріал ще в розробці, зміст може змінюватись.</p>
+</blockquote>
+<p><strong>Модуль:</strong> 1 — огляд та повторення C#
+<strong>Тип застосунку:</strong> консольний (.NET, Console App)
+<strong>Обсяг:</strong> 2 год аудиторних + СРС</p>
+<h2 id="_1">Мета роботи<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Отримати практичні навички проєктування класів за принципами ООП (інкапсуляція, успадкування, поліморфізм, абстракція), роботи з інтерфейсами та коректної обробки виключних ситуацій.</p>
+<h2 id="-">Загальні завдання (обов'язкові для будь-якого варіанта)<a class="headerlink" href="#-" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Створити консольний проєкт (.NET 10, Console App) у Visual Studio / Rider / VS Code з назвою виду <code>Lab2_&lt;Прізвище&gt;</code>.</li>
+<li>Спроєктувати ієрархію класів відповідно до варіанта: базовий (можливо, абстрактний) клас та щонайменше 2 похідні класи з перевизначенням (<code>override</code>) щонайменше одного методу.</li>
+<li>Реалізувати інкапсуляцію: приватні поля, публічні властивості (у т.ч. з валідацією значення у <code>set</code> — наприклад, заборона від'ємної ціни чи порожнього імені), конструктори з перевантаженням (щонайменше 2 конструктори з різною кількістю параметрів).</li>
+<li>Реалізувати щонайменше один інтерфейс (наприклад, <code>IComparable&lt;T&gt;</code>, власний інтерфейс на кшталт <code>IDiscountable</code>) і його реалізацію в кількох класах ієрархії.</li>
+<li>Реалізувати колекцію об'єктів базового типу, що фактично зберігає похідні об'єкти (демонстрація поліморфізму) — обробка колекції через <code>foreach</code> з викликом віртуального методу. <strong>Виняток щодо вводу:</strong> колекцію дозволяється заповнити наперед у коді (масив-константа або кілька викликів конструкторів у <code>Main</code>), а не вводити всі об'єкти з клавіатури; при цьому в меню має бути пункт, що додає новий об'єкт до колекції через введення з клавіатури з валідацією (<code>TryParse</code> для числових полів). Для зберігання колекції можна використовувати як масив (тоді додавання — через <code>Array.Resize</code>), так і <code>List&lt;T&gt;</code> (тоді додавання — <code>Add</code>) — обидва варіанти рівноцінні.</li>
+<li>Реалізувати власний клас винятку (успадкований від <code>Exception</code>, із трьома стандартними конструкторами) та обробку щонайменше 2 різних сценаріїв виключень (<code>try</code>/<code>catch</code>/<code>finally</code>, <code>throw</code>, власні та вбудовані винятки), включно з некоректними даними від користувача.</li>
+<li>Реалізувати вивід результатів у зручному для читання вигляді. Табличний вивід з вирівнюванням стовпців не є обов'язковим, але вітається як ознака якісного оформлення.</li>
+<li>Передбачити просте меню (цикл із вибором пункту), що дозволяє повторювати дії без перезапуску програми, аж до вибору пункту «Вихід».</li>
+</ul>
+<h2 id="_2">Теоретичні відомості (стисло)<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>Класи та об'єкти, модифікатори доступу, властивості, конструктори, успадкування, віртуальні/перевизначені методи (<code>virtual</code>/<code>override</code>), абстрактні класи, інтерфейси, поліморфізм під час виконання, ієрархія класу <code>Exception</code>, блоки <code>try</code>/<code>catch</code>/<code>finally</code>, оператор <code>throw</code>, власні класи винятків.</p>
+<h2 id="_3">Довідник: обов'язкові до використання методи та ключові слова<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Ключове слово / конструкція</th>
+<th>Коротко про призначення</th>
+<th>Посилання (MS Learn)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>class</code> / оголошення класу</td>
+<td>Базова синтаксична конструкція для опису типу-класу: поля, властивості, конструктори, методи</td>
+<td><a href="https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/classes">https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/classes</a></td>
+</tr>
+<tr>
+<td>Властивості (<code>get</code>/<code>set</code>, у т.ч. з валідацією)</td>
+<td>Керований доступ до полів класу; у блоці <code>set</code> можна перевірити значення перед присвоєнням (наприклад, викинути виняток при від'ємній ціні)</td>
+<td><a href="https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/properties">https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/properties</a></td>
+</tr>
+<tr>
+<td>Конструктори та їх перевантаження</td>
+<td>Спеціальний метод ініціалізації об'єкта; кілька конструкторів з різною сигнатурою (overload) дають кілька способів створення об'єкта</td>
+<td><a href="https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/constructors">https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/constructors</a></td>
+</tr>
+<tr>
+<td><code>: BaseClass</code> та успадкування</td>
+<td>Похідний клас переймає члени базового та може додавати власні або перевизначати наявні</td>
+<td><a href="https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/object-oriented/inheritance">https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/object-oriented/inheritance</a></td>
+</tr>
+<tr>
+<td><code>virtual</code> / <code>override</code></td>
+<td><code>virtual</code> у базовому класі дозволяє похідним класам перевизначити метод через <code>override</code>; саме так у C# реалізується поліморфізм під час виконання</td>
+<td><a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/override">https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/override</a></td>
+</tr>
+<tr>
+<td><code>abstract</code> (клас/метод)</td>
+<td>Абстрактний клас не можна створити напряму (лише через похідні); абстрактний метод не має реалізації в базовому класі — її зобов'язаний надати кожен похідний клас</td>
+<td><a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/abstract">https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/abstract</a></td>
+</tr>
+<tr>
+<td><code>interface</code></td>
+<td>Контракт із сигнатурами членів без реалізації; клас може реалізовувати кілька інтерфейсів одночасно (на відміну від успадкування від кількох класів)</td>
+<td><a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/interface">https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/interface</a></td>
+</tr>
+<tr>
+<td><code>IComparable&lt;T&gt;</code></td>
+<td>Стандартний інтерфейс .NET для визначення «природного» порядку сортування об'єктів власного типу (метод <code>CompareTo</code>) — використовується, зокрема, у <code>Array.Sort</code>/<code>List&lt;T&gt;.Sort</code></td>
+<td><a href="https://learn.microsoft.com/en-us/dotnet/api/system.icomparable-1">https://learn.microsoft.com/en-us/dotnet/api/system.icomparable-1</a></td>
+</tr>
+<tr>
+<td><code>try</code> / <code>catch</code> / <code>finally</code></td>
+<td>Блок обробки виключних ситуацій: <code>try</code> — код, що може викинути виняток; <code>catch</code> — обробка конкретного типу винятку; <code>finally</code> — код, що виконується завжди (успіх чи помилка)</td>
+<td><a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/exception-handling-statements">https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/exception-handling-statements</a></td>
+</tr>
+<tr>
+<td><code>throw</code></td>
+<td>Явне «викидання» винятку в місці виявлення помилкової ситуації</td>
+<td><a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/throw">https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/throw</a></td>
+</tr>
+<tr>
+<td>Власні класи винятків</td>
+<td>Успадкування від <code>Exception</code> для створення предметно-специфічного типу помилки (наприклад, <code>InsufficientStockException</code>) — офіційна рекомендація щодо іменування (закінчення <code>...Exception</code>) та трьох стандартних конструкторів</td>
+<td><a href="https://learn.microsoft.com/en-us/dotnet/standard/exceptions/how-to-create-user-defined-exceptions">https://learn.microsoft.com/en-us/dotnet/standard/exceptions/how-to-create-user-defined-exceptions</a></td>
+</tr>
+<tr>
+<td><code>List&lt;T&gt;</code></td>
+<td>Узагальнена колекція зі змінним розміром — альтернатива масиву для зберігання колекції об'єктів ієрархії</td>
+<td><a href="https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1">https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_4">Приклади коду (для орієнтиру — не є готовим розв'язком варіанта)<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. Базовий (абстрактний) клас, властивість з валідацією, перевантажені конструктори<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Shape</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">_name</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">Name</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">get</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">_name</span><span class="p">;</span>
+<span class="w">        </span><span class="k">set</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span><span class="p">.</span><span class="n">IsNullOrWhiteSpace</span><span class="p">(</span><span class="k">value</span><span class="p">)</span>
+<span class="w">            </span><span class="o">?</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArgumentException</span><span class="p">(</span><span class="s">"Назва фігури не може бути порожньою."</span><span class="p">)</span>
+<span class="w">            </span><span class="p">:</span><span class="w"> </span><span class="k">value</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="nf">Shape</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">name</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Абстрактний метод — кожен похідний клас зобов'язаний його реалізувати</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">GetArea</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// Віртуальний метод з реалізацією за замовчуванням, яку можна (не обов'язково) перевизначити</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">virtual</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">PrintInfo</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"{Name}: площа = {GetArea():F2}"</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="2-override">2. Похідний клас, <code>override</code>, власний конструктор з перевантаженням<a class="headerlink" href="#2-override" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Circle</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Shape</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">Radius</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nf">Circle</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">radius</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="k">base</span><span class="p">(</span><span class="s">"Коло"</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">radius</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">ArgumentOutOfRangeException</span><span class="p">(</span><span class="k">nameof</span><span class="p">(</span><span class="n">radius</span><span class="p">),</span><span class="w"> </span><span class="s">"Радіус має бути додатним."</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">Radius</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">radius</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">GetArea</span><span class="p">()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="n">PI</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Radius</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Radius</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">PrintInfo</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">base</span><span class="p">.</span><span class="n">PrintInfo</span><span class="p">();</span><span class="w"> </span><span class="c1">// виклик базової реалізації перед доповненням</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"  Радіус: {Radius}"</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="3">3. Власний клас винятку (три стандартні конструктори)<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">NegativeValueException</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Exception</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nf">NegativeValueException</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nf">NegativeValueException</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">message</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="k">base</span><span class="p">(</span><span class="n">message</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nf">NegativeValueException</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">message</span><span class="p">,</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="n">inner</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="k">base</span><span class="p">(</span><span class="n">message</span><span class="p">,</span><span class="w"> </span><span class="n">inner</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="4-trycatchfinally">4. Обробка кількох сценаріїв винятків (<code>try</code>/<code>catch</code>/<code>finally</code>)<a class="headerlink" href="#4-trycatchfinally" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">ProcessShape</span><span class="p">(</span><span class="n">Shape</span><span class="w"> </span><span class="n">shape</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">try</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">area</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">shape</span><span class="p">.</span><span class="n">GetArea</span><span class="p">();</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"Площа: {area:F2}"</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">NegativeValueException</span><span class="w"> </span><span class="n">ex</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"Помилка вхідних даних: {ex.Message}"</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">ex</span><span class="p">)</span><span class="w"> </span><span class="c1">// "запасний" обробник для непередбачених винятків</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"Непередбачена помилка: {ex.Message}"</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">finally</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"Обробку фігури завершено."</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="5">5. Поліморфна колекція, заповнена наперед у коді, з можливістю розширення<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">List</span><span class="o">&lt;</span><span class="n">Shape</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shapes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">new</span><span class="w"> </span><span class="nf">Circle</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
+<span class="w">    </span><span class="k">new</span><span class="w"> </span><span class="nf">Rectangle</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span>
+<span class="p">};</span>
+
+<span class="c1">// Викликається з пункту меню "Додати фігуру" — тут демонструється</span>
+<span class="c1">// введення з клавіатури з валідацією через TryParse</span>
+<span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">AddCircle</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Shape</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shapes</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">radius</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReadDouble</span><span class="p">(</span><span class="s">"Радіус нового кола: "</span><span class="p">,</span><span class="w"> </span><span class="n">min</span><span class="p">:</span><span class="w"> </span><span class="mf">0.01</span><span class="p">);</span>
+<span class="w">    </span><span class="n">shapes</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Circle</span><span class="p">(</span><span class="n">radius</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="c1">// Демонстрація поліморфізму: виклик virtual/override-методу через базовий тип</span>
+<span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="n">Shape</span><span class="w"> </span><span class="n">shape</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">shapes</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">shape</span><span class="p">.</span><span class="n">PrintInfo</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="_5">Порядок виконання<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Спроєктувати UML-схему (діаграму класів) ієрархії — від руки або в інструменті (draw.io, Mermaid).</li>
+<li>Реалізувати базовий клас (з властивостями з валідацією) та похідні класи з перевизначенням поведінки.</li>
+<li>Реалізувати інтерфейс(и) та їх використання поліморфно через колекцію.</li>
+<li>Реалізувати власний тип винятку та продемонструвати його виникнення й обробку поряд з обробкою хоча б одного вбудованого винятку.</li>
+<li>Написати консольне меню для демонстрації роботи всіх реалізованих сценаріїв, включно з пунктом додавання нового об'єкта до колекції.</li>
+<li>Протестувати граничні та помилкові випадки (див. «Граничний випадок для обробки» у своєму варіанті), зафіксувати їх у звіті.</li>
+</ol>
+<h2 id="_6">Варіанти завдань<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>Кожен варіант описаний з конкретною структурою ієрархії класів, переліком обов'язкових полів/властивостей і методів та граничним випадком — щоб не залишалось відкритих запитань щодо обсягу роботи.</p>
+<h3 id="1_1">Варіант 1. Геометричні фігури<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
+<p><strong>Ієрархія:</strong> абстрактний клас <code>Shape</code> (властивість <code>Name</code>) → похідні <code>Circle</code> (радіус), <code>Rectangle</code> (ширина, висота), <code>Triangle</code> (три сторони або основа й висота — на вибір студента).</p>
+<p><strong>Обов'язкові операції:</strong>
+- абстрактний метод <code>GetArea()</code> — обчислення площі, реалізується в кожному похідному класі за власною формулою;
+- метод <code>GetPerimeter()</code> (може бути <code>virtual</code> з реалізацією-заглушкою в базовому класі або також <code>abstract</code>);
+- реалізація <code>IComparable&lt;Shape&gt;</code> за площею — щоб колекцію фігур можна було відсортувати <code>List&lt;T&gt;.Sort()</code>;
+- підрахунок сумарної площі всіх фігур колекції та виведення фігури з найбільшою площею.</p>
+<p><strong>Граничний випадок для обробки:</strong> спроба створити фігуру з недодатним розміром сторони/радіуса — конструктор має викинути <code>ArgumentOutOfRangeException</code> (це не обов'язково саме власний клас винятку — власний клас винятку демонструється на іншому сценарії, наприклад при спробі обчислити периметр трикутника з некоректним співвідношенням сторін).</p>
+<h3 id="2">Варіант 2. Транспортні засоби<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p><strong>Ієрархія:</strong> базовий клас <code>Vehicle</code> (властивості <code>Model</code>, <code>FuelTankVolume</code>, <code>FuelConsumptionPer100Km</code>) → похідні <code>Car</code>, <code>Motorcycle</code>, <code>Truck</code> (у кожного — додаткова властивість, специфічна для типу: наприклад, вантажопідйомність у <code>Truck</code>).</p>
+<p><strong>Обов'язкові операції:</strong>
+- метод <code>CalculateFuelForDistance(double km)</code> — розрахунок необхідної кількості пального на задану відстань (базова реалізація в <code>Vehicle</code>, <code>Truck</code> може перевизначити з коефіцієнтом на додаткову вагу вантажу);
+- метод <code>CanTravelDistance(double km)</code>, що перевіряє, чи вистачить повного бака на задану відстань;
+- власний виняток <code>InsufficientFuelException</code>, що викидається, якщо запитується розрахунок для від'ємної відстані;
+- виведення списку всіх транспортних засобів колекції з підсумковою витратою пального на задану користувачем відстань (демонстрація поліморфного виклику).</p>
+<p><strong>Граничний випадок для обробки:</strong> відстань, введена як 0 — витрата пального має коректно дорівнювати 0, а не викидати виняток (на відміну від від'ємної відстані, яка є помилкою).</p>
+<h3 id="3_1">Варіант 3. Співробітники компанії<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h3>
+<p><strong>Ієрархія:</strong> базовий клас <code>Employee</code> (<code>FullName</code>, <code>BaseSalary</code>) → похідні <code>Manager</code> (бонус за кількість підлеглих), <code>Developer</code> (надбавка за рівень: Junior/Middle/Senior), <code>Intern</code> (фіксована знижена ставка, без бонусів).</p>
+<p><strong>Обов'язкові операції:</strong>
+- віртуальний метод <code>CalculateSalary()</code>, перевизначений у кожному похідному класі за власною формулою нарахування;
+- властивість <code>BaseSalary</code> з валідацією в <code>set</code> (заборона від'ємного або нульового значення — <code>set</code> викидає <code>ArgumentException</code>);
+- обчислення сумарного фонду заробітної плати по всій колекції співробітників;
+- пошук і виведення співробітника з найвищою розрахованою зарплатою (за результатом <code>CalculateSalary()</code>, а не за <code>BaseSalary</code>).</p>
+<p><strong>Граничний випадок для обробки:</strong> спроба встановити <code>BaseSalary</code> через властивість у від'ємне значення (наприклад, після завантаження некоректних даних) — властивість має викинути виняток, а не мовчки зберегти некоректне значення.</p>
+<h3 id="4">Варіант 4. Тварини в зоопарку<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<p><strong>Ієрархія:</strong> базовий (можливо абстрактний) клас <code>Animal</code> (<code>Name</code>, <code>WeightKg</code>) → похідні <code>Predator</code> (хижак — властивість <code>PreyType</code>), <code>Herbivore</code> (травоїдна — властивість <code>PlantType</code>), <code>Bird</code> (птах — властивість <code>CanFly</code>).</p>
+<p><strong>Обов'язкові операції:</strong>
+- абстрактний або віртуальний метод <code>MakeSound()</code> та <code>Feed()</code> — обидва перевизначаються в кожному похідному класі з різним текстом/логікою;
+- інтерфейс <code>IComparable&lt;Animal&gt;</code> за вагою — для сортування колекції за зростанням/спаданням ваги;
+- обчислення сумарної добової норми корму по всій колекції (метод <code>GetDailyFoodAmountKg()</code>, залежний від типу тварини — наприклад, різний відсоток від ваги);
+- власний виняток <code>InvalidWeightException</code> при спробі створити тварину з недодатною вагою.</p>
+<p><strong>Граничний випадок для обробки:</strong> колекція з однією твариною — сортування та пошук максимуму/мінімуму мають коректно відпрацювати і на колекції з одного елемента.</p>
+<h3 id="5_1">Варіант 5. Побутова техніка<a class="headerlink" href="#5_1" title="Permanent link">&para;</a></h3>
+<p><strong>Ієрархія:</strong> базовий клас <code>ApplianceBase</code> (<code>Model</code>, <code>PowerWatts</code>) → похідні <code>WashingMachine</code> (тривалість циклу в хвилинах), <code>Refrigerator</code> (працює безперервно 24 год/добу), <code>TV</code> (середня кількість годин роботи на день, що задає користувач).</p>
+<p><strong>Обов'язкові операції:</strong>
+- віртуальний метод <code>CalculateDailyEnergyConsumptionKWh()</code> — розрахунок споживання електроенергії за добу, формула своя для кожного похідного класу (наприклад, для пральної машини — кількість запусків за день × тривалість циклу × потужність);
+- обчислення сумарного добового споживання всієї колекції техніки та приблизної вартості за тарифом (константа грн/кВт·год на початку програми);
+- пошук приладу з найбільшим споживанням;
+- власний виняток <code>InvalidPowerException</code> при спробі створити прилад з недодатною потужністю.</p>
+<p><strong>Граничний випадок для обробки:</strong> телевізор із заданою кількістю годин роботи 0 (вимкнений увесь день) — споживання має коректно дорівнювати 0, а не викидати помилку.</p>
+<h3 id="6">Варіант 6. Меню закладу харчування<a class="headerlink" href="#6" title="Permanent link">&para;</a></h3>
+<p><strong>Ієрархія:</strong> базовий клас <code>MenuItem</code> (<code>Name</code>, <code>Price</code>) → похідні <code>Beverage</code> (об'єм у мл, признак «містить кофеїн»), <code>MainCourse</code> (калорійність, вага порції в грамах), <code>Dessert</code> (калорійність, признак «містить горіхи»).</p>
+<p><strong>Обов'язкові операції:</strong>
+- віртуальний метод <code>GetDescription()</code> — форматований опис пункту меню, перевизначений у кожному похідному класі (з урахуванням специфічних полів);
+- обчислення сумарної вартості та сумарної калорійності обраного «замовлення» (підмножина пунктів меню, обрана користувачем через меню за номерами);
+- фільтрація меню за критерієм «без горіхів» (для варіанта з десертами) або «без кофеїну» (для напоїв) — вивести відфільтрований список;
+- власний виняток <code>MenuItemNotFoundException</code> при спробі додати до замовлення пункт за неіснуючим номером.</p>
+<p><strong>Граничний випадок для обробки:</strong> замовлення без жодної обраної позиції — сумарна вартість і калорійність мають коректно дорівнювати 0, а не викидати помилку при діленні чи агрегуванні.</p>
+<h2 id="_7">Вимоги до звіту<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>Звіт з практичної роботи оформлюється у вигляді документа (PDF/DOCX) та має містити:</p>
+<ul>
+<li>тему, мету та номер варіанта завдання;</li>
+<li>короткий опис реалізованого функціоналу;</li>
+<li>посилання на репозиторій (GitHub/GitLab) з кодом проєкту та історією комітів;</li>
+<li>знімки екрана (консоль) з демонстрацією роботи програми, у т.ч. обробки граничного випадку свого варіанта;</li>
+<li>UML-діаграму (або її текстовий/Mermaid-опис) реалізованої ієрархії класів;</li>
+<li>висновки (2–4 речення) щодо отриманих результатів та труднощів виконання.</li>
+</ul>
+<h2 id="_8">Контрольні питання<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<ol>
+<li>У чому різниця між абстрактним класом та інтерфейсом? Коли що застосовувати?</li>
+<li>Як реалізується поліморфізм у C# на рівні виконання (пізнє зв'язування)?</li>
+<li>Яка різниця між ключовими словами <code>new</code> та <code>override</code> при перевизначенні методів?</li>
+<li>Навіщо створювати власні класи винятків, якщо є вбудовані?</li>
+<li>Що виконується у блоці <code>finally</code> і в яких випадках це критично важливо?</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Повернутись нагору
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.top", "navigation.indexes", "content.code.copy", "toc.integrate", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

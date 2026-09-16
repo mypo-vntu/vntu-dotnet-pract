@@ -1,0 +1,729 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Документація до дисципліни Розробка проєктів засобами платформи .NET">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Практична робота №3. Узагальнення, делегати, події та лямбда-вирази - Розробка проєктів засобами платформи .NET</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#no3-" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href=".." title="Розробка проєктів засобами платформи .NET" class="md-header__button md-logo" aria-label="Розробка проєктів засобами платформи .NET" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Розробка проєктів засобами платформи .NET
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Практична робота №3. Узагальнення, делегати, події та лямбда-вирази
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Темна тема"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Темна тема" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Світла тема"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Світла тема" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mypo-vntu/vntu-dotnet-pract" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mypo-vntu/vntu-dotnet-pract
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Головна
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../00-setup/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Налаштування середовища
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../01-csharp-basics/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  ПР1. C# основи
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Розробка проєктів засобами платформи .NET" class="md-nav__button md-logo" aria-label="Розробка проєктів засобами платформи .NET" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Розробка проєктів засобами платформи .NET
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mypo-vntu/vntu-dotnet-pract" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mypo-vntu/vntu-dotnet-pract
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Налаштування середовища
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-csharp-basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ПР1. C# основи
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="no3-">Практична робота №3. Узагальнення, делегати, події та лямбда-вирази<a class="headerlink" href="#no3-" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>⚠️ <strong>WIP</strong> — матеріал ще в розробці, зміст може змінюватись.</p>
+</blockquote>
+<p><strong>Модуль:</strong> 1 — огляд та повторення C#
+<strong>Тип застосунку:</strong> консольний (.NET, Console App)
+<strong>Обсяг:</strong> 2 год аудиторних + СРС</p>
+<h2 id="_1">Мета роботи<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Навчитися застосовувати узагальнені (generic) типи та методи, делегати (у т.ч. вбудовані <code>Func</code>/<code>Action</code>/<code>Predicate</code>), лямбда-вирази та механізм подій для побудови гнучкого та повторно використовуваного коду.</p>
+<h2 id="-">Загальні завдання (обов'язкові для будь-якого варіанта)<a class="headerlink" href="#-" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Створити консольний проєкт (.NET 10, Console App) у Visual Studio / Rider / VS Code з назвою виду <code>Lab3_&lt;Прізвище&gt;</code>.</li>
+<li>Реалізувати власний узагальнений клас (<code>class Repository&lt;T&gt;</code>, <code>class Stack&lt;T&gt;</code> тощо — конкретна структура задана варіантом), за потреби — з обмеженням типу (<code>where T : ...</code>).</li>
+<li>Реалізувати узагальнений метод, що приймає делегат (<code>Func&lt;T, bool&gt;</code>/<code>Predicate&lt;T&gt;</code>/<code>Func&lt;T, TResult&gt;</code>) як параметр для фільтрації/порівняння/трансформації даних.</li>
+<li>Реалізувати сценарій з подією (<code>event</code>) та власним класом <code>EventArgs</code> (успадкованим від <code>EventArgs</code>): подія має нести змістовну інформацію про те, що сталося (а не бути «порожньою»), і мати щонайменше 2 підписники-обробники.</li>
+<li>Продемонструвати використання лямбда-виразів та вбудованих делегатів <code>Func&lt;&gt;</code>, <code>Action&lt;&gt;</code>, <code>Predicate&lt;&gt;</code> для заміни звичайних іменованих методів у щонайменше 3 місцях коду.</li>
+<li>Порівняти у звіті реалізацію одного й того самого фрагменту логіки «класичним» іменованим методом і лямбда-виразом.</li>
+<li><strong>Виняток щодо вводу:</strong> початкові дані узагальненої структури дозволяється заповнити наперед у коді (кілька викликів <code>Add</code>/<code>Push</code> у <code>Main</code>), а не вводити все з клавіатури; при цьому в меню має бути пункт, що додає новий елемент через введення з клавіатури з валідацією (<code>TryParse</code> для числових полів) — саме ця дія й повинна викликати подію варіанта (наприклад, додавання елемента понад ліміт викликає <code>OnOverflow</code>).</li>
+<li>Реалізувати вивід результатів у зручному для читання вигляді. Табличний вивід з вирівнюванням стовпців не є обов'язковим, але вітається.</li>
+<li>Передбачити просте меню (цикл із вибором пункту), що дозволяє повторювати дії без перезапуску програми, аж до вибору пункту «Вихід».</li>
+</ul>
+<h2 id="_2">Теоретичні відомості (стисло)<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>Узагальнені типи та методи, обмеження типів-параметрів (<code>where T : ...</code>), делегати як типобезпечні вказівники на методи, багатоадресні делегати (multicast), вбудовані делегати <code>Func</code>/<code>Action</code>/<code>Predicate</code>, події (<code>event</code>) як обгортка над делегатом, лямбда-вирази та замикання (closures).</p>
+<h2 id="_3">Довідник: обов'язкові до використання методи та ключові слова<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Ключове слово / конструкція</th>
+<th>Коротко про призначення</th>
+<th>Посилання (MS Learn)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Узагальнені класи (<code>class Repository&lt;T&gt;</code>)</td>
+<td>Клас, що працює з довільним типом <code>T</code>, який задається під час використання — уникає дублювання коду для кожного конкретного типу</td>
+<td><a href="https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/generics">https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/generics</a></td>
+</tr>
+<tr>
+<td>Обмеження типу <code>where T : ...</code></td>
+<td>Звужує допустимі типи для <code>T</code> (наприклад, <code>where T : class</code> або <code>where T : IComparable&lt;T&gt;</code>), відкриваючи доступ до членів обмеження всередині узагальненого коду</td>
+<td><a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/where-generic-type-constraint">https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/where-generic-type-constraint</a></td>
+</tr>
+<tr>
+<td><code>delegate</code></td>
+<td>Тип, що описує сигнатуру методу — змінна такого типу може «вказувати» на будь-який метод з відповідною сигнатурою</td>
+<td><a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/reference-types#the-delegate-type">https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/reference-types#the-delegate-type</a></td>
+</tr>
+<tr>
+<td><code>Func&lt;T, TResult&gt;</code></td>
+<td>Вбудований делегат для методу, що приймає параметр(и) та повертає значення — типовий вибір для «трансформації» або «обчислення»</td>
+<td><a href="https://learn.microsoft.com/en-us/dotnet/api/system.func-2">https://learn.microsoft.com/en-us/dotnet/api/system.func-2</a></td>
+</tr>
+<tr>
+<td><code>Action&lt;T&gt;</code></td>
+<td>Вбудований делегат для методу, що приймає параметр(и), але нічого не повертає (<code>void</code>) — типовий вибір для «виконати дію»</td>
+<td><a href="https://learn.microsoft.com/en-us/dotnet/api/system.action-1">https://learn.microsoft.com/en-us/dotnet/api/system.action-1</a></td>
+</tr>
+<tr>
+<td><code>Predicate&lt;T&gt;</code></td>
+<td>Вбудований делегат для методу, що приймає один параметр і повертає <code>bool</code> — типовий вибір для умови фільтрації/пошуку</td>
+<td><a href="https://learn.microsoft.com/en-us/dotnet/api/system.predicate-1">https://learn.microsoft.com/en-us/dotnet/api/system.predicate-1</a></td>
+</tr>
+<tr>
+<td><code>event</code></td>
+<td>Особлива «обгортка» над делегатом: зовнішній код може лише підписатися (<code>+=</code>) чи відписатися (<code>-=</code>), але не може викликати подію напряму чи «обнулити» список підписників — це і є інкапсуляція механізму сповіщень</td>
+<td><a href="https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/events/">https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/events/</a></td>
+</tr>
+<tr>
+<td><code>EventArgs</code> (власний клас-нащадок)</td>
+<td>Базовий клас .NET для передачі додаткових даних разом з подією; власний клас-нащадок додає свої поля (наприклад, значення, що спричинило подію)</td>
+<td><a href="https://learn.microsoft.com/en-us/dotnet/api/system.eventargs">https://learn.microsoft.com/en-us/dotnet/api/system.eventargs</a></td>
+</tr>
+<tr>
+<td>Лямбда-вирази (<code>(x) =&gt; x * 2</code>)</td>
+<td>Компактний спосіб оголосити анонімний метод «на місці», без окремого іменованого методу — часто передається як аргумент делегатного параметра</td>
+<td><a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/lambda-expressions">https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/lambda-expressions</a></td>
+</tr>
+<tr>
+<td>Замикання (closures)</td>
+<td>Лямбда-вираз чи анонімний метод може «захопити» (використати) змінну з зовнішньої області видимості — варто розуміти, як це працює під час перебору в циклі</td>
+<td><a href="https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/anonymous-methods">https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/anonymous-methods</a></td>
+</tr>
+<tr>
+<td><code>List&lt;T&gt;</code></td>
+<td>Узагальнена колекція зі змінним розміром — типова основа для власної узагальненої структури даних із завдання</td>
+<td><a href="https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1">https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_4">Приклади коду (для орієнтиру — не є готовим розв'язком варіанта)<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. Узагальнений клас з обмеженням типу<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Repository</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="k">class</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">_items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="p">();</span>
+
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">IReadOnlyList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Items</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">_items</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Add</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">item</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">_items</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="2">2. Узагальнений метод, що приймає делегат для фільтрації<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">FindAll</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">source</span><span class="p">,</span><span class="w"> </span><span class="n">Predicate</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">match</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">();</span>
+
+<span class="w">    </span><span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">source</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">match</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">result</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Виклик з лямбда-виразом замість окремого іменованого методу:</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">cheapItems</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FindAll</span><span class="p">(</span><span class="n">products</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">100</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="3-eventargs">3. Подія з власним класом <code>EventArgs</code><a class="headerlink" href="#3-eventargs" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">ItemAddedEventArgs</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">EventArgs</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">ItemName</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">DateTime</span><span class="w"> </span><span class="n">AddedAt</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nf">ItemAddedEventArgs</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">itemName</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ItemName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">itemName</span><span class="p">;</span>
+<span class="w">        </span><span class="n">AddedAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">ObservableRepository</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">_items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// event — зовнішній код може лише підписатись/відписатись, не викликати напряму</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">event</span><span class="w"> </span><span class="n">EventHandler</span><span class="o">&lt;</span><span class="n">ItemAddedEventArgs</span><span class="o">&gt;?</span><span class="w"> </span><span class="n">ItemAdded</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Add</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">item</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">displayName</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">_items</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+<span class="w">        </span><span class="n">ItemAdded</span><span class="o">?.</span><span class="n">Invoke</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ItemAddedEventArgs</span><span class="p">(</span><span class="n">displayName</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="4-">4. Підписка кількох обробників на подію (у т.ч. лямбда-виразом)<a class="headerlink" href="#4-" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">repository</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObservableRepository</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="p">();</span>
+
+<span class="c1">// Підписник 1 — класичний іменований метод</span>
+<span class="n">repository</span><span class="p">.</span><span class="n">ItemAdded</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">LogItemAdded</span><span class="p">;</span>
+
+<span class="c1">// Підписник 2 — лямбда-вираз</span>
+<span class="n">repository</span><span class="p">.</span><span class="n">ItemAdded</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="p">(</span><span class="n">sender</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"[{e.AddedAt:HH:mm:ss}] Додано: {e.ItemName}"</span><span class="p">);</span>
+
+<span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">LogItemAdded</span><span class="p">(</span><span class="kt">object?</span><span class="w"> </span><span class="n">sender</span><span class="p">,</span><span class="w"> </span><span class="n">ItemAddedEventArgs</span><span class="w"> </span><span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"Подія: додано елемент \"{e.ItemName}\"."</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="5-">5. Порівняння «класичного» методу та лямбда-виразу (для розділу звіту)<a class="headerlink" href="#5-" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Класичний метод</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">IsExpensive</span><span class="p">(</span><span class="n">Product</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">500</span><span class="p">;</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">expensive1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FindAll</span><span class="p">(</span><span class="n">products</span><span class="p">,</span><span class="w"> </span><span class="n">IsExpensive</span><span class="p">);</span>
+
+<span class="c1">// Той самий критерій лямбда-виразом "на місці"</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">expensive2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FindAll</span><span class="p">(</span><span class="n">products</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">Price</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">500</span><span class="p">);</span>
+</code></pre></div>
+<h2 id="_5">Порядок виконання<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Спроєктувати та реалізувати узагальнений клас/структуру даних відповідно до варіанта, заповнити її кількома елементами наперед у коді.</li>
+<li>Додати узагальнені методи з параметрами-делегатами для гнучкої обробки даних.</li>
+<li>Реалізувати клас-видавця події (з власним <code>EventArgs</code>) та щонайменше 2 підписники з відповідними обробниками.</li>
+<li>Додати в меню пункт, що вводить новий елемент з клавіатури (з валідацією) і спричиняє подію варіанта.</li>
+<li>Замінити частину методів на лямбда-вирази, порівняти читабельність та лаконічність коду.</li>
+<li>Продемонструвати роботу всього сценарію через консольне меню, протестувати граничний випадок свого варіанта.</li>
+</ol>
+<h2 id="_6">Варіанти завдань<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="1-stackt">Варіант 1. Узагальнений стек <code>Stack&lt;T&gt;</code> «з нуля»<a class="headerlink" href="#1-stackt" title="Permanent link">&para;</a></h3>
+<p><strong>Структура:</strong> власний клас <code>MyStack&lt;T&gt;</code> з обмеженою місткістю (<code>capacity</code>, задається в конструкторі), методи <code>Push(T item)</code>, <code>T Pop()</code>, <code>bool IsEmpty()</code>.</p>
+<p><strong>Обов'язкові операції:</strong>
+- метод <code>Push</code>, що перевіряє заповненість стека <strong>перед</strong> додаванням і за потреби спричиняє подію;
+- подія <code>OverflowEventArgs</code> (успадкована від <code>EventArgs</code>, поле — елемент, який не вдалося додати) — викликається, коли <code>Push</code> викликано на заповненому стеку; щонайменше 2 підписники (наприклад, лог у консоль і лічильник кількості відхилених елементів);
+- узагальнений метод <code>Peek()</code> (перегляд верхнього елемента без видалення) з обробкою через власний виняток або <code>Predicate&lt;T&gt;</code>-перевірку <code>IsEmpty</code> перед викликом <code>Pop</code>;
+- демонстрація на стеку <code>int</code> <strong>і</strong> стеку <code>string</code> (або іншого власного типу) — підтвердження, що клас справді узагальнений, а не «підлаштований» під один тип.</p>
+<p><strong>Граничний випадок для обробки:</strong> виклик <code>Pop()</code> на порожньому стеку — не аварійне завершення, а зрозуміле повідомлення (через власний виняток або перевірку <code>IsEmpty</code> перед викликом).</p>
+<h3 id="2_1">Варіант 2. Узагальнений репозиторій в пам'яті<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
+<p><strong>Структура:</strong> власний клас <code>Repository&lt;T&gt;</code> (список елементів) з методами <code>Add(T item)</code>, <code>bool Remove(T item)</code>, <code>List&lt;T&gt; Find(Predicate&lt;T&gt; match)</code>.</p>
+<p><strong>Обов'язкові операції:</strong>
+- метод <code>Find</code>, що приймає <code>Predicate&lt;T&gt;</code> як параметр (див. приклад коду №2) — продемонструвати виклик щонайменше з двома різними лямбда-критеріями пошуку;
+- подія <code>ItemAddedEventArgs</code>/<code>ItemRemovedEventArgs</code> (можна реалізувати як дві окремі події або одну подію зі спільним <code>EventArgs</code>, що містить ознаку дії) — щонайменше 2 підписники сумарно на обидві дії;
+- узагальнений метод <code>CountWhere(Predicate&lt;T&gt; match)</code>, що повертає кількість елементів, які задовольняють умову, без побудови проміжного списку;
+- демонстрація репозиторію на конкретному типі даних предметної області за вибором студента (наприклад, <code>Repository&lt;Product&gt;</code> або <code>Repository&lt;Student&gt;</code>) — тип має власні поля, а не бути просто <code>int</code>/<code>string</code>.</p>
+<p><strong>Граничний випадок для обробки:</strong> виклик <code>Remove</code> для елемента, якого немає в репозиторії — метод повертає <code>false</code> і подія <code>ItemRemoved</code> <strong>не</strong> спричиняється (лише за фактичного видалення).</p>
+<h3 id="3-">Варіант 3. Спостерігач за температурою (генерик-сенсор)<a class="headerlink" href="#3-" title="Permanent link">&para;</a></h3>
+<p><strong>Структура:</strong> власний клас <code>TemperatureSensor&lt;T&gt;</code> (де <code>T</code> — тип показання, наприклад <code>double</code>) з порогом <code>Threshold</code> та методом <code>Report(T value)</code>.</p>
+<p><strong>Обов'язкові операції:</strong>
+- метод <code>Report</code>, що зберігає показання в історію (<code>List&lt;T&gt;</code>) і порівнює його з порогом через переданий делегат <code>Func&lt;T, T, bool&gt;</code> (компаратор «перевищено поріг») — щоб клас не «знав» напряму про оператори порівняння конкретного типу;
+- подія <code>ThresholdExceededEventArgs</code> (поле — значення, що перевищило поріг) — щонайменше 2 підписники (наприклад, вивід попередження в консоль і підрахунок кількості перевищень);
+- узагальнений метод <code>GetAverage(Func&lt;T, double&gt; selector)</code> — обчислення середнього показника з історії через переданий делегат-перетворювач (для типів, що не є <code>double</code> напряму);
+- демонстрація на послідовності введених/заповнених наперед показань з щонайменше одним випадком перевищення порогу.</p>
+<p><strong>Граничний випадок для обробки:</strong> порожня історія показань під час виклику <code>GetAverage</code> — метод має повернути 0 (або кинути зрозумілий виняток) замість <code>DivideByZeroException</code>/<code>NaN</code>.</p>
+<h3 id="4-_1">Варіант 4. Система сповіщень інтернет-магазину<a class="headerlink" href="#4-_1" title="Permanent link">&para;</a></h3>
+<p><strong>Структура:</strong> клас <code>Order</code> (номер, сума, статус — enum <code>OrderStatus</code> зі значеннями на кшталт <code>New</code>, <code>Paid</code>, <code>Shipped</code>, <code>Delivered</code>) та клас <code>OrderProcessor</code>, що змінює статус замовлень.</p>
+<p><strong>Обов'язкові операції:</strong>
+- подія <code>OrderStatusChangedEventArgs</code> (поля — номер замовлення, старий статус, новий статус) — спричиняється методом <code>ChangeStatus(Order order, OrderStatus newStatus)</code>;
+- щонайменше 2 підписники різного призначення (наприклад, «лог» — виводить у консоль факт зміни статусу, і «email-заглушка» — виводить фіктивне повідомлення на кшталт <code>"Email надіслано клієнту: замовлення #123 відправлено"</code>);
+- узагальнений (або типізований під <code>Order</code>) метод <code>FindAll(Predicate&lt;Order&gt; match)</code> — пошук замовлень за критерієм (наприклад, усі замовлення певного статусу);
+- меню з пунктом «Змінити статус замовлення», що вводить номер замовлення й новий статус з клавіатури з валідацією (<code>TryParse</code> для номера, перевірка коректного значення enum для статусу).</p>
+<p><strong>Граничний випадок для обробки:</strong> спроба змінити статус на той самий, що вже встановлено (наприклад, <code>Paid</code> → <code>Paid</code>) — подія <code>OrderStatusChanged</code> не повинна спричинятись, оскільки фактичної зміни не відбулось.</p>
+<h3 id="5-_1">Варіант 5. Таймер-заглушка (лічильник тіків)<a class="headerlink" href="#5-_1" title="Permanent link">&para;</a></h3>
+<p><strong>Структура:</strong> клас <code>FakeTimer</code> із методом <code>Tick()</code>, що симулює один «тік» таймера (насправді викликається вручну з меню чи в циклі — реального <code>System.Timers.Timer</code> реалізовувати не потрібно).</p>
+<p><strong>Обов'язкові операції:</strong>
+- подія <code>TickEventArgs</code> (поле — номер поточного тіку) — спричиняється при кожному виклику <code>Tick()</code>;
+- щонайменше 3 підписники, що виконують різні дії (наприклад: вивід номера тіку в консоль; підрахунок парних/непарних тіків; спрацювання додаткового попередження щоразу, коли номер тіку кратний 5);
+- узагальнений метод <code>RunTicks&lt;T&gt;(int count, Func&lt;int, T&gt; resultSelector)</code> — виконує задану кількість тіків і повертає список результатів, обчислених переданим делегатом для кожного номера тіку;
+- динамічна відписка одного з підписників через меню (<code>-=</code>) з демонстрацією, що після відписки цей підписник більше не реагує на подальші тіки.</p>
+<p><strong>Граничний випадок для обробки:</strong> запит на виконання 0 тіків (<code>RunTicks(0, ...)</code>) — метод має коректно повернути порожній список без жодного виклику <code>Tick()</code> чи спричинення подій.</p>
+<h3 id="6">Варіант 6. Гаманець/рахунок<a class="headerlink" href="#6" title="Permanent link">&para;</a></h3>
+<p><strong>Структура:</strong> клас <code>Wallet</code> з полем <code>Balance</code> (властивість з приватним сеттером — змінюється лише через методи <code>Deposit</code>/<code>Withdraw</code>).</p>
+<p><strong>Обов'язкові операції:</strong>
+- подія <code>BalanceChangedEventArgs</code> (поля — попередній баланс, новий баланс, сума операції) — спричиняється і при поповненні, і при знятті коштів;
+- щонайменше 2 підписники (наприклад, «лог операцій» — виводить рядок історії, і «перевірка ліміту» — виводить попередження, якщо баланс після операції опустився нижче заданої межі, наприклад 0 або встановленого мінімального залишку);
+- узагальнений метод <code>Func&lt;decimal, bool&gt;</code>-валідатор, переданий ззовні, що перевіряє суму операції перед її виконанням (наприклад, «сума має бути кратною 10» чи інше правило за вибором студента) — якщо валідатор повертає <code>false</code>, операція відхиляється без зміни балансу і без спричинення події;
+- меню з пунктами «Поповнити» та «Зняти», обидва — з введенням суми з клавіатури й валідацією через <code>TryParse</code>.</p>
+<p><strong>Граничний випадок для обробки:</strong> спроба зняти суму, що перевищує поточний баланс — операція має бути відхилена (без зміни <code>Balance</code> і без події <code>BalanceChanged</code>), а не призвести до від'ємного балансу.</p>
+<h2 id="_7">Вимоги до звіту<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>Звіт з практичної роботи оформлюється у вигляді документа (PDF/DOCX) та має містити:</p>
+<ul>
+<li>тему, мету та номер варіанта завдання;</li>
+<li>короткий опис реалізованого функціоналу;</li>
+<li>посилання на репозиторій (GitHub/GitLab) з кодом проєкту та історією комітів;</li>
+<li>знімки екрана (консоль) з демонстрацією роботи програми, у т.ч. обробки граничного випадку свого варіанта;</li>
+<li>короткий порівняльний фрагмент коду «метод vs лямбда-вираз» з поясненням;</li>
+<li>висновки (2–4 речення) щодо отриманих результатів та труднощів виконання.</li>
+</ul>
+<h2 id="_8">Контрольні питання<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Навіщо потрібні обмеження типу-параметра (<code>where T : ...</code>) в узагальнених класах?</li>
+<li>Чим подія (<code>event</code>) відрізняється від звичайного публічного делегата-поля?</li>
+<li>У чому суть замикання (closure) у лямбда-виразі? Наведіть приклад ризику при захопленні змінної циклу.</li>
+<li>Чим відрізняються делегати <code>Func</code>, <code>Action</code> та <code>Predicate</code>?</li>
+<li>Які переваги дає використання generics порівняно з типом <code>object</code> для узагальненого коду?</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Повернутись нагору
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.top", "navigation.indexes", "content.code.copy", "toc.integrate", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

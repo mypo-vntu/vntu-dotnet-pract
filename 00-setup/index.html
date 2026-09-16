@@ -1,0 +1,980 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Документація до дисципліни Розробка проєктів засобами платформи .NET">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../01-csharp-basics/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Налаштування середовища - Розробка проєктів засобами платформи .NET</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href=".." title="Розробка проєктів засобами платформи .NET" class="md-header__button md-logo" aria-label="Розробка проєктів засобами платформи .NET" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Розробка проєктів засобами платформи .NET
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Налаштування середовища
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Темна тема"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Темна тема" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Світла тема"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Світла тема" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mypo-vntu/vntu-dotnet-pract" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mypo-vntu/vntu-dotnet-pract
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Головна
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Налаштування середовища
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../01-csharp-basics/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  ПР1. C# основи
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Розробка проєктів засобами платформи .NET" class="md-nav__button md-logo" aria-label="Розробка проєктів засобами платформи .NET" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Розробка проєктів засобами платформи .NET
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mypo-vntu/vntu-dotnet-pract" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mypo-vntu/vntu-dotnet-pract
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Налаштування середовища
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Налаштування середовища
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що саме потрібно встановити
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-net-10-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Встановлення .NET 10 SDK
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Встановлення .NET 10 SDK">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        macOS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux-ubuntudebianfedora" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linux (Ubuntu/Debian/Fedora)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Як перевірити, що SDK встановлено
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-ide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Встановлення редактора коду / IDE
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Встановлення редактора коду / IDE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#visual-studio-community-2026-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visual Studio Community 2026 (лише Windows)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jetbrains-rider-windows-macos-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JetBrains Rider (Windows / macOS / Linux)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visual-studio-code-c-dev-kit-windows-macos-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visual Studio Code + розширення C# Dev Kit (Windows / macOS / Linux)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-git-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Git та обліковий запис на GitHub
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Git та обліковий запис на GitHub">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#github-desktop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Встановлення GitHub Desktop (рекомендовано)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git-ide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Альтернатива: вбудована підтримка Git прямо в IDE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Організація репозиторію: один репозиторій на весь семестр
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-2-no58-ef-core-sqlite-postman-5-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Інструменти для Модуля 2 (ПР №5–8): EF Core, SQLite, Postman (Поки що НЕ ПОТРІБНО, цю секцію фіналізую лише після того, як зроблю ПР 5-8)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Інструменти для Модуля 2 (ПР №5–8): EF Core, SQLite, Postman (Поки що НЕ ПОТРІБНО, цю секцію фіналізую лише після того, як зроблю ПР 5-8)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ef-core" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Робота з міграціями EF Core
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#db-browser-for-sqlite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DB Browser for SQLite (перегляд вмісту бази даних)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#postman-web-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Postman (ручне тестування Web API)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Перевірка: перший тестовий проєкт (якщо ще не робили в розділі 2)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Типові проблеми та їх вирішення
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Корисні посилання
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-csharp-basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ПР1. C# основи
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">Налаштування робочого середовища<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>Цей документ — базовий гайд по налаштуванн робочого середовища для роботи над практичними з дисципліни. Пройдіть його один раз на початку, до того як почнете виконувати практичні. Якщо у вас уже встановлено .NET SDK та IDE, можете одразу переходити до виконання робіт.</p>
+<p>Гайд побудований таким чином, щоб по максимуму уникати використання терміналу. Термінал усе ж знадобиться в кількох місцях (наприклад, для встановлення пакетів на Linux); ці місця позначені окремо, а де можливо, поруч наведено альтернативу.</p>
+<h2 id="_2">Що саме потрібно встановити<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Компонент</th>
+<th>Навіщо</th>
+<th>Коли знадобиться</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.NET 10 SDK</td>
+<td>компілятор, середовище виконання (встановлюється один раз через інсталятор, далі непомітний для вас)</td>
+<td>з ПР №1</td>
+</tr>
+<tr>
+<td>Редактор коду / IDE (Visual Studio, Rider або VS Code)</td>
+<td>написання, запуск і відлагодження коду</td>
+<td>з ПР №1</td>
+</tr>
+<tr>
+<td>GitHub Desktop (графічний клієнт Git) + акаунт на GitHub</td>
+<td>збереження історії коду та здача робіт через посилання на репозиторій — без єдиної команди в терміналі</td>
+<td>з ПР №1</td>
+</tr>
+<tr>
+<td>DB Browser for SQLite</td>
+<td>перегляд вмісту файлової бази даних .db</td>
+<td>з ПР №5</td>
+</tr>
+<tr>
+<td>Postman (або вбудований Scalar UI)</td>
+<td>ручне тестування Web API</td>
+<td>з ПР №5</td>
+</tr>
+</tbody>
+</table>
+<p>Мінімальні системні вимоги: Windows 10/11 (x64/ARM64), macOS 13+ (Intel або Apple Silicon), або сучасний дистрибутив Linux (Ubuntu 22.04+/Debian/Fedora тощо).</p>
+<hr />
+<h2 id="1-net-10-sdk">1. Встановлення .NET 10 SDK<a class="headerlink" href="#1-net-10-sdk" title="Permanent link">&para;</a></h2>
+<p>Встановлюємо саме <strong>SDK</strong> (Software Development Kit), а не Runtime. SDK вже містить Runtime і всі інструменти для розробки. На Windows і macOS встановити його можна як звичайну програму з використанням інсталятора, що має UI, тоді як на Linux доведеться використовувати термінал.</p>
+<h3 id="windows">Windows<a class="headerlink" href="#windows" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Відкрийте у браузері <a href="https://dotnet.microsoft.com/download/dotnet/10.0">https://dotnet.microsoft.com/download/dotnet/10.0</a> і натисніть кнопку завантаження інсталятора <strong>.NET 10 SDK</strong> (x64 — для більшості комп'ютерів, ARM64 — для Windows on ARM).</li>
+<li>Запустіть завантажений <code>.exe</code>-файл і пройдіть необхідні етапи встановлення з параметрами за замовчуванням.</li>
+</ol>
+<h3 id="macos">macOS<a class="headerlink" href="#macos" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Відкрийте <a href="https://dotnet.microsoft.com/download/dotnet/10.0">https://dotnet.microsoft.com/download/dotnet/10.0</a> і завантажте офіційний <code>.pkg</code>-інсталятор (оберіть Arm64 — для Mac з процесором Apple Silicon M1/M2/M3/M4, або x64 — для Intel-Mac; якщо не впевнені, який у вас процесор, це видно в  → About This Mac).</li>
+<li>Двічі клацніть завантажений <code>.pkg</code>-файл і пройдіть стандартний майстер встановлення macOS (Continue → Continue → Install), як для будь-якого іншого застосунку.</li>
+</ol>
+<p><em>Альтернатива для тих, хто вже користується Homebrew (не обов'язково):</em> <code>brew install --cask dotnet-sdk</code> у Terminal.</p>
+<h3 id="linux-ubuntudebianfedora">Linux (Ubuntu/Debian/Fedora)<a class="headerlink" href="#linux-ubuntudebianfedora" title="Permanent link">&para;</a></h3>
+<p>На Linux графічного інсталятора для .NET SDK від Microsoft немає, тому встановлвати потрібно через термінал (це нормальна й звична практика для Linux). Відкрийте застосунок Terminal і виконайте:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>dotnet-sdk-10.0
+</code></pre></div>
+<p>Для Fedora — <code>sudo dnf install dotnet-sdk-10.0</code>. Якщо пакет <code>dotnet-sdk-10.0</code> не знаходиться (застарілі репозиторії дистрибутива), інструкція з додавання офіційного репозиторію Microsoft для вашого дистрибутива є на <a href="https://learn.microsoft.com/dotnet/core/install/linux">https://learn.microsoft.com/dotnet/core/install/linux</a>.</p>
+<h3 id="sdk">Як перевірити, що SDK встановлено<a class="headerlink" href="#sdk" title="Permanent link">&para;</a></h3>
+<p>Найпростіше — не через термінал, а через сам редактор коду: встановіть IDE (розділ 2 нижче), створіть у ньому новий консольний проєкт і натисніть «Запустити». Якщо програма виконалась і у вікні вивелось <code>Hello, World!</code>, SDK встановлено коректно.</p>
+<p>Якщо ж все таки хочеться перевірити SDK окремо до встановлення IDE, то відкрийте термінал (Windows: PowerShell/cmd; macOS/Linux: Terminal) і введіть:</p>
+<div class="highlight"><pre><span></span><code>dotnet<span class="w"> </span>--version
+</code></pre></div>
+<p>Має вивести версію на кшталт <code>10.0.1xx</code>.</p>
+<p>Якщо термінал пише «команда не знайдена» / «dotnet is not recognized», перезапустіть термінал повністю (закрити й відкрити заново) або перезавантажте комп'ютер. Якщо не допомогло, див. розділ «Типові проблеми» нижче.</p>
+<hr />
+<h2 id="2-ide">2. Встановлення редактора коду / IDE<a class="headerlink" href="#2-ide" title="Permanent link">&para;</a></h2>
+<p>Для .NET розробки існує 3 основних варіанти редактора коду / IDE: <strong>Visual Studio, JetBrains Rider, VS Code</strong>. Рекомендації щодо кожного з них залежать від операційної системи. Для Windows рекомендується використовувати <strong>Visual Studio</strong>, тоді як для Linux та MacOS (хоча є на Windows також) <strong>JetBrains Rider</strong>, так як вони є повноцінними IDE, а не редакторами коду з розширеннями. <strong>VS Code</strong> — легший та кросплатформний варіант, який підійде для будь-якої ОС, але вимагає трохи більше ручного налаштування, тому рекомендується лише тим, хто з ним вже працював та має досвід ручного налаштування білд та дебаг задач.</p>
+<h3 id="visual-studio-community-2026-windows">Visual Studio Community 2026 (лише Windows)<a class="headerlink" href="#visual-studio-community-2026-windows" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Завантажте з <a href="https://visualstudio.microsoft.com/downloads/">https://visualstudio.microsoft.com/downloads/</a> (безкоштовна редакція <strong>Community</strong>) і запустіть інсталятор.</li>
+<li>У переліку <strong>Workloads</strong> (візуальний список плиток з прапорцями, нічого вводити не потрібно, лише поставити галочки) обов'язково позначте:</li>
+<li><strong>.NET desktop development</strong>;</li>
+<li><strong>ASP.NET and web development</strong>.</li>
+<li>Натисніть <strong>Install</strong> і дочекайтесь завершення встановлення (може тривати 20–40 хвилин); перезавантажте комп'ютер, якщо про це попросить інсталятор.</li>
+<li>Щоб створити новий проєкт: <strong>Файл → New → Project</strong> → оберіть шаблон (наприклад, «Console App») → <strong>Next</strong> → вкажіть назву й папку → <strong>Create</strong>. Щоб запустити консольний проєкт, краще використовувати <strong>Ctrl+F5</strong> («Start Without Debugging»), а не просто <strong>F5</strong>: інакше вікно консолі одразу закриється після виконання програми, і ви не встигнете побачити результат (детальніше — у розділі «Типові проблеми»).</li>
+</ol>
+<h3 id="jetbrains-rider-windows-macos-linux">JetBrains Rider (Windows / macOS / Linux)<a class="headerlink" href="#jetbrains-rider-windows-macos-linux" title="Permanent link">&para;</a></h3>
+<p>Rider безкоштовний для некомерційного використання (навчання, особисті/навчальні проєкти, open-source), тому можете сміливо його використосувати. Однією із ключових переваг Rider тут є те, що він своїм UI чимось схожий на IntelliJ IDE, який ви використовували на ООП. Етапи встановлення:</p>
+<ol>
+<li>Завантажте з <a href="https://www.jetbrains.com/rider/download">https://www.jetbrains.com/rider/download</a> і запустіть інсталятор (або встановіть через <strong>JetBrains Toolbox</strong>, <a href="https://www.jetbrains.com/toolbox-app/">https://www.jetbrains.com/toolbox-app/</a>, якщо хочете, щоб оновлення відстежувались автоматично одним застосунком).</li>
+<li>При першому запуску оберіть ліцензію <strong>Non-Commercial</strong> (безкоштовно для навчання/особистих проєктів). Це кнопка у вікні входу, реєстрація через звичайний JetBrains-акаунт, без підтвердження студентського статусу.</li>
+<li>Якщо потрібна повна академічна ліцензія (наприклад, для проєктів, що виходять за межі некомерційного використання), оформіть її на <a href="https://www.jetbrains.com/community/education/">https://www.jetbrains.com/community/education/</a> за студентською поштою <code>@vntu.edu.ua</code>.</li>
+<li>Щоб створити новий проєкт: на стартовому екрані натисніть <strong>New Solution</strong> → оберіть шаблон «Console Application» → вкажіть назву й папку → <strong>Create</strong>. Щоб запустити — натисніть зелену кнопку <strong>▷</strong> (або <strong>Shift+F10</strong>/<strong>F5</strong>) вгорі вікна.</li>
+</ol>
+<h3 id="visual-studio-code-c-dev-kit-windows-macos-linux">Visual Studio Code + розширення C# Dev Kit (Windows / macOS / Linux)<a class="headerlink" href="#visual-studio-code-c-dev-kit-windows-macos-linux" title="Permanent link">&para;</a></h3>
+<p>VS Code — легкий та кросплатформний редактор, але, на відміну від Visual Studio і Rider, він не має вбудованого створення .NET-проєктів «з коробки». Цю функцію додає розширення C# Dev Kit, і перший запуск проєкту тут може зайняти трохи більше часу, у Visual Studio/Rider.</p>
+<ol>
+<li>Завантажте VS Code з <a href="https://code.visualstudio.com">https://code.visualstudio.com</a> і встановіть його стандартним способом для вашої ОС (звичайний інсталятор).</li>
+<li>Відкрийте VS Code → вкладка Extensions (іконка квадратиків зліва, або <code>Ctrl+Shift+X</code> / <code>Cmd+Shift+X</code>) → у полі пошуку введіть «C# Dev Kit» → натисніть <strong>Install</strong> на розширенні від Microsoft (воно автоматично підтягне базове розширення <strong>C#</strong>).</li>
+<li>Щоб створити новий проєкт без єдиної команди в терміналі: натисніть <code>Ctrl+Shift+P</code> (<code>Cmd+Shift+P</code> на macOS) — відкриється командна панель, введіть <strong>«.NET: New Project»</strong>, оберіть у списку шаблон «Console App», вкажіть папку та назву. VS Code створить проєкт і відкриє його.</li>
+<li>Щоб запустити проєкт — відкрийте вкладку <strong>Run and Debug</strong> (іконка трикутника з жучком зліва) і натисніть зелену кнопку <strong>▷ Run</strong> (або клавішу <strong>F5</strong>); за потреби C# Dev Kit сам запропонує згенерувати конфігурацію запуску, просто підтвердіть.</li>
+</ol>
+<hr />
+<h2 id="3-git-github">3. Git та обліковий запис на GitHub<a class="headerlink" href="#3-git-github" title="Permanent link">&para;</a></h2>
+<p>Git потрібен для збереження історії коду та здачі робіт (у вимогах до звіту кожної ПР — посилання на репозиторій). Рекомендований інструмент — <strong>GitHub Desktop</strong>: серед графічних клієнтів Git він найпростіший для початківців, повністю графічний застосунок, у якому створення репозиторію, коміти та завантаження коду на GitHub робляться кнопками, без жодної команди. Як альтернативу можна користуватись вбудованою підтримкою Git прямо в IDE (розділ нижче) — обирайте те, що зручніше саме вам.</p>
+<h3 id="github-desktop">Встановлення GitHub Desktop (рекомендовано)<a class="headerlink" href="#github-desktop" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Завантажте з <a href="https://desktop.github.com">https://desktop.github.com</a> і встановіть стандартним інсталятором для вашої ОС.</li>
+<li>При першому запуску натисніть <strong>Sign in to GitHub.com</strong> — це відкриє браузер для входу/реєстрації акаунта; після входу поверніться в застосунок.</li>
+<li>У вікні <strong>Configure Git</strong> застосунок сам запропонує вказати ваше ім'я та email для комітів (заповнюється в текстових полях, це замінює команду <code>git config</code> у терміналі). Введіть дані і натисніть <strong>Finish</strong>.</li>
+<li>Щоб почати новий проєкт: <strong>File → New Repository</strong> → вкажіть назву та папку → <strong>Create Repository</strong>; після написання коду зміни з'являться зліва, впишіть короткий опис і натисніть <strong>Commit to main</strong>, а потім <strong>Push origin</strong>, і код опиниться на GitHub.</li>
+</ol>
+<p>Створіть акаунт на <a href="https://github.com">https://github.com</a>, якщо ще не маєте (крок 2 вище також запропонує реєстрацію). Рекомендується одразу подати заявку на <strong>GitHub Student Developer Pack</strong> (<a href="https://education.github.com/pack">https://education.github.com/pack</a>) — за студентською поштою дає безкоштовний доступ до приватних репозиторіїв, Copilot та інших інструментів.</p>
+<h3 id="git-ide">Альтернатива: вбудована підтримка Git прямо в IDE<a class="headerlink" href="#git-ide" title="Permanent link">&para;</a></h3>
+<p>Visual Studio, Rider і VS Code мають власні вбудовані панелі для роботи з Git (пункт меню <strong>Git</strong>/<strong>Version Control</strong>/вкладка <strong>Source Control</strong>). Коміт і завантаження на GitHub можна робити прямо з тієї ж програми, де ви пишете код, без встановлення GitHub Desktop окремо. Принцип той самий: кнопки «Commit» і «Push» замість команд у терміналі.</p>
+<h3 id="_3">Організація репозиторію: один репозиторій на весь семестр<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>Створюйте <strong>один репозиторій</strong> на початку семестру (наприклад, <code>dotnet-labs-&lt;Прізвище&gt;</code>) і здавайте в ньому всі практичні роботи — не створюйте окремий новий репозиторій під кожну ПР. Усередині розкладіть роботи по папках, наприклад:</p>
+<div class="highlight"><pre><span></span><code>dotnet-labs-nikitchuk/
+├── 01-csharp-basics/
+├── 02-oop-exceptions/
+├── 03-generics-delegates-events/
+└── ...
+</code></pre></div>
+<p>Кожна ПР — окремий проєкт (своя папка з <code>.sln</code>/<code>.csproj</code>) усередині цього самого репозиторію. Для звіту щоразу посилайтесь на той самий репозиторій, за потреби вказуючи конкретну папку чи комміт.</p>
+<p>Чому так зручніше:
+- Один стабільний URL для здачі всіх робіт замість пошуку/пересилання нового посилання щоразу.
+- Уся історія комітів за семестр лишається в одному місці — легше показати прогрес і повернутись до попередньої ПР.
+- Не потрібно повторно проходити налаштування нового репозиторію (remote, <code>.gitignore</code> тощо) перед кожною роботою.</p>
+<hr />
+<h2 id="4-2-no58-ef-core-sqlite-postman-5-8">4. Інструменти для Модуля 2 (ПР №5–8): EF Core, SQLite, Postman (Поки що НЕ ПОТРІБНО, цю секцію фіналізую лише після того, як зроблю ПР 5-8)<a class="headerlink" href="#4-2-no58-ef-core-sqlite-postman-5-8" title="Permanent link">&para;</a></h2>
+<p>Ці інструменти знадобляться, коли дійдете до наскрізного веб-мікропроєкту, встановлювати їх заздалегідь не обов'язково.</p>
+<h3 id="ef-core">Робота з міграціями EF Core<a class="headerlink" href="#ef-core" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>У Rider</strong> є вбудований інструмент <strong>EF Core</strong> (вкладка внизу вікна або <strong>View → Tool Windows → EF Core</strong>) з кнопками «Add Migration» та «Update Database»: міграції створюються і застосовуються кліками, без набору команд.</li>
+<li><strong>У Visual Studio</strong> мігарції зазвичай виконуються через <strong>Package Manager Console</strong> (<strong>Tools → NuGet Package Manager → Package Manager Console</strong> — це вбудована панель усередині Visual Studio, а не окремий термінал): команди <code>Add-Migration ІмʼяМіграції</code> та <code>Update-Database</code> вводяться прямо там.</li>
+<li><strong>Універсальний спосіб</strong> (VS Code, або якщо потрібен саме інструмент командного рядка): інструмент <code>dotnet-ef</code>, який встановлюється один раз командою в терміналі:
+  <div class="highlight"><pre><span></span><code>dotnet<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>--global<span class="w"> </span>dotnet-ef
+</code></pre></div>
+  Далі в ПР №5 команди на кшталт <code>dotnet ef migrations add InitialCreate</code> виконуються так само в терміналі. Конкретні кроки описані безпосередньо в самій ПР №5.</li>
+</ul>
+<h3 id="db-browser-for-sqlite">DB Browser for SQLite (перегляд вмісту бази даних)<a class="headerlink" href="#db-browser-for-sqlite" title="Permanent link">&para;</a></h3>
+<p>Безкоштовна GUI-програма для перегляду таблиць у файлі <code>.db</code>, який створює EF Core з провайдером SQLite.</p>
+<ul>
+<li><strong>Windows/macOS:</strong> завантажте інсталятор з <a href="https://sqlitebrowser.org/dl/">https://sqlitebrowser.org/dl/</a> і встановіть звичайним способом.</li>
+<li><strong>Linux (Ubuntu/Debian):</strong> <code>sudo apt install sqlitebrowser</code>.</li>
+</ul>
+<h3 id="postman-web-api">Postman (ручне тестування Web API)<a class="headerlink" href="#postman-web-api" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Завантажте з <a href="https://www.postman.com/downloads/">https://www.postman.com/downloads/</a> (доступно для Windows, macOS, Linux) — повністю графічний застосунок.</li>
+<li>Альтернатива без встановлення: вбудований у сам застосунок Scalar UI (<code>https://localhost:&lt;порт&gt;/scalar/v1</code> після запуску Web API-проєкту). Там теж можна виконувати запити прямо з браузера, без Postman.</li>
+</ul>
+<hr />
+<h2 id="5-2">5. Перевірка: перший тестовий проєкт (якщо ще не робили в розділі 2)<a class="headerlink" href="#5-2" title="Permanent link">&para;</a></h2>
+<p>Якщо під час встановлення IDE (розділ 2) ви вже створили й запустили тестовий консольний проєкт і побачили <code>Hello, World!</code>, середовище готове, цей розділ можна пропустити.</p>
+<p>Якщо хочете перевірити через термінал (не обов'язково, лише для тих, кому так зручніше):</p>
+<div class="highlight"><pre><span></span><code>dotnet<span class="w"> </span>new<span class="w"> </span>console<span class="w"> </span>-n<span class="w"> </span>HelloDotNet
+<span class="nb">cd</span><span class="w"> </span>HelloDotNet
+dotnet<span class="w"> </span>run
+</code></pre></div>
+<p>Очікуваний результат: <code>Hello, World!</code>.</p>
+<hr />
+<h2 id="6">6. Типові проблеми та їх вирішення<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<p><strong>У Visual Studio консольне вікно одразу закривається після запуску, і не видно результату</strong>
+Це трапляється, якщо запускати проєкт клавішею <strong>F5</strong> («Start Debugging»): Visual Studio закриває вікно консолі одразу після завершення програми. Використовуйте <strong>Ctrl+F5</strong> («Start Without Debugging»), тоді вікно консолі лишиться відкритим із написом «Press any key to continue…» після виконання. (У Rider і VS Code такої проблеми немає — вивід лишається у вбудованій панелі.)</p>
+<p><strong>IDE не бачить .NET SDK / пише, що SDK не знайдено</strong>
+Перезапустіть IDE повністю (закрити й відкрити заново), а якщо не допомогло, перезавантажте комп'ютер. SDK встановлюється окремо від IDE (розділ 1), тож переконайтесь, що інсталятор SDK справді завершився без помилок.</p>
+<p><strong>«dotnet: команда не знайдена» / «'dotnet' is not recognized» (при перевірці через термінал)</strong>
+Перезапустіть термінал повністю (не просто нову вкладку, а весь застосунок) або перезавантажте комп'ютер, здебільшого цього достатньо. Якщо не допомогло, ймовірно, під час встановлення шлях до <code>dotnet</code> не додався в системну змінну PATH. Простіше за все перевстановити SDK стандартним інсталятором ще раз.</p>
+<p><strong>На macOS з'являється попередження «застосунок із невідомого розробника»</strong>
+Перейдіть у System Settings → Privacy &amp; Security, прокрутіть вниз до повідомлення про заблокований застосунок і натисніть «Open Anyway».</p>
+<p><strong>Кирилиця нормально не відображається в консолі Windows</strong>
+На початку методу <code>Main</code> додайте:
+<div class="highlight"><pre><span></span><code><span class="n">Console</span><span class="p">.</span><span class="n">OutputEncoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">Text</span><span class="p">.</span><span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">;</span>
+</code></pre></div>
+У самій Visual Studio/Rider/VS Code (де вивід зазвичай показується у вбудованій панелі, а не в старому <code>cmd.exe</code>) це здебільшого й не потрібно.</p>
+<p><strong>Нічого не працює, паніка, ВСЕ ПРОПАЛО</strong>
+У такому випадку: Google, ChatGpt, Claude або будь-який інший AI у допомогу. Ну і розклад практичних занять ви знаєте :)</p>
+<hr />
+<h2 id="_4">Корисні посилання<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Офіційне завантаження .NET SDK: <a href="https://dotnet.microsoft.com/download">https://dotnet.microsoft.com/download</a></li>
+<li>Документація .NET (Microsoft Learn): <a href="https://learn.microsoft.com/dotnet">https://learn.microsoft.com/dotnet</a></li>
+<li>Встановлення .NET на Linux (усі дистрибутиви): <a href="https://learn.microsoft.com/dotnet/core/install/linux">https://learn.microsoft.com/dotnet/core/install/linux</a></li>
+<li>Visual Studio: <a href="https://visualstudio.microsoft.com/downloads/">https://visualstudio.microsoft.com/downloads/</a></li>
+<li>JetBrains Rider (завантаження): <a href="https://www.jetbrains.com/rider/download">https://www.jetbrains.com/rider/download</a></li>
+<li>JetBrains Rider (некомерційна ліцензія): <a href="https://www.jetbrains.com/non-commercial/">https://www.jetbrains.com/non-commercial/</a></li>
+<li>JetBrains Rider (студентська/академічна ліцензія — за потреби): <a href="https://www.jetbrains.com/community/education/">https://www.jetbrains.com/community/education/</a></li>
+<li>Visual Studio Code: <a href="https://code.visualstudio.com">https://code.visualstudio.com</a></li>
+<li>Розширення C# Dev Kit: <a href="https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit">https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit</a></li>
+<li>GitHub Desktop (графічний клієнт Git): <a href="https://desktop.github.com">https://desktop.github.com</a></li>
+<li>Git (командний рядок, за потреби): <a href="https://git-scm.com">https://git-scm.com</a></li>
+<li>GitHub Student Developer Pack: <a href="https://education.github.com/pack">https://education.github.com/pack</a></li>
+<li>DB Browser for SQLite: <a href="https://sqlitebrowser.org">https://sqlitebrowser.org</a></li>
+<li>Postman: <a href="https://www.postman.com/downloads/">https://www.postman.com/downloads/</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Повернутись нагору
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.top", "navigation.indexes", "content.code.copy", "toc.integrate", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

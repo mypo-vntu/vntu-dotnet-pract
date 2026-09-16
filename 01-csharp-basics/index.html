@@ -1,0 +1,1274 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Документація до дисципліни Розробка проєктів засобами платформи .NET">
+      
+      
+      
+      
+        <link rel="prev" href="../00-setup/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>ПР1. C# основи - Розробка проєктів засобами платформи .NET</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#no1-c" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href=".." title="Розробка проєктів засобами платформи .NET" class="md-header__button md-logo" aria-label="Розробка проєктів засобами платформи .NET" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Розробка проєктів засобами платформи .NET
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ПР1. C# основи
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Темна тема"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Темна тема" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Світла тема"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Світла тема" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mypo-vntu/vntu-dotnet-pract" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mypo-vntu/vntu-dotnet-pract
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Головна
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../00-setup/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Налаштування середовища
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  ПР1. C# основи
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Розробка проєктів засобами платформи .NET" class="md-nav__button md-logo" aria-label="Розробка проєктів засобами платформи .NET" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Розробка проєктів засобами платформи .NET
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mypo-vntu/vntu-dotnet-pract" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mypo-vntu/vntu-dotnet-pract
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Налаштування середовища
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ПР1. C# основи
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ПР1. C# основи
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Мета роботи
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Загальні завдання (обов'язкові для будь-якого варіанта)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Теоретичні відомості
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Теоретичні відомості">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Типи даних та змінні
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Приклади коду (для орієнтиру — не є готовим розв'язком варіанта)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Приклади коду (для орієнтиру — не є готовим розв&#39;язком варіанта)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-tryparse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Валідне введення числа через TryParse і цикл повторного запиту
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Метод із параметрами та поверненим значенням (обробка масиву)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Форматований табличний вивід у консоль (необов'язково, приклад гарного оформлення)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-listt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Розширення передзаповненого набору даних — масив або List&lt;T&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-switch-expression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Меню з циклом та switch expression
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Порядок виконання
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Варіанти завдань
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Варіанти завдань">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Варіант 1. Обробка масиву оцінок студентів
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Варіант 2. Калькулятор виразів у консолі
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Варіант 3. Каса магазину
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Варіант 4. Конвертер величин
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Варіант 5. Облік температур за тиждень
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Варіант 6. Гра «Вгадай число»
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Вимоги до звіту
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Контрольні питання
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="no1-c">Практична робота №1. Базові конструкції C#. Консольний застосунок<a class="headerlink" href="#no1-c" title="Permanent link">&para;</a></h1>
+<p><strong>Модуль:</strong> 1 — огляд та повторення C#
+<strong>Тип застосунку:</strong> консольний (.NET, Console App)
+<strong>Обсяг:</strong> 2 год аудиторних + СРС</p>
+<h2 id="_1">Мета роботи<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Закріпити навички роботи з базовими типами даних, операторами, керуючими конструкціями (розгалуження, цикли), масивами та методами мови C#; навчитися організовувати консольний діалог введення/виведення даних та структурувати найпростіший застосунок у вигляді меню з циклічним виконанням пунктів.</p>
+<h2 id="-">Загальні завдання (обов'язкові для будь-якого варіанта)<a class="headerlink" href="#-" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Створити консольний проєкт (.NET 10, Console App) з назвою виду <code>Lab1_&lt;Прізвище&gt;</code>.</li>
+<li>Початковий набір даних (студенти, товари, температури тощо) можна заповнити наперед у коді. Але додайте в меню пункт, що змінює дані під час роботи (додавання нового елемента або редагування наявного) — саме там продемонструйте введення з клавіатури з валідацією через <code>TryParse</code> і цикл повторного запиту при некоректному форматі.</li>
+<li>Для зберігання даних — масив (<code>Array.Resize</code> при додаванні) або <code>List&lt;T&gt;</code> (<code>Add</code>) на вибір.</li>
+<li>Реалізувати обробку даних за своїм варіантом (деталі — у таблиці варіантів нижче), використавши щонайменше:</li>
+<li>умовний оператор або <code>switch</code>;</li>
+<li>цикл (<code>for</code>/<code>while</code>/<code>foreach</code>);</li>
+<li>одновимірний або двовимірний масив (або еквівалентний <code>List&lt;T&gt;</code>);</li>
+<li>2+ власні методи з параметрами та поверненим значенням (не <code>void</code>-методи, що лише друкують).</li>
+<li>Вивести результати у читабельному вигляді (заголовки, інтерпольовані рядки); табличне вирівнювання (приклад <code>PrintTable</code> нижче) — плюс, але не обов'язкове.</li>
+<li>Реалізувати меню (цикл + <code>switch</code>) з повторенням дій до вибору «Вихід».</li>
+<li>Обробити щонайменше один граничний випадок варіанта (порожній масив, ділення на нуль, недопустиме від'ємне значення тощо).</li>
+</ul>
+<h2 id="_2">Теоретичні відомості<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>Нижче — лише ті засоби C#, які реально знадобляться в цій роботі (докладніше про кожен — за посиланням MS Learn). Не обов'язково читати все підряд, достатньо розділів, що стосуються вашого варіанта.</p>
+<h3 id="_3">Типи даних та змінні<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p><strong>Базові (вбудовані) типи даних C#</strong></p>
+<p>Ключове слово типу в C# — це просто зручний псевдонім (<code>alias</code>) для типу з .NET (наприклад, <code>int</code> — це <code>System.Int32</code>); обидва записи взаємозамінні, але в C#-коді прийнято писати ключове слово.</p>
+<p>Цілочисельні типи (integral) — відрізняються розміром у пам'яті, а отже й діапазоном значень:</p>
+<table>
+<thead>
+<tr>
+<th>Тип</th>
+<th>.NET тип</th>
+<th>Розмір</th>
+<th>Діапазон / призначення</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sbyte</code></td>
+<td><code>System.SByte</code></td>
+<td>8 біт</td>
+<td>від −128 до 127</td>
+</tr>
+<tr>
+<td><code>byte</code></td>
+<td><code>System.Byte</code></td>
+<td>8 біт</td>
+<td>від 0 до 255 (без знаку)</td>
+</tr>
+<tr>
+<td><code>short</code></td>
+<td><code>System.Int16</code></td>
+<td>16 біт</td>
+<td>від −32 768 до 32 767</td>
+</tr>
+<tr>
+<td><code>ushort</code></td>
+<td><code>System.UInt16</code></td>
+<td>16 біт</td>
+<td>від 0 до 65 535</td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td><code>System.Int32</code></td>
+<td>32 біт</td>
+<td>приблизно ±2.1 млрд — <strong>основний тип для цілих чисел</strong> у цій роботі (оцінки, кількість, лічильники)</td>
+</tr>
+<tr>
+<td><code>uint</code></td>
+<td><code>System.UInt32</code></td>
+<td>32 біт</td>
+<td>від 0 до ~4.3 млрд (без знаку)</td>
+</tr>
+<tr>
+<td><code>long</code></td>
+<td><code>System.Int64</code></td>
+<td>64 біт</td>
+<td>приблизно ±9.2×10¹⁸ — коли <code>int</code> замалий</td>
+</tr>
+<tr>
+<td><code>ulong</code></td>
+<td><code>System.UInt64</code></td>
+<td>64 біт</td>
+<td>від 0 до ~1.8×10¹⁹</td>
+</tr>
+<tr>
+<td><code>nint</code> / <code>nuint</code></td>
+<td><code>System.IntPtr</code> / <code>UIntPtr</code></td>
+<td>залежить від платформи</td>
+<td>розмір під вказівник платформи; на практиці майже ніколи не потрібні у прикладному коді</td>
+</tr>
+</tbody>
+</table>
+<p>Дробові (floating-point) типи — відрізняються точністю:</p>
+<table>
+<thead>
+<tr>
+<th>Тип</th>
+<th>.NET тип</th>
+<th>Точність / суфікс літерала</th>
+<th>Призначення</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>float</code></td>
+<td><code>System.Single</code></td>
+<td>~7 значущих цифр, суфікс <code>f</code> (<code>9.81f</code>)</td>
+<td>коли важлива економія пам'яті, точність не критична</td>
+</tr>
+<tr>
+<td><code>double</code></td>
+<td><code>System.Double</code></td>
+<td>~15–17 значущих цифр, без суфікса за замовчуванням</td>
+<td><strong>основний тип для дробових чисел</strong> у цій роботі (ціни, температури, результати обчислень)</td>
+</tr>
+<tr>
+<td><code>decimal</code></td>
+<td><code>System.Decimal</code></td>
+<td>28–29 значущих цифр, суфікс <code>m</code> (<code>19.99m</code>), найповільніший, зате без похибок округлення</td>
+<td>грошові розрахунки, де точність критична (у цій роботі не обов'язковий — <code>double</code> достатньо)</td>
+</tr>
+</tbody>
+</table>
+<p>Інші базові типи:</p>
+<table>
+<thead>
+<tr>
+<th>Тип</th>
+<th>.NET тип</th>
+<th>Опис</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bool</code></td>
+<td><code>System.Boolean</code></td>
+<td>логічне значення <code>true</code>/<code>false</code> — результат <code>TryParse</code>, умови в <code>if</code>/циклах</td>
+</tr>
+<tr>
+<td><code>char</code></td>
+<td><code>System.Char</code></td>
+<td>один Unicode-символ у одинарних лапках (<code>'A'</code>, <code>'+'</code>) — знадобиться варіанту 2 при розборі знака операції</td>
+</tr>
+<tr>
+<td><code>string</code></td>
+<td><code>System.String</code></td>
+<td>рядок тексту в подвійних лапках — імена, назви, введений з консолі текст. Технічно не входить до «простих» (simple) значеннєвих типів вище, але вважається базовим і використовується скрізь</td>
+</tr>
+<tr>
+<td><code>object</code></td>
+<td><code>System.Object</code></td>
+<td>базовий тип, від якого походять усі інші типи в C# (включно з <code>int</code>, <code>bool</code> тощо через <em>боксинг</em>); у цій роботі напряму не знадобиться, згадується для повноти</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">85</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">price</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">21.5</span><span class="p">;</span>
+<span class="kt">decimal</span><span class="w"> </span><span class="n">preciseTotal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">199.99m</span><span class="p">;</span>
+<span class="kt">string</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Іваненко"</span><span class="p">;</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">isValid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">int</span><span class="p">.</span><span class="n">TryParse</span><span class="p">(</span><span class="s">"42"</span><span class="p">,</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">parsed</span><span class="p">);</span>
+<span class="kt">char</span><span class="w"> </span><span class="n">op</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'+'</span><span class="p">;</span>
+</code></pre></div>
+<p>Важлива відмінність, що стосується цієї роботи: усі типи вище, крім <code>string</code> і <code>object</code>, — <strong>типи значень</strong> (value types, технічно <code>struct</code>): змінна безпосередньо містить своє значення і при передачі в метод копіюється. <code>string</code>, <code>object</code> і масиви (<code>int[]</code>, <code>string[]</code>) — <strong>посилальні типи</strong> (reference types): змінна містить посилання на дані в пам'яті; саме тому масив, переданий у метод без <code>ref</code>, метод може змінювати «на місці» (елементи), а без <code>ref</code>/<code>out</code> не може замінити його на <em>інший</em> масив (звідси й потреба в <code>ref</code> для <code>Array.Resize</code> у прикладі №4 нижче). При цьому сам <code>string</code> — виняток серед посилальних типів: він <em>незмінний</em> (immutable) — методи на кшталт <code>Trim</code>/<code>Split</code> не змінюють рядок, а повертають новий.
+<a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/built-in-types">learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/built-in-types</a></p>
+<p><strong>Загальна інформація</strong></p>
+<p><strong>Ключове слово <code>var</code></strong> — неявна типізація: компілятор сам визначає тип змінної з виразу праворуч і підставляє його на етапі компіляції. Це <strong>не</strong> те саме, що динамічна типізація (як у Python/JS) — тип фіксується назавжди при оголошенні, просто не пишеться явно. Тому обов'язкова умова — ініціалізація в тому ж рядку (<code>var x;</code> без значення не скомпілюється, бо тип нема з чого вивести):</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">              </span><span class="c1">// int</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">price</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">21.5</span><span class="p">;</span><span class="w">           </span><span class="c1">// double</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Іваненко"</span><span class="p">;</span><span class="w">      </span><span class="c1">// string</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">students</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="p">();</span><span class="w"> </span><span class="c1">// List&lt;string&gt;</span>
+</code></pre></div>
+<p>Використовуйте <code>var</code>, коли тип і так очевидний з правої частини (особливо для довгих generic-типів на кшталт <code>Dictionary&lt;string, List&lt;int&gt;&gt;</code>), і явний тип (<code>int</code>, <code>string</code>, ...), коли <code>var</code> шкодить читабельності або тип не очевидний з контексту. В цій роботі обидва варіанти прийнятні — це питання стилю, а не вимога.
+<a href="https://learn.microsoft.com/dotnet/csharp/programming-guide/classes-and-structs/implicitly-typed-local-variables">learn.microsoft.com/dotnet/csharp/programming-guide/classes-and-structs/implicitly-typed-local-variables</a></p>
+<p><strong><code>int.TryParse</code> / <code>double.TryParse</code></strong> — безпечне перетворення рядка в число: повертає <code>true</code>/<code>false</code> замість викидання винятку при некоректному вводі. Це основа валідації консольного вводу в цій роботі.</p>
+<p><div class="highlight"><pre><span></span><code><span class="kt">string</span><span class="w"> </span><span class="n">userInput</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"12x"</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">.</span><span class="n">TryParse</span><span class="p">(</span><span class="n">userInput</span><span class="p">,</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="k">value</span><span class="p">))</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"Отримано число: {value}"</span><span class="p">);</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"Введено не число."</span><span class="p">);</span>
+</code></pre></div>
+<a href="https://learn.microsoft.com/dotnet/api/system.int32.tryparse">learn.microsoft.com/dotnet/api/system.int32.tryparse</a></p>
+<p><strong><code>if</code>/<code>else</code></strong> — базове розгалуження за умовою; гілок <code>else if</code> може бути скільки завгодно:</p>
+<p><div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">85</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">score</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">90</span><span class="p">)</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"відмінно"</span><span class="p">);</span>
+<span class="k">else</span><span class="w"> </span><span class="nf">if</span><span class="w"> </span><span class="p">(</span><span class="n">score</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">75</span><span class="p">)</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"добре"</span><span class="p">);</span>
+<span class="k">else</span><span class="w"> </span><span class="nf">if</span><span class="w"> </span><span class="p">(</span><span class="n">score</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">60</span><span class="p">)</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"задовільно"</span><span class="p">);</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"незадовільно"</span><span class="p">);</span>
+</code></pre></div>
+<a href="https://learn.microsoft.com/dotnet/csharp/language-reference/statements/selection-statements">learn.microsoft.com/dotnet/csharp/language-reference/statements/selection-statements</a></p>
+<p><strong><code>switch</code> (звичайний оператор)</strong> — зручний, коли варіантів багато і кожен порівнюється з конкретним значенням (а не з діапазоном); кожна гілка <code>case</code> завершується <code>break</code> (або <code>return</code>), інакше — помилка компіляції (на відміну від C/C++, «протікання» між гілками за замовчуванням заборонене):</p>
+<p><div class="highlight"><pre><span></span><code><span class="kt">char</span><span class="w"> </span><span class="n">op</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'+'</span><span class="p">;</span>
+<span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="sc">'+'</span><span class="p">:</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"Додавання"</span><span class="p">);</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="sc">'-'</span><span class="p">:</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"Віднімання"</span><span class="p">);</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">default</span><span class="p">:</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"Невідома операція"</span><span class="p">);</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<a href="https://learn.microsoft.com/dotnet/csharp/language-reference/statements/selection-statements#the-switch-statement">learn.microsoft.com/dotnet/csharp/language-reference/statements/selection-statements#the-switch-statement</a></p>
+<p><strong><code>switch</code> expression</strong> — компактніший варіант, що одразу <em>повертає значення</em> замість виконання команд у гілках (зручний для методів на кшталт «визначити категорію за балом» — той самий приклад з <code>if</code>/<code>else if</code> вище, але як вираз):</p>
+<p><div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="nf">Classify</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">score</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="k">switch</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">90</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s">"відмінно"</span><span class="p">,</span>
+<span class="w">    </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">75</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s">"добре"</span><span class="p">,</span>
+<span class="w">    </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">60</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s">"задовільно"</span><span class="p">,</span>
+<span class="w">    </span><span class="n">_</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s">"незадовільно"</span><span class="p">,</span>
+<span class="p">};</span>
+</code></pre></div>
+<a href="https://learn.microsoft.com/dotnet/csharp/language-reference/operators/switch-expression">learn.microsoft.com/dotnet/csharp/language-reference/operators/switch-expression</a></p>
+<p><strong>Цикли <code>for</code>/<code>while</code>/<code>foreach</code></strong> — вибір залежить від того, чи відома кількість ітерацій наперед (<code>for</code>/<code>foreach</code> — так, <code>while</code> — ні):</p>
+<p><div class="highlight"><pre><span></span><code><span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">day</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">new</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">"Пн"</span><span class="p">,</span><span class="w"> </span><span class="s">"Вт"</span><span class="p">,</span><span class="w"> </span><span class="s">"Ср"</span><span class="w"> </span><span class="p">})</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">day</span><span class="p">);</span>
+</code></pre></div>
+<a href="https://learn.microsoft.com/dotnet/csharp/language-reference/statements/iteration-statements">learn.microsoft.com/dotnet/csharp/language-reference/statements/iteration-statements</a></p>
+<p><strong>Масиви (<code>int[]</code>, <code>string[]</code>)</strong> — базова структура фіксованого розміру для зберігання набору однотипних значень, з доступом по індексу:</p>
+<p><div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="p">[]</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">1000</span><span class="p">];</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span><span class="w"> </span><span class="c1">// 1</span>
+</code></pre></div>
+<a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/arrays">learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/arrays</a></p>
+<p><strong>Методи з параметрами й поверненим значенням</strong> — іменований блок коду, що приймає параметри та повертає результат (а не лише друкує в консоль). </p>
+<p><div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">CalculateAverage</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span><span class="w"> </span><span class="n">values</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">values</span><span class="p">.</span><span class="n">Length</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">values</span><span class="p">.</span><span class="n">Sum</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">values</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<a href="https://learn.microsoft.com/dotnet/csharp/programming-guide/classes-and-structs/methods">learn.microsoft.com/dotnet/csharp/programming-guide/classes-and-structs/methods</a></p>
+<p><strong><code>ref</code>/<code>out</code> параметри</strong> — передача аргументів за посиланням: <code>out</code> повертає додатковий результат (як у <code>TryParse</code> вище), <code>ref</code> дозволяє методу змінити значення <em>наявної</em> змінної виклику (знадобиться для <code>Array.Resize</code> в прикладі №4 нижче):</p>
+<p><div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Increment</span><span class="p">(</span><span class="k">ref</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">number</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">number</span><span class="o">++</span><span class="p">;</span>
+</code></pre></div>
+<a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/ref">learn.microsoft.com/dotnet/csharp/language-reference/keywords/ref</a></p>
+<p><strong>Інтерпольовані рядки та форматування виводу</strong> — вбудовування значень у рядок через <code>$"..."</code>, зі специфікаторами вирівнювання й формату <code>{значення,ширина:формат}</code> (докладний розбір і приклад таблиці — у розділі «Приклади коду» нижче):</p>
+<p><div class="highlight"><pre><span></span><code><span class="kt">double</span><span class="w"> </span><span class="n">price</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">21.5</span><span class="p">;</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"{"</span><span class="n">Хліб</span><span class="s">",-15}{price,10:F2}"</span><span class="p">);</span>
+</code></pre></div>
+<a href="https://learn.microsoft.com/dotnet/standard/base-types/composite-formatting">learn.microsoft.com/dotnet/standard/base-types/composite-formatting</a></p>
+<p><strong><code>string.Split</code></strong> — розбиття рядка на частини за роздільником (знадобиться варіанту 2, щоб розібрати вираз виду <code>12 + 7</code> на операнди й знак операції):</p>
+<p><div class="highlight"><pre><span></span><code><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">subs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"12 + 7"</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="sc">' '</span><span class="p">);</span>
+<span class="c1">// subs: ["12", "+", "7"]</span>
+</code></pre></div>
+<a href="https://learn.microsoft.com/dotnet/api/system.string.split">learn.microsoft.com/dotnet/api/system.string.split</a></p>
+<p><strong><code>Array.Resize</code></strong> — зміна розміру вже створеного масиву (створює новий масив потрібної довжини й копіює елементи); знадобиться, щоб додати новий елемент до масиву, заповненого наперед у коді:</p>
+<p><div class="highlight"><pre><span></span><code><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">"Іваненко"</span><span class="p">,</span><span class="w"> </span><span class="s">"Петренко"</span><span class="w"> </span><span class="p">};</span>
+<span class="n">Array</span><span class="p">.</span><span class="n">Resize</span><span class="p">(</span><span class="k">ref</span><span class="w"> </span><span class="n">names</span><span class="p">,</span><span class="w"> </span><span class="n">names</span><span class="p">.</span><span class="n">Length</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="n">names</span><span class="p">[</span><span class="o">^</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Коваль"</span><span class="p">;</span>
+</code></pre></div>
+<a href="https://learn.microsoft.com/dotnet/api/system.array.resize">learn.microsoft.com/dotnet/api/system.array.resize</a></p>
+<p><strong><code>List&lt;T&gt;</code></strong> (<code>Add</code>, індексатор) — узагальнена колекція зі змінним розміром, альтернатива масиву без ручного <code>Array.Resize</code>; у циклах і методах використовується практично так само, як масив:</p>
+<p><div class="highlight"><pre><span></span><code><span class="n">List</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">"Іваненко"</span><span class="p">,</span><span class="w"> </span><span class="s">"Петренко"</span><span class="w"> </span><span class="p">};</span>
+<span class="n">names</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">"Коваль"</span><span class="p">);</span>
+</code></pre></div>
+<a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">learn.microsoft.com/dotnet/api/system.collections.generic.list-1</a></p>
+<p><strong><code>Math.Round</code></strong> — округлення дробового числа до заданої кількості знаків (альтернатива форматуванню <code>:F2</code> при виведенні, потрібна варіанту 4):</p>
+<p><div class="highlight"><pre><span></span><code><span class="kt">double</span><span class="w"> </span><span class="n">rounded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="n">Round</span><span class="p">(</span><span class="mf">7.7669</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"> </span><span class="c1">// 7.77</span>
+</code></pre></div>
+<a href="https://learn.microsoft.com/dotnet/api/system.math.round">learn.microsoft.com/dotnet/api/system.math.round</a></p>
+<p><strong><code>Random</code></strong> — генератор випадкових чисел; <code>Next(min, max)</code> повертає ціле число в діапазоні <code>[min, max)</code> (потрібен варіанту 6, щоб загадати число):</p>
+<p><div class="highlight"><pre><span></span><code><span class="n">Random</span><span class="w"> </span><span class="n">rnd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="p">();</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">secret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rnd</span><span class="p">.</span><span class="n">Next</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">101</span><span class="p">);</span><span class="w"> </span><span class="c1">// від 1 до 100 включно</span>
+</code></pre></div>
+<a href="https://learn.microsoft.com/dotnet/api/system.random.next">learn.microsoft.com/dotnet/api/system.random.next</a></p>
+<p><strong><code>Console.ReadLine</code>/<code>WriteLine</code>/<code>Write</code></strong> — читання рядка з консолі та виведення тексту (з переходом на новий рядок або без).
+<a href="https://learn.microsoft.com/dotnet/api/system.console">learn.microsoft.com/dotnet/api/system.console</a></p>
+<h2 id="_4">Приклади коду (для орієнтиру — не є готовим розв'язком варіанта)<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>Наведені фрагменти ілюструють технічні прийоми, потрібні для роботи; логіку конкретного варіанта студент розробляє самостійно.</p>
+<h3 id="1-tryparse">1. Валідне введення числа через <code>TryParse</code> і цикл повторного запиту<a class="headerlink" href="#1-tryparse" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">ReadInt</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">prompt</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">min</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">int</span><span class="p">.</span><span class="n">MinValue</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">int</span><span class="p">.</span><span class="n">MaxValue</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="k">true</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">prompt</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">string?</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">.</span><span class="n">TryParse</span><span class="p">(</span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="k">value</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="k">value</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">min</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="k">value</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">max</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="k">value</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"Некоректне значення. Введіть ціле число від {min} до {max}."</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="2">2. Метод із параметрами та поверненим значенням (обробка масиву)<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">CalculateAverage</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span><span class="w"> </span><span class="n">values</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">values</span><span class="p">.</span><span class="n">Length</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">values</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">sum</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">values</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Порожній масив тут не помилка, а звичайний випадок — метод просто повертає 0. А для повідомлення «Немає даних» достатньо окремо перевірити <code>scores.Length == 0</code> на місці виклику, до звернення до <code>CalculateAverage</code>.</p>
+<h3 id="3">3. Форматований табличний вивід у консоль (необов'язково, приклад гарного оформлення)<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">PrintTable</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">names</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">[]</span><span class="w"> </span><span class="n">scores</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"{"</span><span class="n">Студент</span><span class="s">",-15}{"</span><span class="n">Бал</span><span class="s">",5}"</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">string</span><span class="p">(</span><span class="sc">'-'</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">));</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">names</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"{names[i],-15}{scores[i],5}"</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Як це працює: синтаксис вирівнювання й форматування в інтерпольованому рядку.</strong></p>
+<p>Усередині фігурних дужок <code>{ }</code> в інтерпольованому рядку (<code>$"..."</code>) можна вказати не лише саме значення, а й додаткові вказівки через кому та двокрапку:</p>
+<div class="highlight"><pre><span></span><code>{ значення , вирівнювання : формат }
+</code></pre></div>
+<ul>
+<li><strong><code>значення</code></strong> — будь-який вираз C# (змінна, виклик методу, літерал);</li>
+<li><strong><code>,вирівнювання</code></strong> (необов'язково) — ціле число, що задає мінімальну ширину поля в символах:</li>
+<li><strong>додатне</strong> число (наприклад, <code>,5</code>) — вирівнювання <strong>праворуч</strong>, поле доповнюється пробілами зліва;</li>
+<li><strong>від'ємне</strong> число (наприклад, <code>,-15</code>) — вирівнювання <strong>ліворуч</strong>, поле доповнюється пробілами справа;</li>
+<li>якщо саме значення довше за вказану ширину — воно просто виводиться повністю, обрізання не відбувається;</li>
+<li><strong><code>:формат</code></strong> (необов'язково) — рядок формату для чисел, дат тощо (наприклад, <code>:F2</code> — два знаки після коми, <code>:N0</code> — розділювач тисяч без дробової частини, <code>:C</code> — грошовий формат, <code>:P1</code> — відсоток з одним знаком після коми, <code>:X</code> — шістнадцяткове число).</li>
+</ul>
+<p>Ці два параметри можна поєднувати. Наприклад, <code>{price,10:F2}</code> виведе число <code>price</code> з двома знаками після коми, вирівняне праворуч у полі шириною щонайменше 10 символів. Зручно для колонки з грошовими сумами, де копійки в усіх рядків мають стояти рівно одна під одною.</p>
+<p>Розширений приклад — таблиця з трьома колонками різних типів (текст, ціле число, дробове число з форматом):</p>
+<div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">PrintReceipt</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">itemNames</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">[]</span><span class="w"> </span><span class="n">quantities</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="p">[]</span><span class="w"> </span><span class="n">prices</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"{"</span><span class="n">Товар</span><span class="s">",-18}{"</span><span class="n">К</span><span class="o">-</span><span class="n">сть</span><span class="s">",7}{"</span><span class="n">Ціна</span><span class="s">",10}"</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">string</span><span class="p">(</span><span class="sc">'-'</span><span class="p">,</span><span class="w"> </span><span class="mi">35</span><span class="p">));</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">itemNames</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"{itemNames[i],-18}{quantities[i],7}{prices[i],10:F2}"</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Результат виконання (умовний приклад — вирівнювання колонок видно завдяки моноширинному шрифту консолі):</p>
+<div class="highlight"><pre><span></span><code>Товар               К-сть      Ціна
+-----------------------------------
+Хліб                     2      21.50
+Молоко                   1      38.90
+Цукерки                  3     115.00
+</code></pre></div>
+<p>Той самий підхід (<code>{ значення , ±ширина : формат }</code>) працює і поза інтерпольованими рядками — у методі <code>string.Format(...)</code> та в <code>Console.WriteLine("{0,-15}{1,5}", name, score)</code> з нумерованими плейсхолдерами <code>{0}</code>, <code>{1}</code>. Це називається композитним форматуванням (composite formatting) — більш «класичний» спосіб того самого прийому, який часто трапляється в старішому коді C#.</p>
+<h3 id="4-listt">4. Розширення передзаповненого набору даних — масив або <code>List&lt;T&gt;</code><a class="headerlink" href="#4-listt" title="Permanent link">&para;</a></h3>
+<p><strong>Варіант А — звичайний масив</strong> (розширення через <code>Array.Resize</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Дані вже заповнені наперед — не потрібно вводити 5 студентів щоразу при запуску</span>
+<span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">"Іваненко"</span><span class="p">,</span><span class="w"> </span><span class="s">"Петренко"</span><span class="p">,</span><span class="w"> </span><span class="s">"Сидоренко"</span><span class="p">,</span><span class="w"> </span><span class="s">"Коваль"</span><span class="p">,</span><span class="w"> </span><span class="s">"Мельник"</span><span class="w"> </span><span class="p">};</span>
+<span class="kt">int</span><span class="p">[]</span><span class="w"> </span><span class="n">scores</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">85</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w"> </span><span class="mi">91</span><span class="p">,</span><span class="w"> </span><span class="mi">58</span><span class="p">,</span><span class="w"> </span><span class="mi">76</span><span class="w"> </span><span class="p">};</span>
+
+<span class="c1">// А цей метод викликається з пункту меню "Додати студента" —</span>
+<span class="c1">// саме тут і демонструється введення з клавіатури з валідацією</span>
+<span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">AddStudent</span><span class="p">(</span><span class="k">ref</span><span class="w"> </span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">names</span><span class="p">,</span><span class="w"> </span><span class="k">ref</span><span class="w"> </span><span class="kt">int</span><span class="p">[]</span><span class="w"> </span><span class="n">scores</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">"Прізвище нового студента: "</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="n">newName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">()</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="s">""</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">newScore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReadInt</span><span class="p">(</span><span class="s">"Оцінка (0-100): "</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">Array</span><span class="p">.</span><span class="n">Resize</span><span class="p">(</span><span class="k">ref</span><span class="w"> </span><span class="n">names</span><span class="p">,</span><span class="w"> </span><span class="n">names</span><span class="p">.</span><span class="n">Length</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Array</span><span class="p">.</span><span class="n">Resize</span><span class="p">(</span><span class="k">ref</span><span class="w"> </span><span class="n">scores</span><span class="p">,</span><span class="w"> </span><span class="n">scores</span><span class="p">.</span><span class="n">Length</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">names</span><span class="p">[</span><span class="o">^</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newName</span><span class="p">;</span>
+<span class="w">    </span><span class="n">scores</span><span class="p">[</span><span class="o">^</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newScore</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Варіант Б — <code>List&lt;T&gt;</code></strong> (той самий сценарій, без <code>Array.Resize</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="n">List</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">"Іваненко"</span><span class="p">,</span><span class="w"> </span><span class="s">"Петренко"</span><span class="p">,</span><span class="w"> </span><span class="s">"Сидоренко"</span><span class="p">,</span><span class="w"> </span><span class="s">"Коваль"</span><span class="p">,</span><span class="w"> </span><span class="s">"Мельник"</span><span class="w"> </span><span class="p">};</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">scores</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">85</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w"> </span><span class="mi">91</span><span class="p">,</span><span class="w"> </span><span class="mi">58</span><span class="p">,</span><span class="w"> </span><span class="mi">76</span><span class="w"> </span><span class="p">};</span>
+
+<span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">AddStudent</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">names</span><span class="p">,</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">scores</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">"Прізвище нового студента: "</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="n">newName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">()</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="s">""</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">newScore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReadInt</span><span class="p">(</span><span class="s">"Оцінка (0-100): "</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">names</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">newName</span><span class="p">);</span>
+<span class="w">    </span><span class="n">scores</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">newScore</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Зауважте: <code>List&lt;T&gt;</code> — це посилальний тип, тому <code>AddStudent</code> змінює список «на місці» й параметр <code>ref</code> тут не потрібен (на відміну від масиву у варіанті А, де без <code>ref</code> метод отримав би лише копію посилання на <em>старий</em> масив і не побачив би результат <code>Array.Resize</code>). В іншому елементи <code>List&lt;T&gt;</code> перебираються в <code>foreach</code> і передаються в методи так само, як масив.</p>
+<p>Обидва варіанти одразу показують роботу програми на «живих» даних (набір не порожній під час запуску), а введення з клавіатури й валідацію демонструють саме на додаванні нового елемента, а не на одноманітному введенні всього набору заново щоразу.</p>
+<h3 id="5-switch-expression">5. Меню з циклом та <code>switch expression</code><a class="headerlink" href="#5-switch-expression" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">isRunning</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">isRunning</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"\n=== Меню ==="</span><span class="p">);</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"1. Ввести дані"</span><span class="p">);</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"2. Виконати обчислення"</span><span class="p">);</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"3. Показати результати"</span><span class="p">);</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"0. Вихід"</span><span class="p">);</span>
+
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">choice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReadInt</span><span class="p">(</span><span class="s">"Ваш вибір: "</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">isRunning</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">choice</span><span class="w"> </span><span class="k">switch</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="mi">1</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">HandleInput</span><span class="p">(),</span>
+<span class="w">            </span><span class="mi">2</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">HandleCalculation</span><span class="p">(),</span>
+<span class="w">            </span><span class="mi">3</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">HandleOutput</span><span class="p">(),</span>
+<span class="w">            </span><span class="mi">0</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">false</span><span class="p">,</span>
+<span class="w">            </span><span class="n">_</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">true</span>
+<span class="w">        </span><span class="p">};</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"Роботу завершено."</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="_5">Порядок виконання<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Створити та налаштувати проєкт (Visual Studio / Rider / VS Code — див. ПР №0), перевірити компіляцію та запуск «порожньої» програми.</li>
+<li>Спроєктувати структуру меню консольного застосунку: скільки пунктів, що робить кожен пункт, коли завершується цикл.</li>
+<li>Реалізувати введення даних з валідацією (<code>TryParse</code>, цикл повторного введення) — за зразком розділу «Приклади коду» вище.</li>
+<li>Реалізувати основний алгоритм обробки даних згідно з варіантом, винести логіку у щонайменше 2 окремі методи з параметрами та поверненим значенням.</li>
+<li>Реалізувати зрозуміле виведення результатів (за бажанням — з вирівнюванням у вигляді таблиці, це не обов'язково) та протестувати на межових і некоректних вхідних даних (порожній масив, нульові/від'ємні значення, невалідний ввід).</li>
+<li>Оформити код (осмислене іменування змінних і методів), завантажити у Git-репозиторій.</li>
+</ol>
+<h2 id="_6">Варіанти завдань<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>Кожен варіант нижче описаний з конкретними вхідними даними, переліком обов'язкових операцій та очікуваним виглядом виводу, щоб під час виконання не залишалось відкритих запитань щодо обсягу роботи.</p>
+<h3 id="1">Варіант 1. Обробка масиву оцінок студентів<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p><strong>Вхідні дані:</strong> два паралельні масиви однакової довжини (5–10 елементів) — <code>string[] names</code> (ПІБ або прізвище студента) і <code>int[] scores</code> (оцінка від 0 до 100). Дозволяється заповнити ці масиви наперед у коді замість введення з клавіатури щоразу; через меню варто передбачити пункт «Додати студента», що розширює масиви за зразком прикладу коду №4 (<code>Array.Resize</code>) і саме там демонструє введення з валідацією.</p>
+<p><strong>Обов'язкові операції:</strong>
+- обчислити середній бал по всій групі (<code>CalculateAverage</code>, метод з п.2 прикладів коду);
+- порахувати кількість студентів з оцінкою нижче 60 («незадовільно») та вивести їхні імена;
+- знайти студента з найвищою та студента з найнижчою оцінкою (окремий метод, що проходить по масиву <code>scores</code> циклом і порівнює значення за тим самим індексом <code>i</code> у <code>names</code>; за однакового максимуму/мінімуму в кількох студентів достатньо вивести першого знайденого);
+- розподілити студентів за категоріями оцінки — «відмінно» (90+), «добре» (75–89), «задовільно» (60–74), «незадовільно» (&lt;60) — і вивести кількість студентів у кожній категорії, скориставшись <code>if</code>/<code>else</code> або <code>switch expression</code> у методі, що визначає категорію за балом.</p>
+<p><strong>Граничний випадок для обробки:</strong> масив з 0 студентів (порожній ввід) — програма повинна вивести повідомлення «Немає даних» замість спроби ділення на нуль при обчисленні середнього.</p>
+<h3 id="2_1">Варіант 2. Калькулятор виразів у консолі<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
+<p><strong>Вхідні дані:</strong> рядок з простим арифметичним виразом з двома операндами та однією операцією за раз, що вводиться користувачем у форматі <code>число оператор число</code> (наприклад, <code>12 + 7</code>); підтримка дужок і виразів з кількома операціями <strong>не вимагається</strong> — це спрощений калькулятор, а не повноцінний парсер.</p>
+<p><strong>Обов'язкові операції:</strong>
+- розбір введеного рядка на операнди та символ операції (<code>string.Split</code> за пробілом);
+- підтримка щонайменше 4 операцій: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>;
+- перевірка ділення на нуль з відповідним повідомленням без аварійного завершення програми;
+- накопичення історії обчислень за сеанс (масив або список рядків виду <code>"12 + 7 = 19"</code>) з можливістю вивести всю історію окремим пунктом меню.</p>
+<p><strong>Граничний випадок для обробки:</strong> ділення на нуль та введення оператора, якого немає в списку підтримуваних (наприклад, <code>%</code> або <code>^</code>) — вивести повідомлення про непідтримувану операцію.</p>
+<h3 id="3_1">Варіант 3. Каса магазину<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h3>
+<p><strong>Вхідні дані:</strong> масив товарів (3–8 позицій), кожна позиція — назва (<code>string</code>), ціна за одиницю (<code>double</code>), кількість (<code>int</code>). Дозволяється заповнити список товарів наперед у коді (масиви-константи); через меню варто передбачити пункт «Додати товар до чека», що розширює масиви за зразком прикладу коду №4 (<code>Array.Resize</code>) і демонструє введення з валідацією.</p>
+<p><strong>Обов'язкові операції:</strong>
+- підрахунок повної суми чека (сума <code>ціна × кількість</code> по всіх позиціях);
+- застосування знижки 10% до чека, якщо сума перевищує задану межу (наприклад, 1000 грн) — межу задати константою на початку програми;
+- виведення чека («Назва — Кількість — Ціна — Сума» по кожній позиції) з підсумковим рядком «Разом» (з урахуванням знижки, якщо вона застосована, — окремим рядком показати суму знижки); оформлення у вигляді вирівняної таблиці не обов'язкове, але вітається;
+- пошук і виведення найдорожчої позиції чека (за сумою <code>ціна × кількість</code>, а не лише за ціною за одиницю).</p>
+<p><strong>Граничний випадок для обробки:</strong> кількість товару, введена як 0 або від'ємне число — не додавати таку позицію до чека і вивести попередження.</p>
+<h3 id="4">Варіант 4. Конвертер величин<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<p><strong>Вхідні дані:</strong> значення для конвертації (<code>double</code>) та вибір напрямку конвертації через пункт меню.</p>
+<p><strong>Обов'язкові операції:</strong>
+- підтримка щонайменше 3 пар одиниць виміру на вибір студента (наприклад: км ↔ милі, кг ↔ фунти, °C ↔ °F) — <strong>не валют</strong>, оскільки актуальні курси валют змінюються і не можуть бути «зашиті» в код як стала величина;
+- реалізація кожної конвертації окремим методом з параметром (значення) і поверненим значенням (результат), без дублювання формули в кількох місцях коду;
+- округлення результату до 2 знаків після коми при виведенні (<code>Math.Round</code> або форматування <code>:F2</code>);
+- виведення результату у форматі «12.5 км = 7.77 милі» (з явним зазначенням одиниць виміру в обидва боки).</p>
+<p><strong>Граничний випадок для обробки:</strong> введення від'ємного значення там, де воно фізично некоректне (наприклад, від'ємна температура за Кельвіном, якщо обрано таку пару, або від'ємна відстань) — вивести попередження, не забороняючи явно коректні від'ємні значення (наприклад, °C може бути від'ємним).</p>
+<h3 id="5">Варіант 5. Облік температур за тиждень<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
+<p><strong>Вхідні дані:</strong> масив з 7 елементів (<code>double</code>) — температура за кожен день тижня (масив назв днів — «Понеділок», «Вівторок» тощо — можна оголосити константою). Дозволяється заповнити температури наперед у коді; введення з клавіатури з валідацією можна продемонструвати окремим пунктом меню — наприклад, зміна температури обраного дня.</p>
+<p><strong>Обов'язкові операції:</strong>
+- обчислення середньої температури за тиждень;
+- пошук дня з максимальною та мінімальною температурою (з виведенням назви дня, а не лише індексу);
+- визначення «аномальних» днів — тих, де температура виходить за межі діапазону [середня − 5, середня + 5], з виведенням списку таких днів;
+- виведення списку «День — Температура» з позначкою (наприклад, зірочкою <code>*</code>) біля аномальних днів; оформлення у вигляді вирівняної таблиці не обов'язкове, але вітається.</p>
+<p><strong>Граничний випадок для обробки:</strong> усі 7 температур однакові — середнє дорівнює кожному значенню, аномальних днів немає; програма не повинна помилково позначати жоден день як аномальний.</p>
+<h3 id="6">Варіант 6. Гра «Вгадай число»<a class="headerlink" href="#6" title="Permanent link">&para;</a></h3>
+<p><strong>Вхідні дані:</strong> відсутні на старті — число для вгадування генерується програмою випадково (<code>Random</code>, діапазон 1–100), гравець вводить свої спроби.</p>
+<p><strong>Обов'язкові операції:</strong>
+- цикл введення спроб із підказкою «більше»/«менше» після кожної невдалої спроби;
+- підрахунок кількості спроб до вгадування числа за одну гру;
+- обмеження максимальної кількості спроб (наприклад, 10) — якщо гравець не вгадав за цю кількість, гра завершується повідомленням із показом загаданого числа;
+- збереження результатів (кількість спроб) кожної зіграної партії за сеанс роботи програми в масиві/списку та виведення статистики (найкращий результат — мінімальна кількість спроб, середня кількість спроб) окремим пунктом меню.</p>
+<p><strong>Граничний випадок для обробки:</strong> перша ж спроба гравця виявляється правильною — статистика має коректно зафіксувати результат «1 спроба», а не пропустити цю партію через відсутність невдалих спроб.</p>
+<h2 id="_7">Вимоги до звіту<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>Звіт з практичної роботи оформлюється у вигляді документа (PDF/DOCX) та має містити:</p>
+<ul>
+<li>тему, мету та номер варіанта завдання;</li>
+<li>короткий опис реалізованого функціоналу;</li>
+<li>посилання на репозиторій (GitHub/GitLab) з кодом проєкту та історією комітів;</li>
+<li>знімки екрана (консоль) з демонстрацією роботи програми, у т.ч. обробки граничного випадку свого варіанта;</li>
+<li>висновки (2–4 речення) щодо отриманих результатів та труднощів виконання.</li>
+</ul>
+<h2 id="_8">Контрольні питання<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Чим відрізняються value type та reference type в C#? Наведіть приклади.</li>
+<li>У чому різниця між switch statement та switch expression?</li>
+<li>Як коректно обробити некоректне введення користувача без аварійного завершення програми?</li>
+<li>Які переваги виокремлення логіки в окремі методи порівняно з кодом в Main?</li>
+<li>Як передаються масиви у методи — за значенням чи за посиланням?</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Повернутись нагору
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.top", "navigation.indexes", "content.code.copy", "toc.integrate", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
