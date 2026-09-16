@@ -34,6 +34,11 @@ coverage/
 # User secrets / local config overrides
 appsettings.Development.json
 *.local.json
+.mcp.json
 
 # MkDocs build output
 site/
+
+# Custom
+.docs/
+CLAUDE.MD
