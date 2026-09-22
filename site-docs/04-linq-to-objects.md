@@ -1,1 +1,0 @@
---8<-- "04-linq-to-objects/README.md"

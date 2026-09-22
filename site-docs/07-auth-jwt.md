@@ -1,1 +1,0 @@
---8<-- "07-auth-jwt/README.md"

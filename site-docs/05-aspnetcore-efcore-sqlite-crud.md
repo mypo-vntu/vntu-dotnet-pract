@@ -1,1 +1,0 @@
---8<-- "05-aspnetcore-efcore-sqlite-crud/README.md"
