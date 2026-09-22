@@ -45,4 +45,5 @@ markdown_extensions:
 nav:
   - Головна: index.md
   - Налаштування середовища: 00-setup.md
-  - "ПР1. C# основи": 01-csharp-basics.md
+  - Практичні роботи: practs.md
+  - Лекції: lectures.md

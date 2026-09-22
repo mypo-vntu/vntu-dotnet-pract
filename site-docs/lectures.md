@@ -1,0 +1,1 @@
+--8<-- "lectures/README.md"
