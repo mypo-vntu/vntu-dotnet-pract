@@ -1,0 +1,1 @@
+--8<-- "practs/04-linq-to-objects/README.md"

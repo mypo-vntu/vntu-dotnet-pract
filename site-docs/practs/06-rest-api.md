@@ -1,0 +1,1 @@
+--8<-- "practs/06-rest-api/README.md"

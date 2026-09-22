@@ -1,0 +1,1 @@
+--8<-- "practs/03-generics-delegates-events/README.md"

@@ -45,5 +45,14 @@ markdown_extensions:
 nav:
   - Головна: index.md
   - Налаштування середовища: 00-setup.md
-  - Практичні роботи: practs.md
+  - Практичні роботи:
+      - practs.md
+      - "ПР1. C# основи": practs/01-csharp-basics.md
+      - "ПР2. ООП та виключення": practs/02-oop-exceptions.md
+      - "ПР3. Генерики, делегати, події": practs/03-generics-delegates-events.md
+      - "ПР4. LINQ to Objects": practs/04-linq-to-objects.md
+      - "ПР5. ASP.NET Core + EF Core + SQLite": practs/05-aspnetcore-efcore-sqlite-crud.md
+      - "ПР6. REST API": practs/06-rest-api.md
+      - "ПР7. Автентифікація та авторизація (JWT)": practs/07-auth-jwt.md
+      - "ПР8. Архітектура та тестування": practs/08-architecture-testing.md
   - Лекції: lectures.md
