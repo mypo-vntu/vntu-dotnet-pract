@@ -50,8 +50,8 @@
 |---|---|---|
 | 1 | Базові конструкції C# | [01-csharp-basics](./01-csharp-basics) |
 | 2 | ООП та обробка виключень | [02-oop-exceptions](./02-oop-exceptions) |
-| 3 | Узагальнення, делегати, події та лямбда-вирази (WIP) | [03-generics-delegates-events](./03-generics-delegates-events) |
-| 4 | LINQ to Objects (WIP) | [04-linq-to-objects](./04-linq-to-objects) |
+| 3 | **(WIP)** Узагальнення, делегати, події та лямбда-вирази | [03-generics-delegates-events](./03-generics-delegates-events) |
+| 4 | **(WIP)** LINQ to Objects | [04-linq-to-objects](./04-linq-to-objects) |
 
 ## Модуль 2 — наскрізний Web API мікропроєкт
 
@@ -59,7 +59,7 @@
 
 | № | Тема | Посилання |
 |---|---|---|
-| 5 | Основи ASP.NET Core, EF Core та SQLite: перший CRUD Web API (WIP) | [05-aspnetcore-efcore-sqlite-crud](./05-aspnetcore-efcore-sqlite-crud) |
-| 6 | Проєктування та розробка REST API (WIP) | [06-rest-api](./06-rest-api) |
-| 7 | Автентифікація та авторизація (JWT) (WIP) | [07-auth-jwt](./07-auth-jwt) |
-| 8 | Архітектурні патерни та тестування (WIP) | [08-architecture-testing](./08-architecture-testing) |
+| 5 | **(WIP)** Основи ASP.NET Core, EF Core та SQLite: перший CRUD Web API | [05-aspnetcore-efcore-sqlite-crud](./05-aspnetcore-efcore-sqlite-crud) |
+| 6 | **(WIP)** Проєктування та розробка REST API | [06-rest-api](./06-rest-api) |
+| 7 | **(WIP)** Автентифікація та авторизація (JWT) | [07-auth-jwt](./07-auth-jwt) |
+| 8 | **(WIP)** Архітектурні патерни та тестування | [08-architecture-testing](./08-architecture-testing) |
