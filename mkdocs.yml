@@ -27,7 +27,7 @@ theme:
     - navigation.top
     - navigation.indexes
     - content.code.copy
-    - toc.integrate
+    - toc.follow
     - search.suggest
 
 markdown_extensions:
