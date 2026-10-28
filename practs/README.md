@@ -51,7 +51,7 @@
 | 1 | Базові конструкції C# | [01-csharp-basics](./01-csharp-basics) |
 | 2 | ООП та обробка виключень | [02-oop-exceptions](./02-oop-exceptions) |
 | 3 | **(WIP)** Узагальнення, делегати, події та лямбда-вирази | [03-generics-delegates-events](./03-generics-delegates-events) |
-| 4 | **(WIP)** LINQ to Objects | [04-linq-to-objects](./04-linq-to-objects) |
+| 4 | **(WIP)** LINQ to Objects та асинхронне програмування | [04-linq-async](./04-linq-async) |
 
 ## Модуль 2 — наскрізний Web API мікропроєкт
 

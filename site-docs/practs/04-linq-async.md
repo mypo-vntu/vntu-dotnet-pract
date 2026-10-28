@@ -1,0 +1,1 @@
+--8<-- "practs/04-linq-async/README.md"
