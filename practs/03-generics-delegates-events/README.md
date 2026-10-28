@@ -2,69 +2,290 @@
 
 > ⚠️ **WIP** — матеріал ще в розробці, зміст може змінюватись.
 
-**Модуль:** 1 — огляд та повторення C#
-**Тип застосунку:** консольний (.NET, Console App)
-**Обсяг:** 2 год аудиторних + СРС
-
 ## Мета роботи
 
-Навчитися застосовувати узагальнені (generic) типи та методи, делегати (у т.ч. вбудовані `Func`/`Action`/`Predicate`), лямбда-вирази та механізм подій для побудови гнучкого та повторно використовуваного коду.
+Навчитися писати власні узагальнені (generic) класи та методи з обмеженнями типів, передавати поведінку як параметр через делегати (`Func`/`Action`/`Predicate`) і лямбда-вирази, а також організовувати сповіщення між об'єктами через події (`event`) за стандартним шаблоном .NET.
 
 ## Загальні завдання (обов'язкові для будь-якого варіанта)
 
-- Створити консольний проєкт (.NET 10, Console App) у Visual Studio / Rider / VS Code з назвою виду `Lab3_<Прізвище>`.
-- Реалізувати власний узагальнений клас (`class Repository<T>`, `class Stack<T>` тощо — конкретна структура задана варіантом), за потреби — з обмеженням типу (`where T : ...`).
-- Реалізувати узагальнений метод, що приймає делегат (`Func<T, bool>`/`Predicate<T>`/`Func<T, TResult>`) як параметр для фільтрації/порівняння/трансформації даних.
-- Реалізувати сценарій з подією (`event`) та власним класом `EventArgs` (успадкованим від `EventArgs`): подія має нести змістовну інформацію про те, що сталося (а не бути «порожньою»), і мати щонайменше 2 підписники-обробники.
-- Продемонструвати використання лямбда-виразів та вбудованих делегатів `Func<>`, `Action<>`, `Predicate<>` для заміни звичайних іменованих методів у щонайменше 3 місцях коду.
-- Порівняти у звіті реалізацію одного й того самого фрагменту логіки «класичним» іменованим методом і лямбда-виразом.
-- **Виняток щодо вводу:** початкові дані узагальненої структури дозволяється заповнити наперед у коді (кілька викликів `Add`/`Push` у `Main`), а не вводити все з клавіатури; при цьому в меню має бути пункт, що додає новий елемент через введення з клавіатури з валідацією (`TryParse` для числових полів) — саме ця дія й повинна викликати подію варіанта (наприклад, додавання елемента понад ліміт викликає `OnOverflow`).
-- Реалізувати вивід результатів у зручному для читання вигляді. Табличний вивід з вирівнюванням стовпців не є обов'язковим, але вітається.
+- Створити консольний проєкт (.NET 10, Console App).
+- Реалізувати узагальнений клас, заданий варіантом, з обмеженням типу-параметра (`where T : ...`).
+- Реалізувати щонайменше один узагальнений метод, що приймає делегат (`Func<...>`, `Action<...>` або `Predicate<T>`) як параметр.
+- Реалізувати подію за стандартним шаблоном .NET: власний клас-нащадок `EventArgs` зі змістовними даними, `event EventHandler<TEventArgs>`, захищений метод `OnXxx` з викликом `?.Invoke`. Подія має щонайменше 2 підписники; хоча б один з них — іменований метод, хоча б один — лямбда-вираз.
+- Використати лямбда-вирази замість іменованих методів щонайменше в 3 місцях коду (критерії пошуку, селектори, обробники подій тощо).
+- **Виняток щодо вводу:** початкові дані дозволяється заповнити наперед у коді (кілька викликів `Add`/`Enqueue` у `Main`), а не вводити все з клавіатури. При цьому в меню має бути пункт, що вводить нові дані з клавіатури з валідацією (`TryParse` для числових полів), і саме ця дія спричиняє подію варіанта.
+- Реалізувати вивід результатів у зручному для читання вигляді.
 - Передбачити просте меню (цикл із вибором пункту), що дозволяє повторювати дії без перезапуску програми, аж до вибору пункту «Вихід».
 
-## Теоретичні відомості (стисло)
+## Теоретичні відомості
 
-Узагальнені типи та методи, обмеження типів-параметрів (`where T : ...`), делегати як типобезпечні вказівники на методи, багатоадресні делегати (multicast), вбудовані делегати `Func`/`Action`/`Predicate`, події (`event`) як обгортка над делегатом, лямбда-вирази та замикання (closures).
+Нижче — засоби мови C#, які знадобляться в цій роботі (докладніше про кожен — за посиланням на MS Learn). Матеріал розгорнуто викладено в лекції 5; тут лише те, що потрібно для варіантів.
 
-## Довідник: обов'язкові до використання методи та ключові слова
+### Узагальнення (generics)
 
-| Ключове слово / конструкція | Коротко про призначення | Посилання (MS Learn) |
+**Узагальнений клас (`class Name<T>`)** — клас, у якому тип даних є параметром: код пишеться один раз, а конкретний тип підставляється під час створення об'єкта (`new Box<decimal>(99.90m)`). Компілятор перевіряє типи так само суворо, як і для звичайного класу, а для value type (`int`, `decimal`) не відбувається boxing. Параметрів-типів може бути кілька, за конвенцією їх імена починаються з `T` (знадобиться в усіх варіантах; у варіанті 1 — два параметри, `TKey` і `TValue`):
+
+```csharp
+public class Box<T>
+{
+    private readonly T _value;
+
+    public Box(T value) => _value = value;
+
+    public T Get() => _value;
+}
+
+var price = new Box<decimal>(99.90m);
+var name = new Box<string>("Кава");
+```
+[learn.microsoft.com/dotnet/csharp/fundamentals/types/generics](https://learn.microsoft.com/dotnet/csharp/fundamentals/types/generics)
+
+**Узагальнений метод (`void Name<T>(...)`)** — метод зі своїм параметром-типом; може бути і в звичайному, і в узагальненому класі. Зазвичай тип-аргумент не вказують явно: компілятор виводить його з аргументів (type inference):
+
+```csharp
+public static void Swap<T>(ref T a, ref T b)
+{
+    (a, b) = (b, a);
+}
+
+int x = 1, y = 2;
+Swap(ref x, ref y); // T = int виведено автоматично
+```
+[learn.microsoft.com/dotnet/csharp/programming-guide/generics/generic-methods](https://learn.microsoft.com/dotnet/csharp/programming-guide/generics/generic-methods)
+
+**Обмеження типу-параметра (`where T : ...`)** — без обмежень про `T` компілятор знає лише те, що це `object`, тому викликати в нього `Quantity` чи `CompareTo` неможливо. Обмеження повідомляє, що вміє тип `T`, і відкриває доступ до відповідних членів. Найуживаніші обмеження:
+
+| Обмеження | Значення | Де знадобиться |
 |---|---|---|
-| Узагальнені класи (`class Repository<T>`) | Клас, що працює з довільним типом `T`, який задається під час використання — уникає дублювання коду для кожного конкретного типу | https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/generics |
-| Обмеження типу `where T : ...` | Звужує допустимі типи для `T` (наприклад, `where T : class` або `where T : IComparable<T>`), відкриваючи доступ до членів обмеження всередині узагальненого коду | https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/where-generic-type-constraint |
-| `delegate` | Тип, що описує сигнатуру методу — змінна такого типу може «вказувати» на будь-який метод з відповідною сигнатурою | https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/reference-types#the-delegate-type |
-| `Func<T, TResult>` | Вбудований делегат для методу, що приймає параметр(и) та повертає значення — типовий вибір для «трансформації» або «обчислення» | https://learn.microsoft.com/en-us/dotnet/api/system.func-2 |
-| `Action<T>` | Вбудований делегат для методу, що приймає параметр(и), але нічого не повертає (`void`) — типовий вибір для «виконати дію» | https://learn.microsoft.com/en-us/dotnet/api/system.action-1 |
-| `Predicate<T>` | Вбудований делегат для методу, що приймає один параметр і повертає `bool` — типовий вибір для умови фільтрації/пошуку | https://learn.microsoft.com/en-us/dotnet/api/system.predicate-1 |
-| `event` | Особлива «обгортка» над делегатом: зовнішній код може лише підписатися (`+=`) чи відписатися (`-=`), але не може викликати подію напряму чи «обнулити» список підписників — це і є інкапсуляція механізму сповіщень | https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/events/ |
-| `EventArgs` (власний клас-нащадок) | Базовий клас .NET для передачі додаткових даних разом з подією; власний клас-нащадок додає свої поля (наприклад, значення, що спричинило подію) | https://learn.microsoft.com/en-us/dotnet/api/system.eventargs |
-| Лямбда-вирази (`(x) => x * 2`) | Компактний спосіб оголосити анонімний метод «на місці», без окремого іменованого методу — часто передається як аргумент делегатного параметра | https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/lambda-expressions |
-| Замикання (closures) | Лямбда-вираз чи анонімний метод може «захопити» (використати) змінну з зовнішньої області видимості — варто розуміти, як це працює під час перебору в циклі | https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/anonymous-methods |
-| `List<T>` | Узагальнена колекція зі змінним розміром — типова основа для власної узагальненої структури даних із завдання | https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 |
+| `where T : class` | лише reference type | варіанти 3, 4 |
+| `where T : notnull` | будь-який тип, що не допускає `null` | варіант 1 (ключ словника) |
+| `where T : IInterface` | тип реалізує інтерфейс, отже має його члени | варіант 2 |
+| `where T : new()` | тип має публічний конструктор без параметрів (пишеться останнім) | — |
+
+Обмеження можна комбінувати через кому:
+
+```csharp
+public interface IHasTitle
+{
+    string Title { get; }
+}
+
+public class Catalog<T> where T : class, IHasTitle
+{
+    private readonly List<T> _items = new();
+
+    public void Add(T item) => _items.Add(item);
+
+    // Title доступний лише завдяки обмеженню IHasTitle
+    public T? FindByTitle(string title) => _items.Find(x => x.Title == title);
+}
+```
+[learn.microsoft.com/dotnet/csharp/language-reference/keywords/where-generic-type-constraint](https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/where-generic-type-constraint)
+
+### Делегати
+
+**`delegate`** — тип, що описує сигнатуру методу; змінна такого типу зберігає посилання на будь-який метод з відповідною сигнатурою і дозволяє передати *поведінку* як параметр. Метод фіксує алгоритм, а змінну частину отримує ззовні — саме так влаштовані `List<T>.Sort`, `List<T>.Find` і всі оператори LINQ (наступна робота):
+
+```csharp
+public delegate decimal PriceRule(decimal price);
+
+static decimal Discount10(decimal price) => price * 0.9m;
+
+PriceRule rule = Discount10;
+Console.WriteLine(rule(200m)); // 180
+```
+[learn.microsoft.com/dotnet/csharp/programming-guide/delegates](https://learn.microsoft.com/dotnet/csharp/programming-guide/delegates)
+
+**Вбудовані делегати `Func`, `Action`, `Predicate`** — у сучасному коді власні типи делегатів оголошують рідко, бо BCL уже має узагальнені делегати майже на будь-яку сигнатуру (потрібні в усіх варіантах):
+
+| Делегат | Сигнатура | Призначення | Приклад |
+|---|---|---|---|
+| `Action<T1, ...>` | 0–16 параметрів, повертає `void` | виконати дію | `Action<string> print = Console.WriteLine;` |
+| `Func<T1, ..., TResult>` | 0–16 параметрів, **останній** тип — результат | обчислити значення | `Func<decimal, decimal> addVat = p => p * 1.2m;` |
+| `Predicate<T>` | один параметр, повертає `bool` | перевірити умову | `Predicate<int> isEven = n => n % 2 == 0;` |
+
+`Predicate<T>` за змістом тотожний `Func<T, bool>`, але це різні типи: старі методи `List<T>` (`Find`, `FindAll`, `RemoveAll`) приймають `Predicate<T>`, а LINQ — `Func<T, bool>`.
+
+[learn.microsoft.com/dotnet/api/system.func-2](https://learn.microsoft.com/dotnet/api/system.func-2) · [learn.microsoft.com/dotnet/api/system.action-1](https://learn.microsoft.com/dotnet/api/system.action-1) · [learn.microsoft.com/dotnet/api/system.predicate-1](https://learn.microsoft.com/dotnet/api/system.predicate-1)
+
+**Багатоадресні (multicast) делегати** — делегат може зберігати список методів; `+=` додає метод до списку виклику, `-=` прибирає. Під час виклику методи виконуються по черзі. Якщо делегат повертає значення, результатом буде значення лише останнього методу, тому multicast зазвичай використовують з `void`. На багатоадресності побудовані події:
+
+```csharp
+Action<string> log = Console.WriteLine;
+log += msg => File.AppendAllText("log.txt", msg + Environment.NewLine);
+
+log("Замовлення створено"); // виконаються обидва методи
+```
+[learn.microsoft.com/dotnet/csharp/programming-guide/delegates/how-to-combine-delegates-multicast-delegates](https://learn.microsoft.com/dotnet/csharp/programming-guide/delegates/how-to-combine-delegates-multicast-delegates)
+
+### Лямбда-вирази та замикання
+
+**Лямбда-вираз (`x => x * 2`)** — анонімний метод, записаний прямо в місці використання; компілятор перетворює його на екземпляр делегата потрібного типу. Після `=>` може бути один вираз (без `return`) або блок у фігурних дужках (з `return`, якщо є результат). Лямбда зручна для коротких одноразових умов; складну або повторно використовувану логіку краще залишити окремим іменованим методом:
+
+```csharp
+Func<int, int, int> add = (a, b) => a + b;   // кілька параметрів
+Action hello = () => Console.WriteLine("Hi"); // без параметрів
+Func<decimal, decimal, decimal> safeDiv = (a, b) =>
+{
+    if (b == 0)
+    {
+        throw new DivideByZeroException();
+    }
+
+    return a / b;
+};
+```
+[learn.microsoft.com/dotnet/csharp/language-reference/operators/lambda-expressions](https://learn.microsoft.com/dotnet/csharp/language-reference/operators/lambda-expressions)
+
+**Замикання (closure)** — лямбда може використовувати локальні змінні зовнішнього методу. Вона захоплює **саму змінну, а не її значення** на момент створення: якщо змінну згодом змінити, лямбда побачить нове значення. На цьому побудовані пункти меню у варіантах 1, 3 і 4, де умову, передану в метод, налаштовує користувач:
+
+```csharp
+int minAge = 18;
+Predicate<int> isAllowed = age => age >= minAge;
+
+minAge = 21;
+Console.WriteLine(isAllowed(19)); // False — використано поточне значення 21
+```
+
+Типова пастка — захоплення змінної циклу `for`: у циклі існує **одна** змінна `i`, тому всі лямбди бачать її кінцеве значення. Виправлення — локальна копія в тілі циклу (у `foreach` змінна створюється заново на кожній ітерації, тож там проблеми немає):
+
+```csharp
+var actions = new List<Action>();
+
+for (int i = 0; i < 3; i++)
+{
+    actions.Add(() => Console.Write(i + " ")); // виведе: 3 3 3
+}
+
+for (int i = 0; i < 3; i++)
+{
+    int copy = i;
+    actions.Add(() => Console.Write(copy + " ")); // виведе: 0 1 2
+}
+```
+[learn.microsoft.com/dotnet/csharp/language-reference/operators/lambda-expressions#capture-of-outer-variables-and-variable-scope-in-lambda-expressions](https://learn.microsoft.com/dotnet/csharp/language-reference/operators/lambda-expressions#capture-of-outer-variables-and-variable-scope-in-lambda-expressions)
+
+### Події
+
+**`event`** — механізм, яким об'єкт-видавець сповіщає підписників про те, що щось сталося, не знаючи, хто вони (патерн «Спостерігач»). Технічно подія — обгортка над multicast-делегатом. Від публічного поля-делегата її відрізняє інкапсуляція: ззовні класу дозволено лише `+=` і `-=`, а викликати подію чи стерти всіх підписників може тільки клас-власник:
+
+```csharp
+public class Thermostat
+{
+    public Action<double>? TemperatureChangedField;            // поле: будь-хто може викликати чи обнулити
+    public event EventHandler<TemperatureEventArgs>? TemperatureChanged; // подія: ззовні лише += і -=
+}
+
+thermostat.TemperatureChangedField = null;      // компілюється — підписників стерто
+thermostat.TemperatureChanged = null;           // помилка компіляції
+thermostat.TemperatureChanged?.Invoke(...);     // помилка компіляції поза класом
+```
+[learn.microsoft.com/dotnet/csharp/programming-guide/events](https://learn.microsoft.com/dotnet/csharp/programming-guide/events)
+
+**`EventArgs` та `EventHandler<TEventArgs>`** — за конвенцією .NET обробник події має сигнатуру `(object? sender, TEventArgs e)`: `sender` — хто спричинив подію, `e` — дані про те, що сталося. Дані передаються власним класом-нащадком `EventArgs`, а тип події — вбудований делегат `EventHandler<TEventArgs>`. Клас `EventArgs` теж може бути узагальненим, якщо подія належить узагальненому класу (варіанти 1 і 4):
+
+```csharp
+public class TemperatureEventArgs : EventArgs
+{
+    public double OldValue { get; }
+    public double NewValue { get; }
+
+    public TemperatureEventArgs(double oldValue, double newValue)
+    {
+        OldValue = oldValue;
+        NewValue = newValue;
+    }
+}
+```
+[learn.microsoft.com/dotnet/standard/events](https://learn.microsoft.com/dotnet/standard/events) · [learn.microsoft.com/dotnet/api/system.eventhandler-1](https://learn.microsoft.com/dotnet/api/system.eventhandler-1)
+
+**Метод `OnXxx` і безпечний виклик `?.Invoke`** — клас-видавець не викликає подію напряму в кожному місці, а робить це через захищений віртуальний метод `OnXxx` (нащадки можуть його перевизначити). Подія без жодного підписника дорівнює `null`, тому виклик іде через `?.Invoke` — інакше за відсутності підписників буде `NullReferenceException`:
+
+```csharp
+protected virtual void OnTemperatureChanged(TemperatureEventArgs e)
+{
+    TemperatureChanged?.Invoke(this, e);
+}
+```
+
+**Відписка (`-=`)** — підписник, якому сповіщення більше не потрібні, відписується через `-=`. Відписатися від лямбди, записаної прямо в `-=`, неможливо: кожен запис лямбди створює *новий* делегат, тож нічого не буде прибрано. Щоб мати змогу відписатися, лямбду зберігають у змінну або використовують іменований метод. Варто пам'ятати й про те, що видавець тримає посилання на підписника, тому підписка довгоживучого видавця на короткоживучий об'єкт без відписки заважає GC звільнити пам'ять.
+
+[learn.microsoft.com/dotnet/csharp/programming-guide/events/how-to-subscribe-to-and-unsubscribe-from-events](https://learn.microsoft.com/dotnet/csharp/programming-guide/events/how-to-subscribe-to-and-unsubscribe-from-events)
+
+### Колекції
+
+Узагальнений клас варіанта зберігає дані у вбудованих узагальнених колекціях. Крім знайомого з ПР №1–2 `List<T>`, знадобляться:
+
+**`Dictionary<TKey, TValue>`** — колекція пар «ключ → значення» зі швидким пошуком за ключем; ключ не може бути `null` і має бути унікальним (варіант 1 — значення кешу):
+
+```csharp
+var stock = new Dictionary<string, int> { ["A-100"] = 12 };
+
+if (stock.TryGetValue("A-100", out int quantity))
+{
+    Console.WriteLine(quantity); // 12
+}
+```
+[learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2](https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2)
+
+**`Queue<T>`** — черга за принципом FIFO («першим прийшов — першим обслужений»): `Enqueue` додає елемент у кінець, `Dequeue` забирає з початку, `TryDequeue` робить те саме без винятку на порожній черзі (варіант 4):
+
+```csharp
+var queue = new Queue<string>();
+queue.Enqueue("перше");
+queue.Enqueue("друге");
+
+if (queue.TryDequeue(out string? next))
+{
+    Console.WriteLine(next); // перше
+}
+```
+[learn.microsoft.com/dotnet/api/system.collections.generic.queue-1](https://learn.microsoft.com/dotnet/api/system.collections.generic.queue-1)
 
 ## Приклади коду (для орієнтиру — не є готовим розв'язком варіанта)
+
+Наведені фрагменти ілюструють технічні прийоми, потрібні для роботи, на нейтральному прикладі (список нотаток); конкретні класи й логіку свого варіанта студент розробляє самостійно.
 
 ### 1. Узагальнений клас з обмеженням типу
 
 ```csharp
-public class Repository<T> where T : class
+public interface IHasTitle
+{
+    string Title { get; }
+}
+
+public class Note : IHasTitle
+{
+    public string Title { get; }
+    public string Text { get; }
+
+    public Note(string title, string text)
+    {
+        Title = title;
+        Text = text;
+    }
+}
+
+public class ObservableList<T> where T : class, IHasTitle
 {
     private readonly List<T> _items = new();
 
-    public IReadOnlyList<T> Items => _items;
+    public int Count => _items.Count;
 
     public void Add(T item) => _items.Add(item);
 }
 ```
 
-### 2. Узагальнений метод, що приймає делегат для фільтрації
+### 2. Узагальнені методи з параметром-делегатом
+
+`Predicate<T>` — для умови, `Action<T>` — для дії над кожним елементом, `Func<T, TResult>` — для обчислення значення з елемента. Метод не знає, *яку саме* умову чи дію йому передадуть, — тому один метод обслуговує будь-яку кількість сценаріїв:
 
 ```csharp
-public static List<T> FindAll<T>(IEnumerable<T> source, Predicate<T> match)
+public List<T> FindAll(Predicate<T> match)
 {
     var result = new List<T>();
 
-    foreach (T item in source)
+    foreach (T item in _items)
     {
         if (match(item))
         {
@@ -75,173 +296,454 @@ public static List<T> FindAll<T>(IEnumerable<T> source, Predicate<T> match)
     return result;
 }
 
-// Виклик з лямбда-виразом замість окремого іменованого методу:
-var cheapItems = FindAll(products, p => p.Price < 100);
-```
-
-### 3. Подія з власним класом `EventArgs`
-
-```csharp
-public class ItemAddedEventArgs : EventArgs
+public void ForEach(Action<T> action)
 {
-    public string ItemName { get; }
-    public DateTime AddedAt { get; }
-
-    public ItemAddedEventArgs(string itemName)
+    foreach (T item in _items)
     {
-        ItemName = itemName;
-        AddedAt = DateTime.Now;
+        action(item);
     }
 }
 
-public class ObservableRepository<T>
+public int SumBy(Func<T, int> selector)
+{
+    int sum = 0;
+
+    foreach (T item in _items)
+    {
+        sum += selector(item);
+    }
+
+    return sum;
+}
+
+// Виклики з різними лямбда-виразами:
+List<Note> shopping = notes.FindAll(n => n.Title.StartsWith("Покуп"));
+notes.ForEach(n => Console.WriteLine(n.Title));
+int totalLength = notes.SumBy(n => n.Text.Length);
+```
+
+### 3. Замикання: умова, яку налаштовує користувач
+
+Лямбда захоплює змінну `maxLength`, тому після зміни змінної (наприклад, з пункту меню) той самий делегат працює з новим значенням — його не треба створювати заново:
+
+```csharp
+int maxLength = 20;
+Predicate<Note> isShort = n => n.Text.Length <= maxLength;
+
+Console.WriteLine(notes.FindAll(isShort).Count);
+
+maxLength = 5; // нове значення введено користувачем
+Console.WriteLine(notes.FindAll(isShort).Count); // результат уже інший
+```
+
+### 4. Подія за стандартним шаблоном .NET
+
+```csharp
+// 1. Дані події — узагальнений клас-нащадок EventArgs
+public class ItemAddedEventArgs<T> : EventArgs
+{
+    public T Item { get; }
+    public int TotalCount { get; }
+
+    public ItemAddedEventArgs(T item, int totalCount)
+    {
+        Item = item;
+        TotalCount = totalCount;
+    }
+}
+
+// 2. Видавець: оголошує подію і спричиняє її через OnItemAdded
+public class ObservableList<T> where T : class, IHasTitle
 {
     private readonly List<T> _items = new();
 
-    // event — зовнішній код може лише підписатись/відписатись, не викликати напряму
-    public event EventHandler<ItemAddedEventArgs>? ItemAdded;
+    public event EventHandler<ItemAddedEventArgs<T>>? ItemAdded;
 
-    public void Add(T item, string displayName)
+    public void Add(T item)
     {
         _items.Add(item);
-        ItemAdded?.Invoke(this, new ItemAddedEventArgs(displayName));
+        OnItemAdded(new ItemAddedEventArgs<T>(item, _items.Count));
+    }
+
+    protected virtual void OnItemAdded(ItemAddedEventArgs<T> e) => ItemAdded?.Invoke(this, e);
+}
+```
+
+### 5. Підписка кількох обробників і відписка
+
+```csharp
+var notes = new ObservableList<Note>();
+int addedCount = 0;
+
+// Підписник 1 — іменований метод
+notes.ItemAdded += LogItemAdded;
+
+// Підписник 2 — лямбда, збережена в змінну, щоб потім можна було відписатися
+EventHandler<ItemAddedEventArgs<Note>> counter = (sender, e) => addedCount++;
+notes.ItemAdded += counter;
+
+notes.Add(new Note("Покупки", "Хліб")); // спрацюють обидва обробники
+
+notes.ItemAdded -= counter;             // відписка: лічильник більше не реагує
+notes.Add(new Note("Ідеї", "..."));     // спрацює лише LogItemAdded
+
+static void LogItemAdded(object? sender, ItemAddedEventArgs<Note> e)
+{
+    Console.WriteLine($"Додано «{e.Item.Title}», усього: {e.TotalCount}");
+}
+```
+
+### 6. Порівняння іменованого методу та лямбда-виразу (для звіту)
+
+```csharp
+// Іменований метод: зручний, коли логіка складна або потрібна в кількох місцях
+static bool IsShoppingNote(Note n) => n.Title.StartsWith("Покуп");
+List<Note> result1 = notes.FindAll(IsShoppingNote);
+
+// Той самий критерій лямбда-виразом — логіка там, де вона використовується
+List<Note> result2 = notes.FindAll(n => n.Title.StartsWith("Покуп"));
+```
+
+### 7. Повний скелет програми — як усе з'єднати разом
+
+Попередні приклади показували окремі прийоми; тут вони зібрані в один робочий (компільований) файл `Program.cs`, щоб було видно, як узагальнений клас, делегати, подія та меню стикуються між собою. Сценарій навмисно нейтральний (список нотаток) — це **не** розв'язок жодного варіанта, а каркас, який треба наповнити класами й операціями свого варіанта. Написано без top-level statements — рекомендовано не вмикати цю опцію при створенні проєкту.
+
+```csharp
+interface IHasTitle
+{
+    string Title { get; }
+}
+
+class Note : IHasTitle
+{
+    public string Title { get; }
+    public string Text { get; }
+
+    public Note(string title, string text)
+    {
+        Title = title;
+        Text = text;
+    }
+}
+
+class ItemAddedEventArgs<T> : EventArgs
+{
+    public T Item { get; }
+    public int TotalCount { get; }
+
+    public ItemAddedEventArgs(T item, int totalCount)
+    {
+        Item = item;
+        TotalCount = totalCount;
+    }
+}
+
+class ObservableList<T> where T : class, IHasTitle
+{
+    private readonly List<T> _items = new();
+
+    public event EventHandler<ItemAddedEventArgs<T>>? ItemAdded;
+
+    public int Count => _items.Count;
+
+    public void Add(T item)
+    {
+        _items.Add(item);
+        OnItemAdded(new ItemAddedEventArgs<T>(item, _items.Count));
+    }
+
+    public List<T> FindAll(Predicate<T> match)
+    {
+        var result = new List<T>();
+
+        foreach (T item in _items)
+        {
+            if (match(item))
+            {
+                result.Add(item);
+            }
+        }
+
+        return result;
+    }
+
+    public void ForEach(Action<T> action)
+    {
+        foreach (T item in _items)
+        {
+            action(item);
+        }
+    }
+
+    protected virtual void OnItemAdded(ItemAddedEventArgs<T> e) => ItemAdded?.Invoke(this, e);
+}
+
+class Program
+{
+    static void Main()
+    {
+        // === 1. Узагальнена колекція, заповнена наперед у коді ===
+        var notes = new ObservableList<Note>();
+        notes.Add(new Note("Покупки", "Хліб, молоко"));
+        notes.Add(new Note("Навчання", "Дочитати лекцію 5"));
+
+        // === 2. Підписники на подію (після початкового заповнення, щоб не засмічувати вивід) ===
+        int addedThisSession = 0;
+
+        notes.ItemAdded += LogItemAdded;                       // підписник 1 — іменований метод
+        notes.ItemAdded += (sender, e) => addedThisSession++;  // підписник 2 — лямбда із замиканням
+
+        // === 3. Головний цикл меню ===
+        bool isRunning = true;
+
+        while (isRunning)
+        {
+            Console.WriteLine("\n=== Меню ===");
+            Console.WriteLine("0. Вихід");
+            Console.WriteLine("1. Додати нотатку");
+            Console.WriteLine("2. Показати всі нотатки");
+            Console.WriteLine("3. Знайти нотатки за словом у назві");
+
+            int choice = ReadInt("Ваш вибір: ", 0, 3);
+
+            isRunning = choice switch
+            {
+                1 => HandleAdd(notes),
+                2 => HandleShowAll(notes),
+                3 => HandleFind(notes),
+                0 => false,
+                _ => true // сюди потрапити неможливо: ReadInt уже обмежив ввід діапазоном 0-3
+            };
+        }
+
+        Console.WriteLine($"Роботу завершено. Додано за сеанс: {addedThisSession}.");
+    }
+
+    // === 4. Обробник події — іменований метод ===
+
+    static void LogItemAdded(object? sender, ItemAddedEventArgs<Note> e)
+    {
+        Console.WriteLine($"[подія] Додано «{e.Item.Title}», усього нотаток: {e.TotalCount}.");
+    }
+
+    // === 5. Методи для кожного пункту меню ===
+
+    static bool HandleAdd(ObservableList<Note> notes)
+    {
+        string title = ReadNonEmpty("Назва: ");
+        string text = ReadNonEmpty("Текст: ");
+        notes.Add(new Note(title, text)); // саме тут спричиняється подія ItemAdded
+        return true;
+    }
+
+    static bool HandleShowAll(ObservableList<Note> notes)
+    {
+        if (notes.Count == 0)
+        {
+            Console.WriteLine("Немає даних.");
+            return true;
+        }
+
+        // Action<T> — лямбда замість окремого методу виведення
+        notes.ForEach(n => Console.WriteLine($"- {n.Title}: {n.Text}"));
+        return true;
+    }
+
+    static bool HandleFind(ObservableList<Note> notes)
+    {
+        string word = ReadNonEmpty("Слово для пошуку: ");
+
+        // Predicate<T> — лямбда захоплює локальну змінну word (замикання)
+        List<Note> found = notes.FindAll(n => n.Title.Contains(word, StringComparison.OrdinalIgnoreCase));
+
+        Console.WriteLine(found.Count == 0 ? "Нічого не знайдено." : $"Знайдено: {found.Count}");
+
+        foreach (Note n in found)
+        {
+            Console.WriteLine($"- {n.Title}");
+        }
+
+        return true;
+    }
+
+    // === 6. Допоміжні методи введення ===
+
+    static string ReadNonEmpty(string prompt)
+    {
+        while (true)
+        {
+            Console.Write(prompt);
+            string? input = Console.ReadLine();
+
+            if (!string.IsNullOrWhiteSpace(input))
+            {
+                return input.Trim();
+            }
+
+            Console.WriteLine("Значення не може бути порожнім.");
+        }
+    }
+
+    static int ReadInt(string prompt, int min = int.MinValue, int max = int.MaxValue)
+    {
+        while (true)
+        {
+            Console.Write(prompt);
+            string? input = Console.ReadLine();
+
+            if (int.TryParse(input, out int value) && value >= min && value <= max)
+            {
+                return value;
+            }
+
+            Console.WriteLine($"Некоректне значення. Введіть ціле число від {min} до {max}.");
+        }
     }
 }
 ```
 
-### 4. Підписка кількох обробників на подію (у т.ч. лямбда-виразом)
-
-```csharp
-var repository = new ObservableRepository<string>();
-
-// Підписник 1 — класичний іменований метод
-repository.ItemAdded += LogItemAdded;
-
-// Підписник 2 — лямбда-вираз
-repository.ItemAdded += (sender, e) =>
-    Console.WriteLine($"[{e.AddedAt:HH:mm:ss}] Додано: {e.ItemName}");
-
-static void LogItemAdded(object? sender, ItemAddedEventArgs e)
-{
-    Console.WriteLine($"Подія: додано елемент \"{e.ItemName}\".");
-}
-```
-
-### 5. Порівняння «класичного» методу та лямбда-виразу (для розділу звіту)
-
-```csharp
-// Класичний метод
-static bool IsExpensive(Product p) => p.Price > 500;
-var expensive1 = FindAll(products, IsExpensive);
-
-// Той самий критерій лямбда-виразом "на місці"
-var expensive2 = FindAll(products, p => p.Price > 500);
-```
+Зверніть увагу на розподіл відповідальності: узагальнений клас `ObservableList<T>` нічого не знає ні про консоль, ні про нотатки — він лише зберігає елементи, виконує передані йому делегати і повідомляє про зміни подією. Що виводити і як реагувати на подію, вирішує `Program` через лямбди та обробники. Саме так варто розділити код і у своєму варіанті.
 
 ## Порядок виконання
 
-1. Спроєктувати та реалізувати узагальнений клас/структуру даних відповідно до варіанта, заповнити її кількома елементами наперед у коді.
-2. Додати узагальнені методи з параметрами-делегатами для гнучкої обробки даних.
-3. Реалізувати клас-видавця події (з власним `EventArgs`) та щонайменше 2 підписники з відповідними обробниками.
-4. Додати в меню пункт, що вводить новий елемент з клавіатури (з валідацією) і спричиняє подію варіанта.
-5. Замінити частину методів на лямбда-вирази, порівняти читабельність та лаконічність коду.
-6. Продемонструвати роботу всього сценарію через консольне меню, протестувати граничний випадок свого варіанта.
+1. Створити інтерфейс(и) та класи предметної області свого варіанта, заповнити дані наперед у коді.
+2. Реалізувати узагальнений клас варіанта з обмеженням типу та узагальнені методи з параметрами-делегатами (приклади коду №1–2).
+3. Реалізувати клас `EventArgs`, подію та метод `OnXxx` у класі-видавці, підписати щонайменше два обробники (приклади коду №4–5).
+4. Написати консольне меню за зразком прикладу коду №7, включно з пунктом введення даних з клавіатури, що спричиняє подію варіанта.
+5. Перевірити роботу всіх пунктів меню, зробити скріншоти для звіту.
 
 ## Варіанти завдань
 
-### Варіант 1. Узагальнений стек `Stack<T>` «з нуля»
+Кожен варіант моделює задачу, яка в реальних застосунках розв'язується саме цими засобами: узагальнений клас — це повторно використовуваний «інструмент», делегати налаштовують його поведінку під конкретну задачу, а подія повідомляє решту програми про важливі зміни.
 
-**Структура:** власний клас `MyStack<T>` з обмеженою місткістю (`capacity`, задається в конструкторі), методи `Push(T item)`, `T Pop()`, `bool IsEmpty()`.
+### Варіант 1. Кеш курсів валют
 
-**Обов'язкові операції:**
+Звернення до зовнішнього сервісу (наприклад, API банку) повільне, тому застосунки тримають уже отримані значення в пам'яті — у кеші. Пам'ять не безмежна, тож кеш має обмежену місткість: коли місця немає, найстаріший запис видаляється.
 
-- метод `Push`, що перевіряє заповненість стека **перед** додаванням і за потреби спричиняє подію;
-- подія `OverflowEventArgs` (успадкована від `EventArgs`, поле — елемент, який не вдалося додати) — викликається, коли `Push` викликано на заповненому стеку; щонайменше 2 підписники (наприклад, лог у консоль і лічильник кількості відхилених елементів);
-- узагальнений метод `Peek()` (перегляд верхнього елемента без видалення) з обробкою через власний виняток або `Predicate<T>`-перевірку `IsEmpty` перед викликом `Pop`;
-- демонстрація на стеку `int` **і** стеку `string` (або іншого власного типу) — підтвердження, що клас справді узагальнений, а не «підлаштований» під один тип.
+**Структура:** узагальнений клас `Cache<TKey, TValue> where TKey : notnull`, місткість задається в конструкторі. Значення зберігаються в `Dictionary<TKey, TValue>`, порядок додавання ключів — у `List<TKey>`. Методи:
 
-**Граничний випадок для обробки:** виклик `Pop()` на порожньому стеку — не аварійне завершення, а зрозуміле повідомлення (через власний виняток або перевірку `IsEmpty` перед викликом).
+- `TValue GetOrAdd(TKey key, Func<TKey, TValue> load)` — якщо ключ є в кеші, повертає збережене значення; якщо немає, викликає `load(key)`, зберігає результат і повертає його. Якщо кеш заповнений, перед додаванням видаляє найстаріший запис;
+- `void ForEach(Action<TKey, TValue> action)` — виконує дію для кожного запису.
 
-### Варіант 2. Узагальнений репозиторій в пам'яті
+«Сервер банку» імітує звичайний метод `decimal LoadRate(string code)`: виводить повідомлення «Запит до сервера банку...» і повертає курс із заповненого в коді словника (USD, EUR, PLN, GBP тощо). Саме його передають у `GetOrAdd`.
 
-**Структура:** власний клас `Repository<T>` (список елементів) з методами `Add(T item)`, `bool Remove(T item)`, `List<T> Find(Predicate<T> match)`.
+**Подія:** `ItemRemoved` з `ItemRemovedEventArgs<TKey, TValue>` (ключ і значення видаленого запису) — спричиняється, коли запис видалено через нестачу місця. Підписники: (1) повідомлення в консоль («Видалено з кешу: EUR = 44.10»); (2) лічильник видалених записів.
 
-**Обов'язкові операції:**
+**Мінімальне меню:**
 
-- метод `Find`, що приймає `Predicate<T>` як параметр (див. приклад коду №2) — продемонструвати виклик щонайменше з двома різними лямбда-критеріями пошуку;
-- подія `ItemAddedEventArgs`/`ItemRemovedEventArgs` (можна реалізувати як дві окремі події або одну подію зі спільним `EventArgs`, що містить ознаку дії) — щонайменше 2 підписники сумарно на обидві дії;
-- узагальнений метод `CountWhere(Predicate<T> match)`, що повертає кількість елементів, які задовольняють умову, без побудови проміжного списку;
-- демонстрація репозиторію на конкретному типі даних предметної області за вибором студента (наприклад, `Repository<Product>` або `Repository<Student>`) — тип має власні поля, а не бути просто `int`/`string`.
+0. Вихід.
+1. Отримати курс валюти — ввести код валюти (наприклад, `USD`); вивести курс і позначку «з кешу» або «завантажено». Додавання нового запису в заповнений кеш спричиняє подію `ItemRemoved`.
+2. Показати вміст кешу.
+3. Показати валюти з курсом, вищим за поріг — ввести поріг (`decimal.TryParse`) і вивести відповідні записи через `ForEach` з лямбдою.
 
-**Граничний випадок для обробки:** виклик `Remove` для елемента, якого немає в репозиторії — метод повертає `false` і подія `ItemRemoved` **не** спричиняється (лише за фактичного видалення).
+**Рекомендації щодо реалізації:**
 
-### Варіант 3. Спостерігач за температурою (генерик-сенсор)
+- місткість варто взяти малою (3 записи), щоб видалення було легко показати;
+- обмеження `where TKey : notnull` потрібне, бо ключ `Dictionary` не може бути `null`;
+- у пункті 3 лямбда захоплює введений користувачем поріг (замикання, див. приклад коду №3);
+- за бажанням: другий екземпляр, наприклад `Cache<int, string>` — кеш імен користувачів за ідентифікатором з лямбдою `id => $"Користувач #{id}"`.
 
-**Структура:** власний клас `TemperatureSensor<T>` (де `T` — тип показання, наприклад `double`) з порогом `Threshold` та методом `Report(T value)`.
+### Варіант 2. Складський облік
 
-**Обов'язкові операції:**
+У магазині товар не повинен закінчитися несподівано. Для кожної позиції задають мінімальний залишок: коли після продажу залишок опускається до цієї межі, система попереджає комірника і формує заявку постачальнику.
 
-- метод `Report`, що зберігає показання в історію (`List<T>`) і порівнює його з порогом через переданий делегат `Func<T, T, bool>` (компаратор «перевищено поріг») — щоб клас не «знав» напряму про оператори порівняння конкретного типу;
-- подія `ThresholdExceededEventArgs` (поле — значення, що перевищило поріг) — щонайменше 2 підписники (наприклад, вивід попередження в консоль і підрахунок кількості перевищень);
-- узагальнений метод `GetAverage(Func<T, double> selector)` — обчислення середнього показника з історії через переданий делегат-перетворювач (для типів, що не є `double` напряму);
-- демонстрація на послідовності введених/заповнених наперед показань з щонайменше одним випадком перевищення порогу.
+**Структура:** інтерфейс `IStockItem` (`Name`, `Quantity`, `MinQuantity`) і клас товару, що його реалізує (наприклад, `Product` з додатковим полем `Price`). Узагальнений клас `Inventory<T> where T : class, IStockItem` з методами:
 
-**Граничний випадок для обробки:** порожня історія показань під час виклику `GetAverage` — метод має повернути 0 (або кинути зрозумілий виняток) замість `DivideByZeroException`/`NaN`.
+- `Add(T item)` — додати позицію;
+- `Sell(string name, int quantity)` — продати товар (зменшити залишок);
+- `List<T> Find(Predicate<T> match)` — знайти позиції за довільною умовою.
 
-### Варіант 4. Система сповіщень інтернет-магазину
+**Подія:** `LowStock` з `LowStockEventArgs` (назва товару, поточний залишок, мінімальний залишок) — спричиняється в `Sell`, якщо після продажу `Quantity <= MinQuantity`. Підписники: (1) попередження в консоль; (2) «заявка постачальнику» — додає назву товару до списку заявок.
 
-**Структура:** клас `Order` (номер, сума, статус — enum `OrderStatus` зі значеннями на кшталт `New`, `Paid`, `Shipped`, `Delivered`) та клас `OrderProcessor`, що змінює статус замовлень.
+**Мінімальне меню:**
 
-**Обов'язкові операції:**
+0. Вихід.
+1. Показати залишки.
+2. Продати товар — ввести назву і кількість (`int.TryParse`, більше 0); операція може спричинити подію `LowStock`.
+3. Знайти товари із залишком, меншим за N — ввести N і передати в `Find` лямбду.
+4. Показати заявки постачальнику.
 
-- подія `OrderStatusChangedEventArgs` (поля — номер замовлення, старий статус, новий статус) — спричиняється методом `ChangeStatus(Order order, OrderStatus newStatus)`;
-- щонайменше 2 підписники різного призначення (наприклад, «лог» — виводить у консоль факт зміни статусу, і «email-заглушка» — виводить фіктивне повідомлення на кшталт `"Email надіслано клієнту: замовлення #123 відправлено"`);
-- узагальнений (або типізований під `Order`) метод `FindAll(Predicate<Order> match)` — пошук замовлень за критерієм (наприклад, усі замовлення певного статусу);
-- меню з пунктом «Змінити статус замовлення», що вводить номер замовлення й новий статус з клавіатури з валідацією (`TryParse` для номера, перевірка коректного значення enum для статусу).
+**Рекомендації щодо реалізації:**
 
-**Граничний випадок для обробки:** спроба змінити статус на той самий, що вже встановлено (наприклад, `Paid` → `Paid`) — подія `OrderStatusChanged` не повинна спричинятись, оскільки фактичної зміни не відбулось.
+- обмеження `IStockItem` потрібне класу складу, бо він звертається до `Quantity` і `MinQuantity`: без обмеження ці властивості недоступні, і код не скомпілюється;
+- якщо товару з такою назвою немає або на складі менше, ніж просять, достатньо вивести повідомлення й не змінювати залишок;
+- за бажанням: пункт меню «Знайти товари дорожчі за N» — той самий `Find` з іншою лямбдою.
 
-### Варіант 5. Таймер-заглушка (лічильник тіків)
+### Варіант 3. Перевірка даних реєстраційної форми
 
-**Структура:** клас `FakeTimer` із методом `Tick()`, що симулює один «тік» таймера (насправді викликається вручну з меню чи в циклі — реального `System.Timers.Timer` реалізовувати не потрібно).
+Перш ніж зберегти дані з форми реєстрації, застосунок перевіряє їх набором правил і показує користувачу всі помилки одразу. Правила зручно задавати делегатами: набір правил можна змінювати, не переписуючи клас, що їх перевіряє. За цим принципом працює бібліотека FluentValidation, яку можна буде використати в ПР №6.
 
-**Обов'язкові операції:**
+**Структура:** клас `UserRegistration` (`Login`, `Email`, `Age`) і узагальнений клас `Validator<T> where T : class`, що зберігає список правил (пара «умова + текст помилки»). Методи:
 
-- подія `TickEventArgs` (поле — номер поточного тіку) — спричиняється при кожному виклику `Tick()`;
-- щонайменше 3 підписники, що виконують різні дії (наприклад: вивід номера тіку в консоль; підрахунок парних/непарних тіків; спрацювання додаткового попередження щоразу, коли номер тіку кратний 5);
-- узагальнений метод `RunTicks<T>(int count, Func<int, T> resultSelector)` — виконує задану кількість тіків і повертає список результатів, обчислених переданим делегатом для кожного номера тіку;
-- динамічна відписка одного з підписників через меню (`-=`) з демонстрацією, що після відписки цей підписник більше не реагує на подальші тіки.
+- `void AddRule(Func<T, bool> isValid, string errorMessage)` — додати правило;
+- `List<string> Validate(T item)` — перевірити всі правила і повернути список помилок (порожній, якщо дані коректні).
 
-**Граничний випадок для обробки:** запит на виконання 0 тіків (`RunTicks(0, ...)`) — метод має коректно повернути порожній список без жодного виклику `Tick()` чи спричинення подій.
+**Подія:** `ValidationFailed` з `ValidationFailedEventArgs` (логін користувача і список помилок) — спричиняється в `Validate`, якщо є хоча б одна помилка. Підписники: (1) вивід помилок у консоль; (2) лічильник невдалих спроб реєстрації.
 
-### Варіант 6. Гаманець/рахунок
+**Мінімальне меню:**
 
-**Структура:** клас `Wallet` з полем `Balance` (властивість з приватним сеттером — змінюється лише через методи `Deposit`/`Withdraw`).
+0. Вихід.
+1. Зареєструвати користувача — ввести логін, email і вік (`int.TryParse`). Якщо помилок немає, користувача додано до списку; інакше спричиняється подія `ValidationFailed`.
+2. Показати зареєстрованих користувачів.
+3. Змінити мінімальний вік реєстрації — ввести нове значення.
 
-**Обов'язкові операції:**
+**Рекомендації щодо реалізації:**
 
-- подія `BalanceChangedEventArgs` (поля — попередній баланс, новий баланс, сума операції) — спричиняється і при поповненні, і при знятті коштів;
-- щонайменше 2 підписники (наприклад, «лог операцій» — виводить рядок історії, і «перевірка ліміту» — виводить попередження, якщо баланс після операції опустився нижче заданої межі, наприклад 0 або встановленого мінімального залишку);
-- узагальнений метод `Func<decimal, bool>`-валідатор, переданий ззовні, що перевіряє суму операції перед її виконанням (наприклад, «сума має бути кратною 10» чи інше правило за вибором студента) — якщо валідатор повертає `false`, операція відхиляється без зміни балансу і без спричинення події;
-- меню з пунктами «Поповнити» та «Зняти», обидва — з введенням суми з клавіатури й валідацією через `TryParse`.
+- приклади правил: логін від 3 символів; email містить `@`; вік не менший за мінімальний;
+- пункт 3 показує замикання: правило `u => u.Age >= minAge` захоплює змінну `minAge`, тож достатньо змінити змінну — правило одразу працюватиме з новим значенням (див. приклад коду №3);
+- за бажанням: другий екземпляр `Validator<RoomBooking>` для бронювання номера в готелі (наприклад, правило «дата виїзду пізніша за дату заїзду»).
 
-**Граничний випадок для обробки:** спроба зняти суму, що перевищує поточний баланс — операція має бути відхилена (без зміни `Balance` і без події `BalanceChanged`), а не призвести до від'ємного балансу.
+### Варіант 4. Черга розсилки повідомлень
+
+Застосунки надсилають email через зовнішні сервіси, які час від часу недоступні. Тому повідомлення ставлять у чергу й надсилають по одному; ті, що не вдалося надіслати, відкладають у список недоставлених, щоб спробувати пізніше.
+
+**Структура:** клас `EmailMessage` (`To`, `Subject`) і узагальнений клас `SendQueue<T> where T : class`. Усередині — `Queue<T>` для черги і `List<T>` для недоставлених. Методи:
+
+- `void Enqueue(T item)` — поставити в чергу;
+- `void ProcessAll(Func<T, bool> send)` — по черзі передати кожен елемент у `send`: `true` — надіслано, `false` — елемент переходить до недоставлених;
+- `void RetryFailed()` — повернути всі недоставлені елементи в чергу.
+
+«Поштовий сервіс» імітує метод `bool Send(EmailMessage message)`: виводить «Надсилання на ...» і повертає `false` для адрес з домену, що «не працює» (наприклад, `@down.example`), і `true` для решти.
+
+**Події:** `Sent` і `Failed` з `MessageEventArgs<T>` (повідомлення і час). Підписники: (1) журнал у консоль; (2) лічильник надісланих і недоставлених повідомлень.
+
+**Мінімальне меню:**
+
+0. Вихід.
+1. Додати повідомлення в чергу — ввести адресу й тему (непорожні рядки).
+2. Показати чергу.
+3. Надіслати всі повідомлення з черги.
+4. Показати недоставлені повідомлення.
+5. Повторити надсилання недоставлених — викликати `RetryFailed`, а потім знову надіслати чергу.
+
+**Рекомендації щодо реалізації:**
+
+- обробник `send` передається ззовні, тому клас черги не знає, що саме він надсилає — email, SMS чи щось інше;
+- щоб у пункті 5 повідомлення доставилися, зручно мати змінну `bool serverIsDown`, яку захоплює лямбда-обробник, і пункт меню, що її перемикає (замикання, див. приклад коду №3);
+- за бажанням (лекція 6): асинхронний обробник `Func<T, Task<bool>>` з імітацією мережевої затримки `await Task.Delay(300)`.
 
 ## Вимоги до звіту
 
 Звіт з практичної роботи оформлюється у вигляді документа (PDF/DOCX) та має містити:
 
+- титульний аркуш;
 - тему, мету та номер варіанта завдання;
-- короткий опис реалізованого функціоналу;
-- посилання на репозиторій (GitHub/GitLab) з кодом проєкту та історією комітів;
-- знімки екрана (консоль) з демонстрацією роботи програми, у т.ч. обробки граничного випадку свого варіанта;
-- короткий порівняльний фрагмент коду «метод vs лямбда-вираз» з поясненням;
-- висновки (2–4 речення) щодо отриманих результатів та труднощів виконання.
+- короткий опис реалізованого функціоналу та лістинг;
+- фрагмент коду «іменований метод vs лямбда-вираз» з поясненням, який варіант доречніший у цьому місці і чому (див. приклад коду №6);
+- посилання на репозиторій GitHub;
+- висновки (2–4 речення) щодо отриманих результатів.
 
 ## Контрольні питання
 
-1. Навіщо потрібні обмеження типу-параметра (`where T : ...`) в узагальнених класах?
-2. Чим подія (`event`) відрізняється від звичайного публічного делегата-поля?
-3. У чому суть замикання (closure) у лямбда-виразі? Наведіть приклад ризику при захопленні змінної циклу.
-4. Чим відрізняються делегати `Func`, `Action` та `Predicate`?
-5. Які переваги дає використання generics порівняно з типом `object` для узагальненого коду?
+1. Які проблеми колекцій на основі `object` (`ArrayList`) усувають узагальнення?
+2. Чим подія (`event`) відрізняється від звичайного публічного поля-делегата? Які операції з подією доступні ззовні класу-власника?
+3. У чому суть замикання (closure) у лямбда-виразі? Що виведе цикл `for`, у якому лямбди захоплюють змінну циклу, і як це виправити?
+4. Чим відрізняються делегати `Func`, `Action` та `Predicate`? Наведіть приклад кожного зі свого варіанта.
+5. Навіщо потрібні обмеження типу-параметра (`where T : ...`)? Що станеться, якщо прибрати обмеження з узагальненого класу вашого варіанта?
+6. Як компілятор визначає тип-аргумент під час виклику узагальненого методу без явного зазначення `<T>`?
+7. Що таке делегат? Як передача делегата як параметра дозволяє одному методу обслуговувати різні сценарії?
+8. Що таке багатоадресний (multicast) делегат? Що поверне виклик multicast-делегата `Func<int>` з трьома методами?
+9. Яку сигнатуру має обробник події за стандартним шаблоном .NET і що передається в параметрах `sender` та `e`?
+10. Навіщо подію спричиняють через окремий метод `OnXxx` і чому виклик іде через `?.Invoke`?
+11. Чому `-=` з лямбда-виразом, записаним прямо в операторі, не відписує обробник? Як відписати обробник-лямбду?
+12. Коли краще використати іменований метод, а коли лямбда-вираз? Наведіть приклад зі свого коду.
