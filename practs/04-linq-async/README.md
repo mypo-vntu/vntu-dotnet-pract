@@ -1,31 +1,27 @@
 # Практична робота №4. LINQ to Objects та асинхронне програмування
 
-> ⚠️ **WIP** — матеріал ще в розробці, зміст може змінюватись.
-
 ## Мета роботи
 
-Навчитися асинхронно отримувати дані з кількох джерел (`async`/`await`, `Task`, `Task.WhenAll`), коректно обробляти збої під час завантаження, а потім аналізувати отримані колекції запитами LINQ to Objects: фільтрувати, сортувати, групувати, агрегувати, з'єднувати колекції та проєктувати результат у потрібну форму. Саме так виглядає робота з даними у веб-застосунках Модуля 2: дочекатися відповіді від джерела, не блокуючи потік, і обробити результат запитом.
+Навчитися асинхронно отримувати дані з кількох джерел (`async`/`await`, `Task`, `Task.WhenAll`), а потім аналізувати отримані колекції запитами LINQ to Objects: фільтрувати, сортувати, групувати, агрегувати, з'єднувати колекції та проєктувати результат у потрібну форму. Саме так виглядає робота з даними при розробці Back-End застосунків з використанням ASP.NET Core (модуль 2).
 
 ## Загальні завдання (обов'язкові для будь-якого варіанта)
 
 - Створити консольний проєкт (.NET 10, Console App), метод `Main` оголосити як `static async Task Main()`.
 - Описати дані варіанта типами `record`.
-- Реалізувати щонайменше 3 асинхронні методи-«джерела» виду `Task<List<T>> LoadXxxAsync()`, які імітують звернення до віддаленого сервера затримкою `await Task.Delay(...)` (1–2 с, у кожного джерела своя) і повертають записи, заповнені наперед у коді. Сумарно з усіх джерел — 20–30 записів.
+- Реалізувати щонайменше 3 асинхронні «джерела даних» виду `Task<List<T>> LoadXxxAsync()` (окремі методи або один метод із параметрами, викликаний для кожного джерела), які імітують звернення до віддаленого сервера затримкою `await Task.Delay(...)` (1–2 с, у кожного джерела своя) і повертають записи, заповнені наперед у коді. Сумарно з усіх джерел — 20–30 записів.
 - Реалізувати два пункти меню завантаження: **одночасне** (`Task.WhenAll`) і **послідовне** (`await` по черзі), і для кожного вивести час виконання, виміряний `Stopwatch`.
-- Передбачити збій одного з джерел: перемикач у меню, після якого джерело кидає виняток. Виняток перехоплюється `try/catch`, програма повідомляє, яке джерело недоступне, і продовжує роботу з даними решти джерел.
-- Реалізувати щонайменше 6 різних LINQ-запитів, які разом охоплюють: `Where`, `OrderBy`/`OrderByDescending` + `ThenBy`, `Select` з проєкцією в анонімний тип, `GroupBy` з агрегатними функціями (`Count`, `Sum`, `Average`, `Min`, `Max`), `Join` з другою колекцією варіанта, `Any` або `All`. Щонайменше один запит записати в query-синтаксисі (`from ... where ... select`).
-- Хоча б один запит має використовувати параметр, введений з клавіатури з валідацією через `TryParse` (або непорожній рядок).
-- Зберегти підсумковий звіт у CSV-файл асинхронно (`File.WriteAllLinesAsync`).
+- Реалізувати 4 запити LINQ — пункти 3–6 меню свого варіанта. Разом вони використовують `Where`, сортування (`OrderBy`/`OrderByDescending` + `ThenBy`), `Select` з проєкцією в анонімний тип, `GroupBy` з агрегатними функціями, `Join` або `GroupJoin` з другою колекцією варіанта, `Any` або `All`.
+- Зберегти підсумковий звіт у JSON-файл асинхронно (`JsonSerializer.Serialize` + `File.WriteAllTextAsync`) з відступами та читабельною кирилицею. Помилку запису файлу перехопити через `try/catch (IOException)`, щоб програма повідомила про неї і продовжила роботу.
 - Передбачити просте меню (цикл із вибором пункту), що дозволяє повторювати дії без перезапуску програми, аж до вибору пункту «Вихід».
 - Не використовувати `.Result`, `.Wait()`, `Thread.Sleep` та `async void` (див. «Типові помилки»).
 
 ## Теоретичні відомості
 
-Нижче — засоби C# і .NET, які знадобляться в цій роботі (докладніше про кожен — за посиланням на MS Learn). Асинхронне програмування розгорнуто викладено в лекції 6; тут лише те, що потрібно для варіантів.
+Нижче — засоби C# і .NET, які знадобляться для виконання цієї роботи (детальніше про кожен — за посиланням на MS Learn).
 
 ### Записи (record)
 
-**`record`** — скорочений спосіб оголосити клас для зберігання даних. Один рядок створює конструктор, властивості лише для читання, змістовний `ToString()` і порівняння за значенням (два записи з однаковими полями вважаються рівними). Для колекцій, які аналізують запитами LINQ, це найзручніший вибір (потрібно в усіх варіантах):
+**`record`** — скорочений спосіб оголосити клас для зберігання даних. В один рядок оголошується конструктор, readonly властивості, змістовний `ToString()` і порівняння за значенням (два записи з однаковими полями вважаються рівними). Для колекцій, які аналізують запитами LINQ, це найзручніший вибір:
 
 ```csharp
 public record Book(string Branch, string Title, string Author, string Genre, int Year);
@@ -38,11 +34,11 @@ Console.WriteLine(book);       // Book { Branch = Центральна, Title = 
 
 ### Асинхронне програмування
 
-**Навіщо асинхронність** — значна частина роботи програм полягає не в обчисленнях, а в очікуванні: відповіді сервера, читання файлу, результату запиту до бази даних (**I/O-bound** операції). Синхронний код увесь цей час тримає потік зайнятим. Асинхронний код на час очікування звільняє потік, і той може виконувати іншу роботу. Асинхронність не робить окрему операцію швидшою. Вона дозволяє не марнувати час на очікування і чекати на кілька операцій одночасно.
+**Навіщо асинхронність** — значна частина роботи програм полягає не в обчисленнях, а в очікуванні: відповіді сервера, читання файлу, результату запиту до бази даних (**I/O-bound** операції), тощо. Синхронний код увесь цей час тримає потік зайнятим, тоді як асинхронний код на час очікування звільняє потік, і той може виконувати іншу роботу. Асинхронність не робить окрему операцію швидшою. Вона дозволяє не марнувати час на очікування і чекати на кілька операцій одночасно.
 
 [learn.microsoft.com/dotnet/csharp/asynchronous-programming](https://learn.microsoft.com/dotnet/csharp/asynchronous-programming/)
 
-**`Task` і `Task<T>`** — об'єкт, що представляє операцію, яка може ще не завершитися («квиток у гардеробі»: отримали зараз, результат заберете пізніше). `Task` — операція без результату, `Task<T>` — операція, що поверне значення типу `T`. За конвенцією імена асинхронних методів закінчуються на `Async`: так названі й методи .NET (`File.ReadAllTextAsync`, `HttpClient.GetStringAsync`), і методи EF Core в Модулі 2 (`ToListAsync`, `SaveChangesAsync`).
+**`Task` і `Task<T>`** — об'єкт, що представляє операцію, яка може ще не завершитися. `Task` — операція без результату, `Task<T>` — операція, що поверне значення типу `T`. За конвенцією імена асинхронних методів закінчуються на `Async`: так названі й методи .NET (`File.ReadAllTextAsync`, `HttpClient.GetStringAsync`), і методи EF Core в Модулі 2 (`ToListAsync`, `SaveChangesAsync`).
 
 **`async` і `await`** — `async` у сигнатурі дозволяє використовувати `await` у тілі методу. `await` означає «дочекатися завершення задачі, звільнивши потік на час очікування» і «розпаковує» результат: `await` над `Task<List<Book>>` дає `List<Book>`. Асинхронний код читається так само, як звичайний послідовний:
 
@@ -89,26 +85,26 @@ Console.WriteLine($"Одночасно: {sw.ElapsedMilliseconds} мс");
 
 [learn.microsoft.com/dotnet/api/system.threading.tasks.task.whenall](https://learn.microsoft.com/dotnet/api/system.threading.tasks.task.whenall) · [learn.microsoft.com/dotnet/api/system.diagnostics.stopwatch](https://learn.microsoft.com/dotnet/api/system.diagnostics.stopwatch)
 
-**Винятки в асинхронному коді** — виняток, що виник усередині асинхронного методу, зберігається в `Task` і кидається повторно в момент `await`. Тому звичайний `try/catch` навколо `await` працює так само, як у синхронному коді. Якщо ж упала одна із задач, переданих у `Task.WhenAll`, то `await Task.WhenAll(...)` кине виняток, і результатів решти задач у вигляді масиву ви не отримаєте. Тому кожне джерело зручно загорнути в окремий метод, який перехоплює помилку саме цього джерела і повертає порожній список із позначкою про збій (приклад коду №2):
+**Винятки в асинхронному коді** — виняток, що виник усередині асинхронного методу, зберігається в `Task` і кидається повторно в момент `await`. Тому звичайний `try/catch` навколо `await` працює так само, як у синхронному коді. Наприклад, запис звіту завершиться помилкою, якщо файл відкрито в іншій програмі:
 
 ```csharp
 try
 {
-    List<Book> books = await LoadCentralAsync();
+    await File.WriteAllTextAsync("report.json", json);
 }
-catch (InvalidOperationException ex)
+catch (IOException ex)
 {
-    Console.WriteLine($"Джерело недоступне: {ex.Message}");
+    Console.WriteLine($"Не вдалося зберегти звіт: {ex.Message}");
 }
 ```
 [learn.microsoft.com/dotnet/csharp/asynchronous-programming/asynchronous-programming-scenarios](https://learn.microsoft.com/dotnet/csharp/asynchronous-programming/asynchronous-programming-scenarios)
 
-**Асинхронна робота з файлами** — `File.WriteAllLinesAsync`, `File.WriteAllTextAsync`, `File.ReadAllLinesAsync` роблять те саме, що й знайомі синхронні методи, але не блокують потік під час запису чи читання диска:
+**Асинхронна робота з файлами** — `File.WriteAllTextAsync`, `File.ReadAllTextAsync`, `File.WriteAllLinesAsync` роблять те саме, що й знайомі синхронні методи, але не блокують потік під час запису чи читання диска:
 
 ```csharp
-await File.WriteAllLinesAsync("report.csv", new[] { "Genre;Count", "Поезія;2" });
+await File.WriteAllTextAsync("note.txt", "Звіт сформовано");
 ```
-[learn.microsoft.com/dotnet/api/system.io.file.writealllinesasync](https://learn.microsoft.com/dotnet/api/system.io.file.writealllinesasync)
+[learn.microsoft.com/dotnet/api/system.io.file.writealltextasync](https://learn.microsoft.com/dotnet/api/system.io.file.writealltextasync)
 
 **Типові помилки:**
 
@@ -143,11 +139,11 @@ catch (OperationCanceledException)
 
 ### LINQ to Objects
 
-**LINQ (Language Integrated Query)** — набір методів розширення для `IEnumerable<T>` (простір імен `System.Linq`, у .NET 10 підключений автоматично), які дозволяють описати, *що* потрібно отримати з колекції, замість того щоб писати цикли вручну. Кожен оператор LINQ — це узагальнений метод, що приймає делегат `Func<...>`, і зазвичай йому передають лямбда-вираз (ПР №3). Ті самі оператори в Модулі 2 працюватимуть із базою даних через EF Core.
+**LINQ (Language Integrated Query)** — набір методів розширення для `IEnumerable<T>` (простір імен `System.Linq`, у .NET 10 підключений автоматично), які дозволяють описати, *що* потрібно отримати з колекції, замість того щоб писати цикли вручну. Кожен оператор LINQ — це узагальнений метод, що приймає делегат `Func<...>`, і зазвичай йому передають лямбда-вираз (ПР №3). Знання про те, як працювати з LINQ знадобляться у практичних 5-8, адже EF Core дозволяє використовувати LINQ для написання запитів до бази даних.
 
 [learn.microsoft.com/dotnet/csharp/linq](https://learn.microsoft.com/dotnet/csharp/linq/)
 
-**Метод-синтаксис і query-синтаксис** — запит можна записати ланцюжком викликів методів або SQL-подібним виразом. Компілятор перетворює query-синтаксис на ті самі виклики методів, тому результат однаковий. Метод-синтаксис уживаніший і підтримує всі оператори (`Take`, `Any`, `MaxBy` в query-синтаксисі не мають ключових слів), а query-синтаксис часто читабельніший для `join` і складного групування:
+**Метод-синтаксис і query-синтаксис** — запит можна записати ланцюжком викликів методів або SQL-подібним виразом. Компілятор перетворює query-синтаксис на ті самі виклики методів, тому результат однаковий. Метод-синтаксис є більш поширеним варіантом, тому підтримує всі оператори (`Take`, `Any`, `MaxBy`, тощо), тоді як в query-синтаксисі відсутні ключові слова для багатьох методів. Єдине де query-синтаксис є кращим, це - `join` і складне групування, адже код є більш читабельним:
 
 ```csharp
 // Метод-синтаксис
@@ -183,7 +179,7 @@ Console.WriteLine(snapshot.Count);   // не враховує
 | `OrderBy` / `OrderByDescending` | сортування за ключем за зростанням / спаданням |
 | `ThenBy` / `ThenByDescending` | додатковий ключ для елементів з однаковим першим ключем (після `OrderBy`, а не другий `OrderBy`) |
 | `Select(x => ...)` | перетворити кожен елемент, часто в анонімний тип `new { x.A, x.B }` лише з потрібними полями |
-| `Take(n)` / `Skip(n)` | взяти перші `n` / пропустити перші `n` елементів (наприклад, «топ-5») |
+| `Take(n)` | взяти перші `n` елементів (наприклад, «топ-5») |
 | `SelectMany(x => колекція)` | «розгорнути» колекцію колекцій в одну послідовність, наприклад об'єднати списки з кількох джерел |
 
 **Анонімні типи (`new { ... }`)** генеруються компілятором «на льоту»: зручно для проєкції, коли потрібні лише кілька полів або обчислені значення. Змінну такого типу оголошують через `var`.
@@ -225,27 +221,89 @@ var authorsWithBooks = authors.GroupJoin(
 
 [learn.microsoft.com/dotnet/csharp/linq/standard-query-operators/quantifier-operations](https://learn.microsoft.com/dotnet/csharp/linq/standard-query-operators/quantifier-operations)
 
+### Робота з JSON (System.Text.Json)
+
+**JSON** — текстовий формат обміну даними, яким користуються майже всі вебсервіси. **`System.Text.Json`** — вбудована в .NET бібліотека для роботи з ним, окремий пакет NuGet не потрібен. У цій роботі в JSON зберігається підсумковий звіт, а в ПР №5–8 цей формат і цю бібліотеку використовує Web API.
+
+**Серіалізація та десеріалізація** — `JsonSerializer.Serialize` перетворює об'єкт або колекцію на рядок JSON, а `JsonSerializer.Deserialize<T>` відновлює об'єкти з такого рядка. Серіалізувати можна й результат запиту LINQ з анонімним типом (так зручно формувати звіт), а от десеріалізувати в анонімний тип у звичайному коді незручно, тому для читання використовують `record` або клас. Для запису й читання файлу підходять уже знайомі асинхронні методи:
+
+```csharp
+using System.Text.Json;
+
+string json = JsonSerializer.Serialize(books);
+await File.WriteAllTextAsync("books.json", json);
+
+string text = await File.ReadAllTextAsync("books.json");
+List<Book>? loaded = JsonSerializer.Deserialize<List<Book>>(text);
+```
+[learn.microsoft.com/dotnet/standard/serialization/system-text-json/overview](https://learn.microsoft.com/dotnet/standard/serialization/system-text-json/overview) · [learn.microsoft.com/dotnet/standard/serialization/system-text-json/how-to](https://learn.microsoft.com/dotnet/standard/serialization/system-text-json/how-to)
+
+**Налаштування `JsonSerializerOptions`** — за замовчуванням JSON записується в один рядок, а кирилиця перетворюється на коди виду `\u0426\u0435...`. Це коректний JSON, але людині його важко читати. `WriteIndented` додає відступи, а `Encoder` залишає українські літери без змін:
+
+```csharp
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
+
+var options = new JsonSerializerOptions
+{
+    WriteIndented = true,
+    Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
+};
+
+string json = JsonSerializer.Serialize(books, options);
+```
+
+Результат:
+
+```json
+[
+  {
+    "Branch": "Центральна",
+    "Title": "1984",
+    "Author": "Джордж Орвелл",
+    "Genre": "Антиутопія",
+    "Year": 1949
+  }
+]
+```
+[learn.microsoft.com/dotnet/standard/serialization/system-text-json/character-encoding](https://learn.microsoft.com/dotnet/standard/serialization/system-text-json/character-encoding)
+
+**JSON в ASP.NET Core** — у Web API викликати `JsonSerializer` вручну зазвичай не доводиться. Об'єкт, який повертає метод контролера, фреймворк сам серіалізує у JSON відповіді, а JSON із тіла запиту сам перетворює на параметр методу. Імена властивостей у відповіді типово записуються в стилі camelCase (`title` замість `Title`):
+
+```csharp
+// Так виглядатимуть методи контролера в ПР №5 (поки що лише для знайомства)
+[HttpGet("{id}")]
+public async Task<IActionResult> GetBook(int id, CancellationToken ct)
+{
+    var book = await _db.Books.FindAsync(new object[] { id }, ct);
+    return book is null ? NotFound() : Ok(book); // Ok(book) → {"id":1,"title":"1984",...}
+}
+
+[HttpPost]
+public async Task<IActionResult> CreateBook(Book book, CancellationToken ct) // JSON із тіла запиту → Book
+{
+    _db.Books.Add(book);
+    await _db.SaveChangesAsync(ct);
+    return CreatedAtAction(nameof(GetBook), new { id = book.Id }, book);
+}
+```
+[learn.microsoft.com/aspnet/core/web-api/advanced/formatting](https://learn.microsoft.com/aspnet/core/web-api/advanced/formatting)
+
 ## Приклади коду (для орієнтиру — не є готовим розв'язком варіанта)
 
 Наведені фрагменти ілюструють технічні прийоми, потрібні для роботи, на нейтральному прикладі (каталоги кількох філій бібліотеки). Записи, джерела й запити свого варіанта студент розробляє самостійно.
 
 ### 1. Запис і асинхронне джерело даних
 
-Джерело імітує відповідь сервера: чекає, потім повертає дані, заповнені в коді. Статичне поле `_centralIsDown` — «перемикач збою», яким керує пункт меню:
+Джерело імітує відповідь сервера: чекає, потім повертає дані, заповнені в коді. Записи кожне джерело формує самостійно:
 
 ```csharp
 public record Book(string Branch, string Title, string Author, string Genre, int Year);
 
-static bool _centralIsDown = false;
-
 static async Task<List<Book>> LoadCentralAsync()
 {
     await Task.Delay(2000);
-
-    if (_centralIsDown)
-    {
-        throw new InvalidOperationException("сервер не відповідає");
-    }
 
     return new List<Book>
     {
@@ -256,74 +314,45 @@ static async Task<List<Book>> LoadCentralAsync()
 }
 ```
 
-### 2. Обробка збою окремого джерела
-
-Узагальнений метод-обгортка (ПР №3) приймає джерело як делегат `Func<Task<List<T>>>`, перехоплює його помилку і повертає результат разом зі статусом. Завдяки цьому збій одного джерела не зупиняє `Task.WhenAll` для решти:
-
-```csharp
-public record LoadResult<T>(string Source, List<T> Items, string? Error);
-
-static async Task<LoadResult<T>> TryLoadAsync<T>(string source, Func<Task<List<T>>> load)
-{
-    try
-    {
-        List<T> items = await load();
-        return new LoadResult<T>(source, items, null);
-    }
-    catch (InvalidOperationException ex)
-    {
-        return new LoadResult<T>(source, new List<T>(), ex.Message);
-    }
-}
-```
-
-### 3. Одночасне та послідовне завантаження зі `Stopwatch`
+### 2. Одночасне та послідовне завантаження зі `Stopwatch`
 
 ```csharp
 var sw = Stopwatch.StartNew();
-LoadResult<Book>[] results;
+List<Book>[] parts;
 
 if (parallel)
 {
     // Усі три запити запускаються одразу, чекаємо на найдовший
-    results = await Task.WhenAll(
-        TryLoadAsync("Центральна", LoadCentralAsync),
-        TryLoadAsync("Шкільна", LoadSchoolAsync),
-        TryLoadAsync("Університетська", LoadUniversityAsync));
+    parts = await Task.WhenAll(LoadCentralAsync(), LoadSchoolAsync(), LoadUniversityAsync());
 }
 else
 {
     // Кожен наступний запит стартує лише після завершення попереднього
-    results = new[]
-    {
-        await TryLoadAsync("Центральна", LoadCentralAsync),
-        await TryLoadAsync("Шкільна", LoadSchoolAsync),
-        await TryLoadAsync("Університетська", LoadUniversityAsync),
-    };
+    parts = new[] { await LoadCentralAsync(), await LoadSchoolAsync(), await LoadUniversityAsync() };
 }
 
 sw.Stop();
 
 // SelectMany «склеює» списки з усіх джерел в один
-List<Book> books = results.SelectMany(r => r.Items).ToList();
+List<Book> books = parts.SelectMany(p => p).ToList();
 
 Console.WriteLine($"Усього {books.Count} книг за {sw.ElapsedMilliseconds} мс.");
 ```
 
-Якщо одне джерело викликається для різних параметрів (наприклад, `LoadLogsAsync(string server)` у варіанті 3), задачі зручно зібрати в список і передати в `Task.WhenAll` цілим списком:
+Якщо одне джерело викликається для різних параметрів (наприклад, `LoadLogsAsync(string server, int delayMs)` у варіанті 3), задачі зручно зібрати в список і передати в `Task.WhenAll` цілим списком:
 
 ```csharp
-var tasks = new List<Task<LoadResult<Book>>>();
+var tasks = new List<Task<List<Book>>>();
 
 foreach (string branch in new[] { "Центральна", "Шкільна" })
 {
-    tasks.Add(TryLoadAsync(branch, () => LoadBranchAsync(branch)));
+    tasks.Add(LoadBranchAsync(branch));
 }
 
-LoadResult<Book>[] results = await Task.WhenAll(tasks);
+List<Book>[] parts = await Task.WhenAll(tasks);
 ```
 
-### 4. Фільтрація, сортування та проєкція
+### 3. Фільтрація, сортування та проєкція
 
 ```csharp
 var top = books
@@ -339,7 +368,7 @@ foreach (var b in top)
 }
 ```
 
-### 5. Групування та агрегування: метод- і query-синтаксис
+### 4. Групування та агрегування: метод- і query-синтаксис
 
 ```csharp
 // Метод-синтаксис
@@ -357,7 +386,7 @@ var statsQuery =
     select new { Genre = g.Key, Count = g.Count(), Newest = g.Max(b => b.Year) };
 ```
 
-### 6. `Join`, `Any` та `All`
+### 5. `Join`, `Any` та `All`
 
 ```csharp
 public record AuthorInfo(string Name, string Country);
@@ -382,35 +411,67 @@ bool allModern = books.Where(b => b.Genre == genre).All(b => b.Year > 2000);
 // Увага: якщо жанру немає, вибірка порожня і All поверне true
 ```
 
-### 7. Асинхронне збереження звіту
+### 6. Асинхронне збереження звіту у JSON
+
+Звіт формується запитом LINQ з проєкцією в анонімний тип: імена його властивостей стануть ключами JSON, а вкладений список — масивом. Налаштування зручно зберегти в одному полі класу й використовувати для всіх звітів:
 
 ```csharp
-IEnumerable<string> lines = books
-    .GroupBy(b => b.Branch)
-    .Select(g => $"{g.Key};{g.Count()}");
+// На початку файлу
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
 
-await File.WriteAllLinesAsync("report.csv", new[] { "Branch;Books" }.Concat(lines));
-Console.WriteLine("Звіт збережено у файл report.csv");
+// Поле класу
+static readonly JsonSerializerOptions _jsonOptions = new()
+{
+    WriteIndented = true,
+    Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
+};
+
+// У методі пункту меню
+var report = books
+    .GroupBy(b => b.Branch)
+    .Select(g => new { Branch = g.Key, Count = g.Count(), Titles = g.Select(b => b.Title).ToList() })
+    .ToList();
+
+string json = JsonSerializer.Serialize(report, _jsonOptions);
+
+try
+{
+    await File.WriteAllTextAsync("report.json", json);
+    Console.WriteLine("Звіт збережено у файл report.json");
+}
+catch (IOException ex)
+{
+    Console.WriteLine($"Не вдалося зберегти звіт: {ex.Message}");
+}
 ```
 
-### 8. Повний скелет програми — як усе з'єднати разом
+### 7. Повний скелет програми — як усе з'єднати разом
 
-Попередні приклади показували окремі прийоми. Тут вони зібрані в один робочий (компільований) файл `Program.cs`, щоб було видно, як асинхронні джерела, обробка збою, запити LINQ і меню стикуються між собою. Сценарій навмисно нейтральний (філії бібліотеки) — це **не** розв'язок жодного варіанта, а каркас, який треба наповнити записами, джерелами й запитами свого варіанта. Написано без top-level statements — рекомендовано не вмикати цю опцію при створенні проєкту.
+Попередні приклади показували окремі прийоми. Тут вони зібрані в один робочий (компільований) файл `Program.cs`, щоб було видно, як асинхронні джерела, запити LINQ, збереження звіту і меню стикуються між собою. Сценарій навмисно нейтральний (філії бібліотеки) — це **не** розв'язок жодного варіанта, а каркас, який треба наповнити записами, джерелами й запитами свого варіанта. Написано без top-level statements — рекомендовано не вмикати цю опцію при створенні проєкту.
 
 ```csharp
 using System.Diagnostics;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
 
 record Book(string Branch, string Title, string Author, string Genre, int Year);
 
 record AuthorInfo(string Name, string Country);
 
-record LoadResult<T>(string Source, List<T> Items, string? Error);
-
 class Program
 {
-    // === 1. Стан програми: завантажені дані та «перемикач збою» ===
+    // === 1. Стан програми: завантажені дані ===
     static List<Book> _books = new();
-    static bool _centralIsDown = false;
+
+    // Налаштування JSON: відступи та читабельна кирилиця
+    static readonly JsonSerializerOptions _jsonOptions = new()
+    {
+        WriteIndented = true,
+        Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
+    };
 
     // Друга колекція для Join — заповнена в коді, не завантажується
     static readonly List<AuthorInfo> _authors = new()
@@ -434,9 +495,8 @@ class Program
             Console.WriteLine("3. Статистика за жанрами");
             Console.WriteLine("4. Книги, видані після року");
             Console.WriteLine("5. Зберегти звіт у файл");
-            Console.WriteLine($"6. Збій центральної бібліотеки: {(_centralIsDown ? "увімкнено" : "вимкнено")}");
 
-            int choice = ReadInt("Ваш вибір: ", 0, 6);
+            int choice = ReadInt("Ваш вибір: ", 0, 5);
 
             isRunning = choice switch
             {
@@ -445,9 +505,8 @@ class Program
                 3 => HandleStatsByGenre(),
                 4 => HandleBooksAfterYear(),
                 5 => await HandleSaveReportAsync(),
-                6 => HandleToggleFailure(),
                 0 => false,
-                _ => true // сюди потрапити неможливо: ReadInt уже обмежив ввід діапазоном 0-6
+                _ => true // сюди потрапити неможливо: ReadInt уже обмежив ввід діапазоном 0-5
             };
         }
     }
@@ -457,11 +516,6 @@ class Program
     static async Task<List<Book>> LoadCentralAsync()
     {
         await Task.Delay(2000);
-
-        if (_centralIsDown)
-        {
-            throw new InvalidOperationException("сервер не відповідає");
-        }
 
         return new List<Book>
         {
@@ -493,55 +547,28 @@ class Program
         };
     }
 
-    // Обгортка: помилка одного джерела не зупиняє завантаження решти
-    static async Task<LoadResult<T>> TryLoadAsync<T>(string source, Func<Task<List<T>>> load)
-    {
-        try
-        {
-            List<T> items = await load();
-            return new LoadResult<T>(source, items, null);
-        }
-        catch (InvalidOperationException ex)
-        {
-            return new LoadResult<T>(source, new List<T>(), ex.Message);
-        }
-    }
-
     // === 3. Методи для кожного пункту меню ===
 
     static async Task<bool> HandleLoadAsync(bool parallel)
     {
         Console.WriteLine("Завантаження...");
         var sw = Stopwatch.StartNew();
-        LoadResult<Book>[] results;
+        List<Book>[] parts;
 
         if (parallel)
         {
-            results = await Task.WhenAll(
-                TryLoadAsync("Центральна", LoadCentralAsync),
-                TryLoadAsync("Шкільна", LoadSchoolAsync),
-                TryLoadAsync("Університетська", LoadUniversityAsync));
+            // Усі три запити запускаються одразу, чекаємо на найдовший
+            parts = await Task.WhenAll(LoadCentralAsync(), LoadSchoolAsync(), LoadUniversityAsync());
         }
         else
         {
-            results = new[]
-            {
-                await TryLoadAsync("Центральна", LoadCentralAsync),
-                await TryLoadAsync("Шкільна", LoadSchoolAsync),
-                await TryLoadAsync("Університетська", LoadUniversityAsync),
-            };
+            // Кожен наступний запит стартує лише після завершення попереднього
+            parts = new[] { await LoadCentralAsync(), await LoadSchoolAsync(), await LoadUniversityAsync() };
         }
 
         sw.Stop();
 
-        _books = results.SelectMany(r => r.Items).ToList();
-
-        foreach (LoadResult<Book> r in results)
-        {
-            Console.WriteLine(r.Error is null
-                ? $"  {r.Source}: отримано записів — {r.Items.Count}"
-                : $"  {r.Source}: недоступне ({r.Error})");
-        }
+        _books = parts.SelectMany(p => p).ToList();
 
         Console.WriteLine($"Усього записів: {_books.Count}, час: {sw.ElapsedMilliseconds} мс.");
         return true;
@@ -607,18 +634,23 @@ class Program
             return true;
         }
 
-        IEnumerable<string> lines = _books
+        var report = _books
             .GroupBy(b => b.Branch)
-            .Select(g => $"{g.Key};{g.Count()}");
+            .Select(g => new { Branch = g.Key, Count = g.Count(), Titles = g.Select(b => b.Title).ToList() })
+            .ToList();
 
-        await File.WriteAllLinesAsync("report.csv", new[] { "Branch;Books" }.Concat(lines));
-        Console.WriteLine("Звіт збережено у файл report.csv");
-        return true;
-    }
+        string json = JsonSerializer.Serialize(report, _jsonOptions);
 
-    static bool HandleToggleFailure()
-    {
-        _centralIsDown = !_centralIsDown;
+        try
+        {
+            await File.WriteAllTextAsync("report.json", json);
+            Console.WriteLine("Звіт збережено у файл report.json");
+        }
+        catch (IOException ex)
+        {
+            Console.WriteLine($"Не вдалося зберегти звіт: {ex.Message}");
+        }
+
         return true;
     }
 
@@ -653,20 +685,20 @@ class Program
 }
 ```
 
-Зверніть увагу на два моменти. Перший — розподіл відповідальності: джерела лише «повертають дані», `TryLoadAsync` відповідає за збої, а методи пунктів меню лише будують запити й виводять результат. Другий — асинхронними стали тільки ті методи, що справді чекають (`HandleLoadAsync`, `HandleSaveReportAsync`). Запити LINQ до вже завантаженого списку виконуються в пам'яті, тому `async` їм не потрібен.
+Зверніть увагу на два моменти. Перший — розподіл відповідальності: джерела лише «повертають дані», а методи пунктів меню будують запити й виводять результат. Другий — асинхронними стали тільки ті методи, що справді чекають (`HandleLoadAsync`, `HandleSaveReportAsync`). Запити LINQ до вже завантаженого списку виконуються в пам'яті, тому `async` їм не потрібен.
 
 ## Порядок виконання
 
 1. Оголосити записи (`record`) свого варіанта і заповнити другу колекцію (для `Join`) у коді.
-2. Реалізувати асинхронні джерела з різними затримками та перемикачем збою (приклад коду №1).
-3. Реалізувати обгортку для обробки збою і два способи завантаження: одночасне та послідовне зі `Stopwatch` (приклади коду №2–3). Порівняти час.
-4. Реалізувати запити LINQ свого варіанта, щонайменше один — у query-синтаксисі (приклади коду №4–6).
-5. Реалізувати асинхронне збереження звіту (приклад коду №7).
-6. Зібрати все в меню за зразком прикладу коду №8, перевірити роботу всіх пунктів, зокрема зі збоєм джерела та з граничним випадком варіанта, зробити скріншоти для звіту.
+2. Реалізувати асинхронні джерела з різними затримками (приклад коду №1).
+3. Реалізувати два способи завантаження: одночасне та послідовне зі `Stopwatch` (приклад коду №2). Порівняти час.
+4. Реалізувати 4 запити LINQ (пункти 3–6 меню свого варіанта), хоча б один — у query-синтаксисі (приклади коду №3–5).
+5. Реалізувати асинхронне збереження звіту у JSON з обробкою помилки запису (приклад коду №6).
+6. Зібрати все в меню за зразком прикладу коду №7, перевірити роботу всіх пунктів, зокрема граничний випадок варіанта.
 
 ## Варіанти завдань
 
-Кожен варіант моделює типову задачу: дані розкидані по кількох віддалених системах, кожна відповідає зі своєю затримкою і може бути недоступною. Програма збирає дані з усіх систем одночасно, а потім будує по них зведені звіти запитами LINQ.
+Кожен варіант моделює типову задачу: дані розкидані по кількох віддалених системах, кожна відповідає зі своєю затримкою. Програма збирає дані з усіх систем одночасно, а потім будує по них зведені звіти запитами LINQ.
 
 ### Варіант 1. Порівняння цін в інтернет-магазинах
 
@@ -677,7 +709,7 @@ class Program
 - `record Offer(string Shop, string Product, string Category, decimal Price, bool InStock)` — пропозиція магазину;
 - `record WishItem(string Product, decimal MaxPrice)` — список бажань покупця (4–5 позицій, заповнюється в коді): товар і ціна, яку покупець готовий заплатити.
 
-**Джерела:** 3 магазини з вигаданими назвами (наприклад, «ТехноМаркет», «ЦифраПлюс», «Електросвіт»), кожен повертає 7–10 пропозицій. Одні й ті самі 6–8 товарів у 3 категоріях («Ноутбуки», «Смартфони», «Аксесуари») мають бути в кількох магазинах за різною ціною; частини товарів немає в наявності (`InStock = false`).
+**Джерела:** 3 магазини з вигаданими назвами (наприклад, «ТехноМаркет», «ЦифраПлюс», «Електросвіт»), кожен повертає 7–10 пропозицій. Одні й ті самі 8–10 товарів у 3 категоріях («Ноутбуки», «Смартфони», «Аксесуари») мають бути в кількох магазинах за різною ціною; частини товарів немає в наявності (`InStock = false`), а один товар має `InStock = false` у всіх магазинах, де він є.
 
 **Мінімальне меню:**
 
@@ -687,19 +719,18 @@ class Program
 3. Найдешевша пропозиція кожного товару — лише серед наявних, з назвою магазину.
 4. Статистика за категоріями — кількість пропозицій, мінімальна, середня і максимальна ціна.
 5. Пошук у ціновому діапазоні — ввести мінімальну і максимальну ціну (`decimal.TryParse`); вивести наявні пропозиції, відсортовані за ціною, а за однакової ціни — за назвою магазину.
-6. Список бажань — для кожної позиції пропозиції, що не перевищують бажаної ціни (`Join` за назвою товару).
-7. Зберегти звіт (найдешевша пропозиція кожного товару) у CSV-файл.
-8. Увімкнути / вимкнути збій одного з магазинів.
+6. Список бажань — для кожної позиції наявні пропозиції, що не перевищують бажаної ціни (`Join` за назвою товару).
+7. Зберегти звіт (найдешевша пропозиція кожного товару) у JSON-файл.
 
 **Рекомендації щодо реалізації:**
 
-- у пункті 3 зручно згрупувати пропозиції за товаром, а в кожній групі взяти `MinBy(o => o.Price)` серед наявних;
+- у пункті 3 зручно згрупувати пропозиції за товаром, а в кожній групі перевірити наявність через `Any(o => o.InStock)` і взяти `MinBy(o => o.Price)` серед наявних;
 - пункт 6 природно записати в query-синтаксисі: `from w in wishes join o in offers on w.Product equals o.Product where ...`;
 - у пункті 5 варто перевірити, що мінімальна ціна не більша за максимальну;
-- за бажанням: пункт «Товари, наявні в усіх магазинах, що відповіли» (кількість різних магазинів у групі товару дорівнює кількості джерел без помилки);
-- за бажанням: таймаут завантаження через `CancellationTokenSource` (див. теоретичні відомості) — магазин, що не встиг відповісти за 1,5 с, вважається недоступним.
+- за бажанням: пункт «Товари, наявні в усіх магазинах» (кількість різних магазинів у групі товару дорівнює кількості магазинів);
+- за бажанням: таймаут завантаження через `CancellationTokenSource` (див. теоретичні відомості) — якщо дані не надійшли за 1,5 с, вивести повідомлення про таймаут.
 
-**Граничний випадок для обробки:** товар, якого немає в наявності в жодному магазині, що відповів. У пункті 3 він має бути у звіті з позначкою «немає в наявності», а не зникнути чи спричинити `NullReferenceException`: `MinBy` на порожній після фільтрації послідовності повертає `null`.
+**Граничний випадок для обробки:** товар, якого немає в наявності в жодному магазині. У пункті 3 і у звіті він має бути з позначкою «немає в наявності», а не зникнути чи спричинити `NullReferenceException`: `MinBy` на порожній після фільтрації послідовності повертає `null`.
 
 ### Варіант 2. Зведена відомість успішності
 
@@ -710,7 +741,7 @@ class Program
 - `record Student(string Name, string Group)` — список деканату (8–10 студентів у 2–3 групах, заповнюється в коді);
 - `record Grade(string StudentName, string Subject, int Score)` — оцінка (0–100), отримана від кафедри.
 
-**Джерела:** 3 кафедри (наприклад, «Вища математика», «Програмування», «Англійська мова»), кожна повертає оцінки зі свого предмета для 6–10 студентів. Не всі кафедри мають оцінки для всіх студентів.
+**Джерела:** 3 кафедри (наприклад, «Вища математика», «Програмування», «Англійська мова»), кожна повертає оцінки зі свого предмета для 7–9 студентів. Не всі кафедри мають оцінки для всіх студентів, а один студент зі списку деканату не має жодної оцінки.
 
 **Мінімальне меню:**
 
@@ -721,8 +752,7 @@ class Program
 4. Середній бал з кожного предмета в кожній групі (`Join` оцінок зі списком студентів, групування за групою і предметом).
 5. Боржники — студенти, які мають хоча б одну оцінку нижче 60 (`Any`), з переліком предметів.
 6. Студенти групи з середнім балом не нижче порогу — ввести назву групи і поріг (`int.TryParse`, 0–100).
-7. Зберегти рейтинг у CSV-файл.
-8. Увімкнути / вимкнути збій однієї з кафедр.
+7. Зберегти рейтинг у JSON-файл.
 
 **Рекомендації щодо реалізації:**
 
@@ -732,7 +762,7 @@ class Program
 - за бажанням: розподіл студентів за шкалою («відмінно» 90+, «добре» 75–89, «задовільно» 60–74, «незадовільно» <60) — групування за обчислюваним ключем;
 - за бажанням: таймаут завантаження через `CancellationTokenSource`.
 
-**Граничний випадок для обробки:** студент зі списку деканату, для якого не надійшло жодної оцінки (наприклад, через збій кафедри). Він має бути в рейтингу з позначкою «немає оцінок», а не спричинити виняток: `Average` на порожній послідовності кидає `InvalidOperationException`.
+**Граничний випадок для обробки:** студент зі списку деканату, для якого не надійшло жодної оцінки. Він має бути в рейтингу з позначкою «немає оцінок», а не спричинити виняток: `Average` на порожній послідовності кидає `InvalidOperationException`. У пункті 6 такого студента слід пропустити.
 
 ### Варіант 3. Моніторинг вебсерверів
 
@@ -743,7 +773,7 @@ class Program
 - `record LogEntry(string Server, DateTime Time, string Level, string Endpoint, int ResponseMs)` — запис журналу; рівень: `INFO`, `WARN` або `ERROR`; ендпоінти на кшталт `/api/orders`, `/api/products`, `/api/login`;
 - `record ServerInfo(string Name, string Region, int SlaMs)` — довідник серверів (заповнюється в коді): назва, регіон і допустимий час відповіді за угодою про рівень обслуговування (SLA).
 
-**Джерела:** один метод `LoadLogsAsync(string server)`, викликаний для 4 серверів (`web-01` … `web-04`) зі своєю затримкою для кожного. Сервери повертають по 6–10 записів, а один (наприклад, `web-04`, резервний) повертає порожній журнал: за цей період запитів на нього не було.
+**Джерела:** один метод `LoadLogsAsync(string server, int delayMs)`, викликаний для 4 серверів (`web-01` … `web-04`) зі своєю затримкою для кожного. Сервери повертають по 7–10 записів, а один (наприклад, `web-04`, резервний) повертає порожній журнал: за цей період запитів на нього не було.
 
 **Мінімальне меню:**
 
@@ -754,8 +784,7 @@ class Program
 4. Порушення SLA — запити, час яких перевищує `SlaMs` свого сервера (`Join` журналу з довідником), відсортовані за сервером, потім за спаданням часу.
 5. Помилки за ендпоінтом — ввести ендпоінт (непорожній рядок), вивести записи рівня `ERROR` для нього в хронологічному порядку.
 6. Перевірка сервера — ввести назву сервера і з'ясувати через `All`, чи всі його запити вклалися в SLA.
-7. Зберегти статистику по серверах у CSV-файл.
-8. Увімкнути / вимкнути збій одного із серверів.
+7. Зберегти статистику по серверах у JSON-файл.
 
 **Рекомендації щодо реалізації:**
 
@@ -765,7 +794,7 @@ class Program
 - за бажанням: топ-5 найповільніших запитів (`OrderByDescending` + `Take`);
 - за бажанням: таймаут завантаження через `CancellationTokenSource`.
 
-**Граничний випадок для обробки:** сервер без жодного запису в журналі (`web-04` або сервер зі збоєм). Перевірка в пункті 6 не повинна повідомляти «усі запити в нормі», адже `All` на порожній послідовності повертає `true`; треба вивести «немає даних для перевірки». Статистика в пункті 3 для такого сервера має показувати «немає запитів», а не кидати виняток з `Average`/`Max`. У звіті до роботи поясніть, чому `All` на порожній послідовності повертає `true`.
+**Граничний випадок для обробки:** сервер без жодного запису в журналі (`web-04`). Перевірка в пункті 6 не повинна повідомляти «усі запити в нормі», адже `All` на порожній послідовності повертає `true`; треба вивести «немає даних для перевірки». Статистика в пункті 3 для такого сервера має показувати «немає запитів», а не кидати виняток з `Average`/`Max`.
 
 ### Варіант 4. Відстеження посилок
 
@@ -776,7 +805,7 @@ class Program
 - `record Parcel(string TrackingNumber, string Carrier, string City, string Status, double WeightKg, int DaysInTransit)` — посилка; статус: «В дорозі», «У відділенні» або «Отримано»;
 - `record Order(string OrderId, string Customer, string TrackingNumber)` — замовлення магазину (10–12 записів, заповнюється в коді); 1–2 замовлення мають номер відправлення, якого немає в жодній службі.
 
-**Джерела:** 3 служби доставки з вигаданими назвами (наприклад, «ШвидкоПошта», «ЕкспресДоставка», «Посилка24»), кожна повертає 6–10 посилок.
+**Джерела:** 3 служби доставки з вигаданими назвами (наприклад, «ШвидкоПошта», «ЕкспресДоставка», «Посилка24»), кожна повертає 7–10 посилок.
 
 **Мінімальне меню:**
 
@@ -787,18 +816,17 @@ class Program
 4. Середній термін доставки отриманих посилок для кожної служби, від найшвидшої до найповільнішої.
 5. Затримані посилки — ввести N (`int.TryParse`, більше 0), вивести посилки зі статусом «В дорозі» довше N днів, відсортовані за спаданням днів, потім за службою.
 6. Замовлення клієнта — ввести ім'я клієнта, вивести його замовлення зі статусом і містом посилки (з'єднання замовлень з посилками за номером відправлення).
-7. Зберегти звіт про всі замовлення та їхні статуси у CSV-файл.
-8. Увімкнути / вимкнути збій однієї зі служб.
+7. Зберегти звіт про всі замовлення та їхні статуси у JSON-файл.
 
 **Рекомендації щодо реалізації:**
 
 - для пункту 4 спершу відфільтрувати посилки зі статусом «Отримано», потім групувати;
 - пункт 5 зручно записати в query-синтаксисі (`where ... orderby ... descending, ...`);
-- якщо клієнта не знайдено, слід вивести «Замовлень не знайдено»;
+- якщо в клієнта немає замовлень (перевірка через `Any`), слід вивести «Замовлень не знайдено»;
 - за бажанням: місто, у яке йде найбільше посилок (`GroupBy` + `MaxBy`);
 - за бажанням: таймаут завантаження через `CancellationTokenSource`.
 
-**Граничний випадок для обробки:** замовлення, номер відправлення якого не знайдено в жодній службі (помилка в номері або служба недоступна). У пункті 6 і у звіті воно має бути зі статусом «статус невідомий», а не зникнути: звичайний `Join` відкидає елементи без пари, тому тут потрібен `GroupJoin` (див. теоретичні відомості).
+**Граничний випадок для обробки:** замовлення, номер відправлення якого не знайдено в жодній службі (наприклад, через помилку в номері). У пункті 6 і у звіті воно має бути зі статусом «статус невідомий», а не зникнути: звичайний `Join` відкидає елементи без пари, тому тут потрібен `GroupJoin` (див. теоретичні відомості).
 
 ## Вимоги до звіту
 
@@ -807,10 +835,6 @@ class Program
 - титульний аркуш;
 - тему, мету та номер варіанта завдання;
 - короткий опис реалізованого функціоналу та лістинг;
-- скріншоти одночасного та послідовного завантаження з виміряним часом і пояснення, чому час відрізняється;
-- скріншот роботи програми під час збою одного з джерел;
-- скріншот обробки граничного випадку свого варіанта;
-- перелік реалізованих запитів LINQ з коротким поясненням призначення кожного; для запиту в query-синтаксисі — його еквівалент у метод-синтаксисі;
 - посилання на репозиторій GitHub;
 - висновки (2–4 речення) щодо отриманих результатів.
 
@@ -820,7 +844,7 @@ class Program
 2. Що відбувається з потоком, коли метод доходить до `await` незавершеної задачі?
 3. Чому `Thread.Sleep` і `Task.Delay` поводяться по-різному, хоча обидва «чекають»?
 4. Чому три `await` поспіль виконуються довше, ніж `Task.WhenAll` для тих самих задач? Коли послідовний `await` все ж правильний?
-5. Як перехопити виняток, що виник в асинхронному методі? Що станеться з `await Task.WhenAll(...)`, якщо одна із задач завершилася з винятком?
+5. Як перехопити виняток, що виник в асинхронному методі? У який момент він буде кинутий у коді, що викликає цей метод?
 6. Чому `async void`, `.Result` і `.Wait()` вважаються поганою практикою?
 7. У чому різниця між відкладеним і негайним виконанням запиту LINQ? Які методи спричиняють негайне виконання?
 8. Чим метод-синтаксис відрізняється від query-синтаксису? На що компілятор перетворює query-синтаксис?
