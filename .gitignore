@@ -18,6 +18,8 @@ obj/
 *.db
 *.db-shm
 *.db-wal
+# ...крім готових баз data kit для ПР №5–8
+!kits/*/app.db
 
 # NuGet
 *.nupkg

@@ -29,6 +29,15 @@ jobs:
 
       - run: zensical build --clean
 
+      - name: Pack data kits
+        run: |
+          mkdir -p site/kits
+          cd kits
+          for k in */; do
+            k="${k%/}"
+            zip -qr "../site/kits/$k.zip" "$k" -x "$k/build-db.cs" "*/bin/*" "*/obj/*"
+          done
+
       - uses: actions/upload-pages-artifact@v5
         with:
           path: site
